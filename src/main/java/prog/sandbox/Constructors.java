@@ -8,6 +8,7 @@ package prog.sandbox;
  *         // intentionally left empty
  *     }
  *
+ * @see <a href="https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.8.9">https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.8.9</a>
  */
 class A {
 
