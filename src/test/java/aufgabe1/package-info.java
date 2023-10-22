@@ -5,4 +5,4 @@
  * @author Thorsten Suckow-Homberg <thorsten@suckow-homberg.de>
  */
 
-package prog.aufgabe1;
+package aufgabe1;

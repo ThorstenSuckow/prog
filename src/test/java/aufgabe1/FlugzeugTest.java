@@ -1,4 +1,4 @@
-package prog.aufgabe1;
+package aufgabe1;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
