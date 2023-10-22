@@ -150,6 +150,7 @@ public class FlugzeugTest {
         );
 
 
+        Assertions.assertFalse(f.fliegen(0));
         Assertions.assertFalse(f.fliegen(-1));
 
         Assertions.assertTrue(f.getGesamtGewicht() <= f.getMaxGewicht());
