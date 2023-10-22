@@ -1,6 +1,5 @@
 package prog.aufgabe1;
 
-import org.junit.jupiter.api.Assertions;
 
 public class Flugzeug {
 
