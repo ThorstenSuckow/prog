@@ -136,7 +136,7 @@ public class Flugzeug {
      */
     public boolean fliegen(double km) {
 
-        if (getReichweite() < km || getGesamtGewicht() > getMaxGewicht()) {
+        if (km < 0 || getReichweite() < km || getGesamtGewicht() > getMaxGewicht()) {
             return false;
         }
 

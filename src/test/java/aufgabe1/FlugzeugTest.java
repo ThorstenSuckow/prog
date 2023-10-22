@@ -149,6 +149,9 @@ public class FlugzeugTest {
             1
         );
 
+
+        Assertions.assertFalse(f.fliegen(-1));
+
         Assertions.assertTrue(f.getGesamtGewicht() <= f.getMaxGewicht());
         Assertions.assertEquals(250, f.getReichweite());
         Assertions.assertFalse(f.fliegen(f.getReichweite() + 1));
