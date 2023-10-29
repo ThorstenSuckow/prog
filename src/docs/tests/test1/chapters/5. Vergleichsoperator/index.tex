@@ -1,0 +1,77 @@
+\chapter{Vergleichsoperator}
+
+Die richtigen Antworten lauten:
+
+\begin{itemize}
+    \item a == null liefert true, wenn a eine Referenzvariable ist, der ein Wert zugewiesen wurde, die aber auf kein Objekt verweist.
+    \item Mit dem Operator == wird getestet, ob zwei Referenzvariablen auf dasselbe Objekt verweisen.
+    \item Bei primitiven Datentypen liefert a == b den Wert true, wenn beide Variablen denselben Wert haben.
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+Vergleichsoperationen werden im Script ab Seite 77 behandelt.\\
+
+Für die Beantwortung der Frage ist das Wissen um die verschiedenen Typen in Java wichtig, die sich unterteilen in
+\textit{primitive Typen} und \textit{Referenz-Typen}\footnote{
+    Java Language Specification - Chapter 4. Types, Values, and Variables: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html}
+}: zu den primitiven Typen~\footnote{Java Language Specification - 4.2. Primitive Types and Values: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.2}} gehören bspw. \textit{boolean} und \textit{double}.
+Zu den Referenz-Typen gehören
+\textit{Klassen}, \textit{Interfaces}, \textit{Typvariablen}\footnote{Java Language Specification - 4.4. Type Variables: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.4}}
+und \textit{Arrays}~\footnote{Java Language Specification - 10.1. Array Types \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-10.html#jls-10.1}}
+
+Die Java Language Specification legt fest~\footnote{Java Language Specification - 4.1. The Kinds of Types and Values\url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html}}:
+
+\blockquote{
+    The null reference can always be assigned or cast to any reference type
+}
+
+Daraus lässt sich leicht schliessen, dass, wenn einer Referenzvariable ein Wert zugewiesen wurde, der \underline{auf kein Objekt verweist},
+dieser Wert nur ``null`` sein kann (im anderen Fall hätte der Compiler bereits einen Fehler angezeigt), weshalb ``a == null`` auch
+``true`` liefern muss~\footnote{
+Das Verhalten unterscheidet sich je nach verwendeter Programmiersprache: So kenn bspw. Python ``null`` als Objekt: \url{https://docs.python.org/3/library/stdtypes.html?highlight=null#the-null-object}.
+}.
+
+Ob Objekte den gleichen Inhalt haben, wird nicht mit dem Vergleichsoperator ``==`` überprüft: Zwar lässt sich bei Referenz-Typen
+so feststellen,ob zwei Variablen das gleiche Objekt referenzieren. Um aber auf den gleichen Inhalt zu überprüfen, kann
+bspw. die Methode \textit{equals(Object)}~\footnote{
+    Java API Docs - Class Object \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)}
+} aus \textit{java.lang.Object} überladen (oder überschrieben) werden:
+
+
+\begin{lstlisting}[language=java]
+
+class Foo {
+
+    int x = 0;
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    // equals(Object) ueberschreiben
+    public boolean equals(Object f2) {
+        // durch die folgende Überprüfung wird sichergestellt, dass
+        // das explizite casten keine Exception wirft
+        if (!(f2 instanceof Foo)) {
+            return false;
+        }
+        return this.equals((Foo)f2);
+    }
+
+    // equals(Object) mit equals(Foo) ueberladen
+    public boolean equals(Foo f2) {
+        return this == f2 || this.x == f2.x;
+    }
+
+
+}
+\end{lstlisting}
+
+Die Antwort ``a == null liefert false, wenn a eine Referenzvariable ist und a noch nicht initialisiert wurde.`` ist falsch,
+da eine Referenzvariable ohne explizite Wertzuweisung automatisch den Wert ``null`` hat~\footnote{The Java™ Tutorials - Primitive Data Types (Default Values): \url{https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html}}
