@@ -1,0 +1,85 @@
+\chapter{Überladen}
+
+Die richtigen Antworten lauten:
+
+\begin{itemize}
+    \item Die Namen der Methoden sind gleich
+    \item Der Rückgabe-Typ kann verschieden sein
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+Im Script wird das Überladen von Methoden ab Seite 166 behandelt.\\
+
+
+Bei der Methodenüberladung wird die Parameterliste der Signatur einer Methode geändert (und wahlweise auch der Rückgabetyp).
+
+In Java gehört zu der Methodensignatur der Methodenname sowie die formale Parameterliste~\footnote {
+    Java Language Specification - 8.4.2. Method Signature: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.4.2}
+}.
+
+Um eine Methode zu überladen, muss eine Methode erstellt werden, die den gleichen Namen wie die zu überladende Methode besitzt.
+Die Parameterliste muss abgewandelt werden~\footnote{The Java™ Tutorials - Defining Methods \url{https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html}}.
+
+In dem folgenden Beispiel sieht man leicht, dass bei der Methodenüberladung auch eine Änderung des Rückgabetyps Sinn machen kann:
+
+\begin{lstlisting}[language=java]
+
+class Foo {
+
+    public int sum(int x, int y) {
+        return x + y;
+    }
+
+    public double sum(double x, double y) {
+        return x + y;
+    }
+}
+
+\end{lstlisting}
+
+Dass der Compiler trotz unterschiedlicher Parameterliste Schwierigkeiten haben kann, den ``richtigen`` Methodenaufruf zu finden,
+behandelt das Script auf Seite 167 (unten).\\
+
+Beispiel:
+
+\begin{lstlisting}[language=java]
+
+class Foo {
+
+    public double sum(double x, int y) {
+        return x + y;
+    }
+
+    public double sum(int x, double y) {
+        return x + y;
+    }
+
+    public static void main(String args[]) {
+
+        Foo f = new Foo();
+
+        System.out.println(f.sum(0, 0));
+
+    }
+}
+\end{lstlisting}
+
+produziert folgenden Compiler-Fehler:
+
+\begin{lstlisting}[language=text]
+
+error: reference to sum is ambiguous
+        System.out.println(f.sum(0, 0));
+                            ^
+  both method sum(double,int) in Foo and method sum(int,double) in Foo match
+\end{lstlisting}
+
+
+Diesbzgl. könnte man dazu geneigt sein, die Antwort ``Beim Aufruf der Methoden kann es zu Verwechslungen kommen.`` mit in
+die Lösung einzubeziehen. Wichtig ist hier, den Begriff ``Aufruf`` im richtigen Kontext zu verstehen: Der Compiler stellt
+fest, ob es zu Verwechslungen kommen kann, und weist durch einen Compiler-Fehler darauf hin.
+Dadurch wird in diesem Fall ausgeschlossen, dass es zu Verwechslungen während der Laufzeit - also beim ``Aufruf`` - kommt.\\
+
+Das Schlüsselwort ``this`` hat mit Methodenüberladung nichts zu tun.
