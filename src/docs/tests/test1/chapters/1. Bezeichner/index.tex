@@ -1,0 +1,84 @@
+\chapter{Bezeichner}
+
+Die richtigen Antworten auf die Frage lauten:
+
+\begin{itemize}
+    \item anzahlFlaschen
+    \item year365
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+
+Die im Kurs verwendeten Namenskonventionen werden im Skript auf Seite 35 vereinbart.
+Diese orientieren sich u.a. an den
+in den Java-Tutorials empfohlenen Namenskonventionen für Variablen~\footnote{The Java™ Tutorials - Variables:
+    \url{https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html};
+    siehe ausserdem den archivierten Artikel ``Naming Conventions``\url{https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html}
+}.\\
+
+Die bevorzugte Schreibweise bei Variablen ist die \textit{camelCase (sic!)}~\footnote{``Camel case`` (Eintrag bei Wikipedia): \url{https://en.wikipedia.org/wiki/Camel_case}}-Schreibweise: Der erste Buchstabe des Bezeichners ist immer klein.
+Sollte der Bezeichner aus mehreren Wörtern zusammengesetzt sein, werden die Anfangsbuchstaben der Wörter groß geschrieben~\footnote{
+    bei Klassen und Schnittstellen wird i.A. \textit{PascalCase} verwendet: Die Schreibweise entspricht der durch camelCase festgelegten Regeln, allerdings wird hier auch der erste Buchstabe groß geschrieben.
+}.
+
+``\textbf{\_}`` und ``\textbf{\$}`` sind grundsätzlich bei der Verwendung von Bezeichnern erlaubt, entsprechen aber nicht
+den vereinbarten Namenskonventionen.\\
+
+Bei numerischen Literalen darf ``\_`` seit Java 7 zur Verbesserung der Lesbarkeit als Separator verwendet werden~\footnote{
+    Underscores in Numeric Literals: \url{https://docs.oracle.com/javase/7/docs/technotes/guides/language/underscores-literals.html}
+}:
+
+\begin{lstlisting}[language=java]
+int eineMillionen = 1_000_000;
+\end{lstlisting}
+
+Seit Java 9 ist ``\_`` ein Schlüsselwort und nicht mehr \underline{als Bezeichner} erlaubt\footnote{
+    Java Platform, Standard Edition What’s New in Oracle JDK 9:\url{https://docs.oracle.com/javase/9/whatsnew/toc.htm}
+}:
+
+\begin{lstlisting}[language=java]
+int _ = 42;
+\end{lstlisting}
+
+produziert folgenden Compiler-Fehler:
+
+\begin{lstlisting}[language=text]
+error: as of release 9, '_' is a keyword, and may not be used as an identifier
+    int _ = 42;
+        ^
+\end{lstlisting}\\
+
+
+
+``\textbf{class}`` und ``\textbf{goto}`` sind reservierte Schlüsselwörter, die als Bezeichner nicht verwendet werden dürfen.
+Schlüsselwörter werden im Skript auf Seite 37 behandelt.
+Eine Auflistung findet sich ausserdem in den Java Tutorials~\footnote{
+    The Java™ Tutorials - Java Language Keywords: \url{https://docs.oracle.com/javase/tutorial/java/nutsandbolts/\_keywords.html}
+}.\\
+
+Namenskonventionen machen auch bei der Erstellung von Schnittstellen Sinn.
+So vereinbart bspw. die \textit{Date-Time API}~\footnote{
+    The Java™ Tutorials - The Date-Time Packages: \url{https://docs.oracle.com/javase/tutorial/datetime/overview/packages.html}
+}
+Präfixe, die Hinweise auf die Intention der Methoden liefern~\footnote{
+    The Java™ Tutorials - Method Naming Conventions: \url{https://docs.oracle.com/javase/tutorial/datetime/overview/naming.html}
+}.
+Domain-Driven Design\cite{Eva04} versteht ``\textit{Intention-Revealing Interfaces}`` als essentielles Stilmittel bei
+der Modellierung von Verhalten und Funktion:
+
+    \blockquote[{\cite[247]{Eva04}}]{
+        Name classes and operations to describe their effect and purpose, without reference to the means by which they do what they promise.
+    }\\
+
+Robert C. Martin weist in diesem Zusammenhang darauf hin, dass man bei der Vergabe von \textit{descriptive names} auch Mut zur
+Länge haben soll:
+
+    \blockquote[{\cite[39]{Mar08}}]{
+        Don't be afraid to make a name long. A long descriptive name is better than a short enigmatic name.
+    }.
+
+
+
+
