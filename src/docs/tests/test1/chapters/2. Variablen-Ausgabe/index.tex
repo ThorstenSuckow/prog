@@ -1,0 +1,58 @@
+\chapter{Variablen-Ausgabe}
+
+Die richtige Reihenfolge lautet:
+
+\begin{enumerate}
+    \item a=2
+    \item b=27
+    \item c=5
+    \item m(a)=25
+    \item a=5
+    \item b=4
+    \item c=6
+\end{enumerate}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+Klassen-und Objetattribute (sowie -Methoden) werden in dem Skript ab Seite 178 behandelt.
+
+Wichtig ist es, den Modifizierer \textit{static}\footnote{
+    The Java™ Tutorials - Understanding Class Members: \url{https://docs.oracle.com/javase/tutorial/java/javaOO/classvars.html}
+} zu beachten, der in der Aufgabe für die Klassenattribute ``a``, ``b``, ``c`` und die Klassenmethode ``m`` verwendet wird.
+
+Ferner ist zu beachten, dass der Parameter ``c`` der Methode ``m`` das Klassenattribut ``c`` überdeckt~\footnote{siehe hierzu Seite 213 im Script}.
+Um von ``m`` aus auf das Klassenattribut ``c`` zuzugreifen, wäre ein expliziter Zugriff über den Klassennamen notwendig.
+
+Beispiel:
+
+\begin{lstlisting}[language=java]
+class Foo {
+
+    static int c = 42;
+
+    static void m(int c) {
+        System.out.println("Argument c: " + c);
+        System.out.println("Klassenattribut c: " + Foo.c);
+
+    }
+
+    public static void main(String[] args) {
+        Foo.m(11);
+        // Ausgabe:
+        // Argument c: 11
+        // Klassenattribut c: 42
+    }
+
+}
+\end{lstlisting}
+
+Die Verwendung von ``this.c`` würde hingegen in der methode ``m`` zu einem Compiler-Fehler führen: ``this`` is ein
+Objekt-Attribut und funktioniert in einem statischen Kontext nicht:
+
+\begin{lstlisting}[language=text]
+non-static variable this cannot be referenced from a static context
+\end{lstlisting}
+
+Siehe hierzu auch Seite 181 im Script.
+
