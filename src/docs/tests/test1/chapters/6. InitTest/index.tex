@@ -1,6 +1,6 @@
-\chapter{InitTest}
+\chapter{InitTest}\label{inittest}
 
-Die richtigen Antworten lauten:
+\section*{Lösung}
 
 \begin{itemize}
     \item t.ok hat den Wert false.
@@ -18,7 +18,7 @@ Die Antworten lassen sich leicht durch Anwendung des Wissens finden, das bereits
 \code{t.ok} hat den Wert false, weil Klassen- und Objektattribute vom Typ \code{boolean} automatisch mit dem Wert \code{false} initialisiert
 werden.
 Das gilt allerdings \underline{nicht} für \textbf{lokale Variablen} - diese werden nicht automatisch initialisiert; folglich meldet der Compiler
-nach Entfernen der Kommentarsymbole auch einen Fehler~\footnote{
+nach Entfernen der Kommentarsymbole auch einen Fehler\footnote{
     Default-Werte für primitive Datentypen sowie Hinweis auf Initialisierung im Skript auf Seite 41.
 }:
 
@@ -28,7 +28,6 @@ The Java™ Tutorials - Primitive Data Types (Default Values): \url{https://docs
     Local variables are slightly different; the compiler never assigns a default value to an uninitialized local variable.
     If you cannot initialize your local variable where it is declared, make sure to assign it a value before you attempt to use it.
     Accessing an uninitialized local variable will result in a compile-time error.
-
 }
 
 

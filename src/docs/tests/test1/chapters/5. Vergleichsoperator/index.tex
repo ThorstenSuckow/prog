@@ -1,6 +1,6 @@
 \chapter{Vergleichsoperator}
 
-Die richtigen Antworten lauten:
+\section*{Lösung}
 
 \begin{itemize}
     \item a == null liefert true, wenn a eine Referenzvariable ist, der ein Wert zugewiesen wurde, die aber auf kein Objekt verweist.
@@ -11,33 +11,33 @@ Die richtigen Antworten lauten:
 
 \section*{Anmerkungen und Ergänzungen}
 
-Vergleichsoperationen werden im Script ab Seite 77 behandelt.\\
+Vergleichsoperationen werden im Skript ab Seite 77 behandelt.\\
 
 Für die Beantwortung der Frage ist das Wissen um die verschiedenen Typen in Java wichtig, die sich unterteilen in
 \textbf{primitive Typen} und \textbf{Referenztypen}\footnote{
     Java Language Specification - Chapter 4. Types, Values, and Variables: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html}
-}: zu den primitiven Typen~\footnote{
+}: zu den primitiven Typen\footnote{
     Java Language Specification - 4.2. Primitive Types and Values: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.2}
 } gehören bspw. \code{boolean} und \code{double}.
 
-Zu den Referenztypen gehören \textit{Klassen}, \textit{Interfaces}, \textit{Typvariablen}~\footnote{
+Zu den Referenztypen gehören \textbf{Klassen}, \textbf{Interfaces}, \textbf{Typvariablen}\footnote{
     Java Language Specification - 4.4. Type Variables: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.4}
 }
-und \textit{Arrays}~\footnote{
+und \textbf{Arrays}\footnote{
     Java Language Specification - 10.1. Array Types \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-10.html#jls-10.1}
 }.\\
 
-Die Java Language Specification legt für \code{null} fest~\footnote{Java Language Specification - 4.1. The Kinds of Types and Values\url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html}}:
+Die \textit{Java Language Specification} legt für \code{null} fest\footnote{Java Language Specification - 4.1. The Kinds of Types and Values\url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html}}:
 
 \blockquote{
     The null reference can always be assigned or cast to any reference type.
 }
 
 Daraus lässt sich schliessen, dass, wenn einer Referenzvariable ein Wert zugewiesen wurde, der auf \underline{kein} Objekt verweist,
-dieser Wert nur \code{null} sein kann (im anderen Fall hätte der Compiler bereits einen Fehler angezeigt), weshalb \code{a == null} auch
-\code{true} liefert.
+dieser Wert nur \code{null} sein kann (im anderen Fall hätte der Kompiliervorgang bereits einen Fehler produziert),
+weshalb \code{a == null} trivialerweise zu \code{true} evaluiert.\\
 
-Beispielsweise produziert der folgende Code
+Als Beispiel sei folgender Code gegeben:
 \begin{lstlisting}[language=java]
 class Foo {
 
@@ -47,7 +47,7 @@ class Foo {
 }
 \end{lstlisting}
 
-den Compiler-Fehler
+Beim Kompilieren wird folgende Fehler-Ausgabe erzeugt:
 
 \begin{lstlisting}[language=text]
 incompatible types: int cannot be converted to Foo
@@ -56,19 +56,23 @@ Foo f = 3;
 1 error
 \end{lstlisting}
 
-Das Verhalten unterscheidet sich je nach verwendeter Programmiersprache: So kennen bspw. Python~\footnote{
+Als Notiz ist hinzuzufügen, dass sich das Verhalten je nach verwendeter Programmiersprache unterscheidet: So kennen
+bspw. Python\footnote{
     The Python Standard Library - Built-in Types: \url{https://docs.python.org/3/library/stdtypes.html?highlight=null#the-null-object}
-} als auch JavaScript~\footnote{JavaScript Reference - Expressions and operators (null): \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null}
+} als auch JavaScript\footnote{
+    JavaScript Reference - Expressions and operators (null): \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null}
 } \code{null} als Objekt.\\
 
-Aufpassen muss man, sobald \textbf{boxing} ins Spiel kommt~\footnote{
+Javas \textbf{Autoboxing} hat keine Auswirkungen auf die Beantwortung der Frage\footnote{
     im Skript auf Seite 237; ausserdem unter
     The Java™ Tutorials - Autoboxing and Unboxing: \url{https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html}
-}: So ist es durchaus möglich,
-einem Objekt einen primitiven Datentypen zuzuweisen. Allerdings sorgt der Compiler dafür, dass der primitive Datentyp
-in seine Objektrepräsentation ``verpackt`` wird:
+}.
+Zur Erinnerung: In Java ist es durchaus möglich, einem Objekt einen primitiven Datentypen zuzuweisen.
+Allerdings sorgt der Compiler dafür, dass der primitive Datentyp in seine Objektrepräsentation ``verpackt`` wird.
+Damit steht im Quelltext augenscheinlich ein primitiver Datentyp, der aber beim Kompiliervorgang angepasst wird.
+Somit verweist die Variable schließlich auf  ein Objekt.
 
-Der folgende Code verdeutlicht dies:
+Der folgende Code illustriert das Verhalten:
 
 \begin{lstlisting}[language=java]
 class Foo {
@@ -86,15 +90,16 @@ class Foo {
 }
 \end{lstlisting}
 
-Umgekehrt ist auch das \textbf{unboxing} möglich. Weitere Informationen und zur Anwendung von \textit{boxing} und \textit{unboxing}
-finden sich u.a. in~\cite[732 ff]{Ull12}.\\
+Die Umkehrung dieses Vorganges wird \textbf{unboxing} genannt. Weitere Informationen, auch zur Anwendung
+von \textit{boxing} und \textit{unboxing}, finden sich in~\cite[732 ff]{Ull12}.\\
 
-Ob Objekte den gleichen Inhalt haben, wird nicht mit dem Vergleichsoperator ``==`` überprüft: Zwar lässt sich bei Referenztypen
-so feststellen,ob zwei Variablen das gleiche Objekt referenzieren. Um aber auf den gleichen Inhalt zu überprüfen, kann
-bspw. die Methode \textit{equals(Object)}~\footnote{
+Ob Objekte den gleichen Inhalt haben, wird nicht mit dem Vergleichsoperator \code{==} überprüft: Zwar lässt sich bei Referenztypen
+so feststellen, ob zwei Variablen das gleiche Objekt referenzieren.
+Um aber auf den gleichen Inhalt zu überprüfen, kann bspw. die Methode \code{equals(Object)}\footnote{
     Java API Docs - Class Object \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)}
-} aus \textit{java.lang.Object} überladen (oder überschrieben) werden:\\
+} aus \code{java.lang.Object} überladen (oder überschrieben) werden.\\
 
+Im folgenden Beispiel überlädt und überschreibt die Klasse \code{Foo} die Methode \code{equals}:
 
 \begin{lstlisting}[language=java]
 class Foo {
@@ -126,5 +131,17 @@ class Foo {
 }
 \end{lstlisting}\\
 
-Die Antwort ``a == null liefert false, wenn a eine Referenzvariable ist und a noch nicht initialisiert wurde.`` ist falsch,
-da eine Referenzvariable ohne explizite Wertzuweisung automatisch den Wert \code{null} hat~\footnote{Im Skript auf Seite 139 vermerkt. Ausserdem in The Java™ Tutorials - Primitive Data Types (Default Values): \url{https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html}}
+Die Antwort ``a == null liefert false, wenn a eine Referenzvariable ist und a noch nicht initialisiert wurde.`` ist falsch:
+Eine Referenzvariable kann als Objekt- bzw. Klassenattribute existieren\footnote{
+    Java Language Specification - 4.12.3. Kinds of Variables: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.12.3}
+}.
+Diese werden ohne explizite Wertzuweisung implizit mit dem Wert \code{null} initialisiert\footnote{
+    Im Skript auf Seite 139 vermerkt - hier wäre allerdings eine Unterscheidung zwischen lokalen Variablen und Objekt-/Klassenattributen
+    förderlich für das Verständnis, da das dort beschriebene Verhalten nicht für lokale Variablen gilt (siehe hierzu auch Frage~\ref{inittest}).
+    Weiter Informationen finden sich in The Java™ Tutorials - Primitive Data Types (Default Values): \url{https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html}
+} (hier würde \code{a == null} also zu \code{true} evaluieren).
+
+Eine uninitialisierte Referenzvariable kann aber als lokale Variable in einer Methode existieren: Hier muss vor Verwendung
+der Variable eine Wertzuweisung statfinden, ansonsten liefert der Compiler einen Fehler.
+Aus diesem Grund kann auch keine Überprüfung auf \code{null} stattfinden, wie in der Antwort behauptet.
+

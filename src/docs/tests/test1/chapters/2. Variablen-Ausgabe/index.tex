@@ -1,6 +1,6 @@
 \chapter{Variablen-Ausgabe}
 
-Die richtige Reihenfolge lautet:
+\section*{Lösung}
 
 \begin{enumerate}
     \item a=2
@@ -15,16 +15,20 @@ Die richtige Reihenfolge lautet:
 
 \section*{Anmerkungen und Ergänzungen}
 
-Klassen-und Objetattribute (sowie -Methoden) werden in dem Skript ab Seite 178 behandelt.
+Klassen-und Objektattribute (sowie -Methoden) werden in dem Skript ab Seite 178 behandelt.
 
-Wichtig ist es, den Modifizierer \textit{static}\footnote{
+Besonderes Augenmerk ist bei der Analyse dem Modifizierer \code{static}\footnote{
     The Java™ Tutorials - Understanding Class Members: \url{https://docs.oracle.com/javase/tutorial/java/javaOO/classvars.html}
-} zu beachten, der in der Aufgabe für die Klassenattribute ``a``, ``b``, ``c`` und die Klassenmethode ``m`` verwendet wird.
+} zu widmen, der in der Aufgabe für
+die Klassenattribute \code{a}, \code{b}, \code{c} und die Klassenmethode \code{m} verwendet wird.
 
-Ferner ist zu beachten, dass der Parameter ``c`` der Methode ``m`` das Klassenattribut ``c`` überdeckt~\footnote{siehe hierzu Seite 213 im Script}.
-Um von ``m`` aus auf das Klassenattribut ``c`` zuzugreifen, wäre ein expliziter Zugriff über den Klassennamen notwendig.
+In diesem Zusammenhang muss beachtet werden, dass der Parameter \code{c} der Methode \code{m} das Klassenattribut \code{c}
+überdeckt\footnote{
+    siehe hierzu Seite 213 im Skript
+}. Um von \code{m} aus auf das Klassenattribut \code{c} zuzugreifen, wäre bei dem vorliegenden Code ein expliziter Zugriff
+über den Klassennamen notwendig.\\
 
-Beispiel:
+Folgendes Beispiel illustriert das Überdecken eines statischen Klassenattributs durch einen Methodenparameter:
 
 \begin{lstlisting}[language=java]
 class Foo {
@@ -39,20 +43,24 @@ class Foo {
 
     public static void main(String[] args) {
         Foo.m(11);
-        // Ausgabe:
-        // Argument c: 11
-        // Klassenattribut c: 42
     }
 
 }
 \end{lstlisting}
 
-Die Verwendung von ``this.c`` würde hingegen in der methode ``m`` zu einem Compiler-Fehler führen: ``this`` is ein
-Objekt-Attribut und funktioniert in einem statischen Kontext nicht:
+Die Ausgabe lautet hier
+
+\begin{lstlisting}[language=text]
+Argument c: 11
+Klassenattribut c: 42
+\end{lstlisting}
+
+Die Verwendung von \code{this.c} würde hingegen in der methode \code{m} zu einem Compiler-Fehler führen: \code{this} is ein
+Objektattribut und funktioniert in einem statischen Kontext nicht:
 
 \begin{lstlisting}[language=text]
 non-static variable this cannot be referenced from a static context
 \end{lstlisting}
 
-Siehe hierzu auch Seite 181 im Script.
+Siehe hierzu auch Seite 181 im Skript.
 

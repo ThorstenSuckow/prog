@@ -1,6 +1,6 @@
 \chapter{Konstruktoren II}\label{konstruktoren}
 
-Die richtigen Antworten lauten:
+\section*{Lösung}
 
 \begin{itemize}
     \item Als Standard-Konstruktor wird jeder Konstruktor ohne Argumente bezeichnet.
@@ -12,9 +12,12 @@ Die richtigen Antworten lauten:
 
 Konstruktoren werden im Skript ab Seite 163 behandelt.\\
 
-Bei den Begrifflichkeiten ist es an dieser Stelle wichtig zu verstehen, was der Kurs unter \textit{Standardkonstruktor}
-versteht: Dieser wird hier gleichgesetzt mit dem \textbf{default constructor}, den der Java Compiler zur Verfügung stellt,
-wenn kein expliziter Konstruktor durch den Entwickler zur Verfügung gestellt wird~\footnote{
+Bei den Begrifflichkeiten ist es an dieser Stelle wichtig zu verstehen, was der Kurs unter \textbf{Standardkonstruktor}
+versteht: Dieser wird hier gleichgesetzt mit einem parameterlosen Konstruktor und ist von der Methodensignatur her
+gleich mit dem \textbf{default constructor}, den der Java Compiler zur Verfügung stellt, wenn kein expliziter Konstruktor
+durch den Entwickler zur Verfügung gestellt wird.\\
+
+\textit{Bloch} schreibt zu dem \textbf{default constructor} \footnote{
     Java Language Specification - 8.8.9. Default Constructor: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.8.9}
 }:
 
@@ -31,7 +34,7 @@ Bei \textit{Ullenboom} findet sich:
     (selten auch Vorgabekonstruktor) eindeutschen wollen."
 }
 
-Der Auto merkt im folgenden bzgl. der Begrifflichkeit an:
+Der Autor merkt im folgenden bzgl. der Begrifflichkeit an:
 
 \blockquote[{\cite[516]{Ull12}}]{
     In der Java Language Specification gibt es bei den Konstruktoren nur die Trennungen in no-arg-constructor
@@ -53,14 +56,16 @@ Wir dürfen also davon ausgehen, dass der Standardkontruktor im Kurs gleichbedeu
 Konstruktor ist.\\
 
 Zunächst ist festzuhalten, dass Konstruktoren in Java keine Objektmethoden sind - aus diesem Grund werden Konstruktoren
-in Java auch nicht vererbt~\footnote{
+in Java auch nicht vererbt\footnote{
     The Java Tutorials - Inheritance: \url{https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html}
 } (ein Zugriff über \code{super} auf den Konstruktor einer Elternklasse ist trotzdem möglich).\\
 
 Wenn für eine Klasse kein Konstruktor definiert wurde, stellt der Compiler einen \textbf{default constructor}
-zur Verfügung~\footnote{
+zur Verfügung\footnote{
     The Java Language Specification - 8.8.9. Default Constructor: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.8.9}↩
-}. Die Parameterliste des default constructors ist leer. Sie entspricht damit der Signatur eines Standardkonstruktors.
+}.
+Die Parameterliste des default constructors ist leer.
+Sie entspricht damit der Signatur des Standardkonstruktors.
 
 \begin{lstlisting}[language=java]
 class A {
@@ -77,7 +82,7 @@ class A {
 }
 \end{lstlisting}
 
-Wenn ein \underline{explizit} deklarierter Konstruktor vorhanden ist, stellt der Compiler keinen default constructor zur Verfügung.
+Wenn ein \underline{explizit} deklarierter Konstruktor vorhanden ist, stellt der Compiler keinen default constructor zur Verfügung.\\
 
 Im folgenden Beispiel führt \code{new A()} zu einem Compiler-Fehler, da kein parameterloser Konstruktor explizit oder implizit für \code{A} deklariert ist.
 
@@ -100,7 +105,7 @@ class A {
 }
 \end{lstlisting}
 
-Wenn ein Konstruktor nicht explizit einen Konstruktor seiner Elternklasse aufruft, ruft er implizit \code{super()} auf.
+Wenn ein Konstruktor nicht \underline{explizit} einen Konstruktor seiner Elternklasse aufruft, ruft er \underline{implizit} \code{super()} auf.
 
 Wenn die Elternklasse in solchen Fällen keinen parameterlosen Konstruktor deklariert hat, wird ein Compiler-Fehler erzeugt.
 
@@ -129,13 +134,12 @@ class B {
 }
 \end{lstlisting}
 
-Es ist zu beachten, dass jede Klasse in Java direkt oder indirekt von \code{java.lang.Object} erbt~\footnote{
+Ergänzend sei daran erinnert, dass jede Klasse in Java direkt oder indirekt von \code{java.lang.Object} erbt\footnote{
     The Java Tutorials - Object as a Superclass: \url{https://docs.oracle.com/javase/tutorial/java/IandI/objectclass.html}↩
-}.
-Der Konstruktor dieser Klasse ist also in einer Konstruktor-Aufrufkette enthalten.\\
+}: Der Konstruktor der Klasse \code{java.lang.Object} ist also in einer Konstruktor-Aufrufkette enthalten.\\
 
 Im nächsten Beispiel erbt \code{C}  von \code{B}. Ein default constructor wird implizit für \code{C} deklariert. Allerdings
-führt das Erzeugen eines Objektes vom Typ \code{C} zu einem Compiler-Fehler, da \code{B} keinen parameterlosen
+führt der Versuch, ein Objekt vom Typ \code{C} zu erzeugen, zu einem Compiler-Fehler, da \code{B} keinen parameterlosen
 Konstruktor - den Standardkonstruktor - deklariert:
 
 
@@ -150,7 +154,7 @@ class C extends B {
 }
 \end{lstlisting}
 
-Damit ein Objekt vom Typen \code{C} erzeugt werden kann, benötigt \code{C} einen Standardkonstruktor mit einem expliziten
+Damit ein Objekt vom Typ \code{C} erzeugt werden kann, benötigt \code{C} einen Standardkonstruktor mit einem expliziten
 Aufruf des Konstruktors von \code{B} - da \code{B} selber keinen Standardkonstruktor deklariert hat, muss der Konstruktor
 mit der Signature \code{B(int)} aufgerufen werden:
 
@@ -168,12 +172,12 @@ class C extends B {
 }
 \end{lstlisting}
 
-Kurzum: In Java muß bei einer erbenden Klasse und einem explizit deklarierten Konstruktor der \underline{erste} Aufruf
-des Konstruktors ein Konstruktor der Elternklasse sein~\footnote{
+Wir sehen, dass in Java bei einem explizit deklarierten Konstruktor als \underline{erstes}
+der Konstruktor der Elternklasse aufgerufen wird (implizit durch den Compiler) bzw. aufgerufen werden muss (falls explizit implementiert)\footnote{
     The Java Language Specification - 8.8.7. Constructor Body: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.8.7}
-}.
+}.\\
 
-Es folgen einige weitere Beispiele:
+Es folgen ergänzende Beispiele, deren Funktionsweise den Quelltextkommentaren zu entnehmen ist.
 
 \begin{lstlisting}[language=java]
 class A {
