@@ -1,0 +1,251 @@
+\chapter{Konstruktoren II}
+
+Die richtigen Antworten lauten:
+
+\begin{itemize}
+    \item Als Standard-Konstruktor wird jeder Konstruktor ohne Argumente bezeichnet.
+    \item Ein Konstruktor-Aufruf wird durch den new-Operator ausgelöst.
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+Konstruktoren werden im Skript ab Seite 163 behandelt.\\
+
+Bei den Begrifflichkeiten ist es an dieser Stelle wichtig zu verstehen, was der Kurs unter \textit{Standardkonstruktor}
+versteht: Dieser wird hier gleichgesetzt mit dem \textbf{default constructor}, den der Java Compiler zur Verfügung stellt,
+wenn kein expliziter Konstruktor durch den Entwickler zur Verfügung gestellt wird~\footnote{
+    Java Language Specification - 8.8.9. Default Constructor: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.8.9}
+}:
+
+\blockquote[{\cite[19 f.]{Blo17}}]{
+    In the absence of explicit constructors, however, the compiler provides a public, parameterless default constructor [...]
+    A default constructor is generated only if a class contains no explicit constructors
+}
+
+Bei \textit{Ullenboom} findet sich:
+
+\blockquote[{\cite[515]{Ull12}}]{
+    Wenn wir in unserer Klasse überhaupt keinen Konstruktor angeben, legt der Compiler automatisch einen an. Diesen
+    Konstruktor nennt die Java Sprachdefinition (JLS) default constructor, was wir als vorgegebener Konstruktor
+    (selten auch Vorgabekonstruktor) eindeutschen wollen."
+}
+
+Der Auto merkt im folgenden bzgl. der Begrifflichkeit an:
+
+\blockquote[{\cite[516]{Ull12}}]{
+    In der Java Language Specification gibt es bei den Konstruktoren nur die Trennungen in no-arg-constructor
+    (parameterloser Konstruktor) und default constructor (vorgegebener Konstruktor), aber den Begriff
+    »standard constructor« gibt es nicht.
+}
+
+sowie weiter:
+
+\blockquote[{\cite[517]{Ull12}}]{
+    Einige Autoren nennen nur den vom Entwickler explizit geschriebenen parameterlosen Konstruktor »Standard-Konstruktor«
+    und trennen dies sprachlich von dem Konstruktor, den der Compiler generiert hat, den sie weiterhin »Default-Konstruktor« nennen.
+}
+
+Anmerkungen zur Verwendung der Begrifflichkeiten im Kurs finden sich auch in der Aufzeichnung des ersten Online-Tutoriums
+vom 07.10.2023, ab 03:39 - 03:41 (hh:mm).\\
+
+Wir dürfen also davon ausgehen, dass der Standardkontruktor im Kurs gleichbedeutend zu einem \underline{parameterlosen}
+Konstruktor ist.\\
+
+Zunächst ist festzuhalten, dass Konstruktoren in Java keine Objektmethoden sind - aus diesem Grund werden Konstruktoren
+in Java auch nicht vererbt~\footnote{
+    The Java Tutorials - Inheritance: \url{https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html}
+} (ein Zugriff über \code{super} auf den Konstruktor einer Elternklasse ist trotzdem möglich).\\
+
+Wenn für eine Klasse kein Konstruktor definiert wurde, stellt der Compiler einen \textbf{default constructor}
+zur Verfügung~\footnote{
+    The Java Language Specification - 8.8.9. Default Constructor: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.8.9}↩
+}. Die Parameterliste des default constructors ist leer. Sie entspricht damit der Signatur eines Standardkonstruktors.
+
+\begin{lstlisting}[language=java]
+class A {
+
+    // implizit deklarierter default constructor
+    // public A() {
+    // }
+
+    public static void main(String[] args) {
+        A a = new A(); // ruft den implizit deklarierten default constructor auf
+    }
+
+}
+\end{lstlisting}
+
+Wenn ein \underline{explizit} deklarierter Konstruktor vorhanden ist, stellt der Compiler keinen default constructor zur Verfügung.
+
+Im folgenden Beispiel führt \code{new A()} zu einem Compiler-Fehler, da kein parameterloser Konstruktor explizit oder implizit für \code{A} deklariert ist.
+
+\begin{lstlisting}[language=java]
+class A {
+
+    int a;
+
+    // explizit deklarierter Konstruktor
+    // unterbindet den impliziert deklarierten default constructor
+    public A(int value) {
+        a = value;
+    }
+
+    public static void main(String[] args) {
+        A a1 = new A(i); // ruft den explizit deklarierten Konstruktor auf
+        A a2 = new A();  // fuehrt zu einem Compiler-Fehler
+    }
+
+}
+\end{lstlisting}
+
+Wenn ein Konstruktor nicht explizit einen Konstruktor seiner Elternklasse aufruft, ruft er implizit \code{super()} auf.
+
+Wenn die Elternklasse in solchen Fällen keinen parameterlosen Konstruktor deklariert hat, wird ein Compiler-Fehler erzeugt.
+
+Im folgenden Beispiel erweitert \code{B} die Klasse \code{A}. \code{B} hat einen Konstruktor deklariert, dessen
+formale Parameterliste \code{int} ist. Dieser Konstruktor ruft implizit \code{super()} auf:
+
+\begin{lstlisting}[language=java]
+class A {
+
+}
+
+class B {
+
+    int val;
+
+    public B (int a) {
+        // implizit aufgerufen:
+        // super();
+        val = a;
+    }
+
+    public static void main(String[] args) {
+        B b = new B(1);
+    }
+
+}
+\end{lstlisting}
+
+Es ist zu beachten, dass jede Klasse in Java direkt oder indirekt von \code{java.lang.Object} erbt~\footnote{
+    The Java Tutorials - Object as a Superclass: \url{https://docs.oracle.com/javase/tutorial/java/IandI/objectclass.html}↩
+}.
+Der Konstruktor dieser Klasse ist also in einer Konstruktor-Aufrufkette enthalten.\\
+
+Im nächsten Beispiel erbt \code{C}  von \code{B}. Ein default constructor wird implizit für \code{C} deklariert. Allerdings
+führt das Erzeugen eines Objektes vom Typ \code{C} zu einem Compiler-Fehler, da \code{B} keinen parameterlosen
+Konstruktor - den Standardkonstruktor - deklariert:
+
+
+\begin{lstlisting}[language=java]
+class C extends B {
+
+
+    public static void main(String[] args) {
+        C c = new C(); // Compiler-Fehler
+    }
+
+}
+\end{lstlisting}
+
+Damit ein Objekt vom Typen \code{C} erzeugt werden kann, benötigt \code{C} einen Standardkonstruktor mit einem expliziten
+Aufruf des Konstruktors von \code{B} - da \code{B} selber keinen Standardkonstruktor deklariert hat, muss der Konstruktor
+mit der Signature \code{B(int)} aufgerufen werden:
+
+\begin{lstlisting}[language=java]
+class C extends B {
+
+    public C() {
+       super(2); // ruft den Konstruktor von B mit dem Argument 2 auf
+    }
+
+    public static void main(String[] args) {
+        C c = new C();
+    }
+
+}
+\end{lstlisting}
+
+Kurzum: In Java muß bei einer erbenden Klasse und einem explizit deklarierten Konstruktor der \underline{erste} Aufruf
+des Konstruktors ein Konstruktor der Elternklasse sein~\footnote{
+    The Java Language Specification - 8.8.7. Constructor Body: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.8.7}
+}.
+
+Es folgen einige weitere Beispiele:
+
+\begin{lstlisting}[language=java]
+class A {
+    // impliziter default constructor: vorhanden
+
+    // impliziter default constructor: ruft Konstruktor von java.lang.Object
+    // auf
+}
+
+
+class B extends A {
+
+    // impliziter default constructor: vorhanden
+
+    // impliziter default constructor: ruft Konstruktor von A auf
+}
+
+
+class C {
+
+    // impliziter default constructor: nicht vorhanden
+
+    public C() {
+        // impliziter Aufruf von java.lang.Object's Konstruktor
+        System.out.println("C created.");
+    }
+}
+
+
+class D extends C {
+
+    // impliziter default constructor: vorhanden
+
+    // impliziter default constructor: ruft Konstruktor von C auf
+
+}
+
+
+class E extends D {
+
+    // impliziter default constructor: nicht vorhanden
+
+    public E() {
+        // impliziter Aufruf von D's Konstruktor
+        System.out.println("E created.");
+    }
+}
+
+
+class F extends E {
+
+    // impliziter default constructor: nicht vorhanden
+
+    public F(int x) {
+        // impliziter Aufruf von E's Standardkonstruktor
+        System.out.println("F created");
+    }
+}
+
+
+class G extends F {
+
+    // impliziter default constructor: nicht vorhanden
+
+    public G(int x) {
+        super(x); // expliziter Aufruf von F's Konstruktor
+
+        // Das Auskommentieren der o.a. Anweisung fuehrt zu einem impliziten
+        // Aufruf von 'super()', was einen Compiler-Fehler produziert:
+        // Da kein Standardkonstruktor in F deklariert ist, muessen wir dem
+        // Konstruktor explizit mitteilen, welcher Konstruktor der
+        // Elternklasse aufgerufen werden soll.
+        System.out.println("G created");
+    }
+}
+\end{lstlisting}
