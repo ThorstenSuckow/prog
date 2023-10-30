@@ -13,6 +13,7 @@
 \usepackage[LGR,T1]{fontenc}
 \usepackage{float}
 \usepackage{python}
+\usepackage{xparse}
 \usepackage{comment}
 \usepackage[titles]{tocloft}
 \usepackage{titlesec}
@@ -79,6 +80,10 @@
 	numbers=left,
 	linewidth=146mm,
 	xleftmargin=8mm
+}
+
+\NewDocumentCommand{\code}{v}{%
+	\texttt{\textcolor{blue}{#1}}%
 }
 
 \usepackage{textcomp} 			% Celsius-Darstellung
