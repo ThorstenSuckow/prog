@@ -1,0 +1,35 @@
+\chapter{InitTest}
+
+Die richtigen Antworten lauten:
+
+\begin{itemize}
+    \item t.ok hat den Wert false.
+    \item Bei Entfernen der Kommentarsymbole // meldet der Java-Compiler einen Fehler.
+    \item t.s hat den Wert null.
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+Die Antworten lassen sich leicht durch Anwendung des Wissens finden, das bereits auf die vorhergehenden Fragen angewendet wurde:\\
+
+\code{s} ist kein Klassenattribut, sondern ein Objektattribut (im Skript erklärt ab Seite 178).\\
+
+\code{t.ok} hat den Wert false, weil Klassen- und Objektattribute vom Typ \code{boolean} automatisch mit dem Wert \code{false} initialisiert
+werden.
+Das gilt allerdings \underline{nicht} für \textbf{lokale Variablen} - diese werden nicht automatisch initialisiert; folglich meldet der Compiler
+nach Entfernen der Kommentarsymbole auch einen Fehler~\footnote{
+    Default-Werte für primitive Datentypen sowie Hinweis auf Initialisierung im Skript auf Seite 41.
+}:
+
+\blockquote[\footnote{
+The Java™ Tutorials - Primitive Data Types (Default Values): \url{https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html}
+}]{
+    Local variables are slightly different; the compiler never assigns a default value to an uninitialized local variable.
+    If you cannot initialize your local variable where it is declared, make sure to assign it a value before you attempt to use it.
+    Accessing an uninitialized local variable will result in a compile-time error.
+
+}
+
+
+
