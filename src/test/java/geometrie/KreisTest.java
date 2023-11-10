@@ -45,13 +45,18 @@ public class KreisTest {
         k.setRadius(17);
         assertEquals(17, k.getRadius());
 
-        assertThrowsExactly(IllegalArgumentException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                Kreis k = new Kreis(new Punkt(1, 1));
-                k.setRadius(0);
-            }
-        });
+        Kreis k2 = new Kreis(p1);
+
+        assertFalse(k2.equals(k));
+        k2.setRadius(17);
+        assertTrue(k2.equals(k));
+
+
+        k = new Kreis(new Punkt(1, 1));
+        k.setRadius(0);
+        assertEquals(1, k.getRadius());
+
+
     }
 
 

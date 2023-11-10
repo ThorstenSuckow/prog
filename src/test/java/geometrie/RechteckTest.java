@@ -59,19 +59,11 @@ public class RechteckTest {
         assertEquals(15, r2.getBreite());
         assertEquals(16, r2.getLaenge());
 
-        assertThrowsExactly(IllegalArgumentException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                r2.setBreite(0);
-            }
-        });
+        r2.setBreite(0);
+        assertEquals(1, r2.getBreite());
 
-        assertThrowsExactly(IllegalArgumentException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                r2.setLaenge(0);
-            }
-        });
+        r2.setLaenge(0);
+        assertEquals(1, r2.getLaenge());
 
     }
 

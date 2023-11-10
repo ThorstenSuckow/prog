@@ -45,11 +45,11 @@ public class QuaderTest {
         assertEquals(164, q.oberflaeche());
         assertEquals(120, q.volumen());
 
-        assertFalse(Quader.isWuerfel(q));
+        assertFalse(Quader.istWuerfel(q));
 
         r2 = new Rechteck(p1, b, b);
         Quader q2 = new Quader(r2, b);
-        assertTrue(Quader.isWuerfel(q2));
+        assertTrue(Quader.istWuerfel(q2));
 
         Rechteck r3 = new Rechteck(p1, b, l);
         Quader q3 = new Quader(r3, h);
@@ -63,12 +63,9 @@ public class QuaderTest {
         q4.setHoehe(19);
         assertEquals(19, q4.getHoehe());
 
-        assertThrowsExactly(IllegalArgumentException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                q4.setHoehe(0);
-            }
-        });
+        q4.setHoehe(0);
+        assertEquals(1, q4.getHoehe());
+
 
     }
 

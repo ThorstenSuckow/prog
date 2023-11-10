@@ -57,12 +57,8 @@ public class ZylinderTest {
         z.setHoehe(21);
         assertEquals(21, z.getHoehe());
 
-        assertThrowsExactly(IllegalArgumentException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                z.setHoehe(0);
-            }
-        });
+        z.setHoehe(0);
+        assertEquals(1, z.getHoehe());
     }
 
 
