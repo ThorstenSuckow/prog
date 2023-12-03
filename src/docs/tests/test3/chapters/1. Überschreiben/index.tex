@@ -55,7 +55,7 @@ Zur Verdeutlichung können wir die in dem Kurs bereits verwendeten geometrischen
     \label{fig:figur}
 \end{figure}
 
-Eine Klasse \code{FigurenFabrik} sei nun folgendermaßen gegeben:
+Eine Klasse \code{FigurenFabrik} sei folgendermaßen gegeben:
 
 \begin{lstlisting}[language=java]
 
@@ -72,7 +72,7 @@ class FigurenFabrik {
 }
 \end{lstlisting}
 
-Eine Klasse, die nun von \code{FigurenFarik} erbt und \code{erzeugeQuadrat} überschreiben möchte,
+Eine Klasse, die von \code{FigurenFarik} erbt und \code{erzeugeQuadrat} überschreiben möchte,
 muss sicherstellen, dass das von der Methode zurückgelieferte Objekt auch tatsächlich ein \code{Quadrat} ist.
 
 Hierzu darf der Rückgabetyp nicht allgemeiner sein. `Allgemeiner` bedeutet in diesem Fall: Typ \code{Rechteck} oder \code{Figur}.
