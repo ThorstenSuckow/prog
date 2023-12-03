@@ -1,0 +1,157 @@
+\chapter{Vererbung}
+
+\section*{Lösung}
+
+\begin{itemize}
+    \item Eine Variable vom Typ B kann eine Instanz von A referenzieren.
+    \item Die Klasse A erbt alle nicht private deklarierten Objektattribute von B.
+    \item Ein Exemplar von A kann auf alle nicht private deklarierten Objektattribute von B zugreifen.
+    \item Geerbte Klassenattribute sind in Klasse A und B identisch.
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+Die Lösungen zu den Fragen lassen sich aus dem Skriptinhalt leicht herleiten:
+
+\begin{itemize}
+    \item ``Eine Variable vom Typ B kann eine Instanz von A referenzieren``.
+\end{itemize}
+
+Der Sachverhalt wird im Skript zu Begin des Abschnitts ``8.4 Zuweisungskompatibilität`` erklärt.
+
+\begin{itemize}
+    \item ``Die Klasse A erbt alle nicht private deklarierten Objektattribute von B``.
+\end{itemize}
+Siehe hierzu das Beispiel in der Sprachspezifikation\footnote{``Java Language Specification - Example 8.2-4. Inheritance of private Class Members``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#d5e13702}},
+im offiziellen Java Tutorial\footnote{``The Java™ Tutorials - Inheritance``: \url{https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html}}
+und im Skript auf Seite 224 ``Der Modifizierer private``.
+
+\begin{itemize}
+    \item ``Ein Exemplar von A kann auf alle nicht private deklarierten Objektattribute von B zugreifen.``
+\end{itemize}
+
+Ein ``Exemplar`` von \code{A} ist ein Objekt vom Typ \Objekt{A}.
+Das Exemplar kann auf geerbte Objektattribute zugreifen:
+
+\begin{lstlisting}[language=java]
+package programm;
+
+class B {
+    int foo = 2;
+}
+
+class A extends B {
+
+    public int getFoo() {
+        return foo;
+    }
+}
+\end{lstlisting}
+
+
+Ist das Objektattribut \code{protected} oder \code{package private}, kann auch \underline{über} das Exemplar\footnote{
+hier greift Code, der nicht zu der Klasse \textit{A} gehört, auf das Objektattribut zu.
+} auf das Objektattribut
+innerhalb desselben Package zugegriffen werden:
+
+\begin{lstlisting}[language=java]
+package programm;
+
+public class Beispiel {
+
+    public static void main(String[] args) {
+        A a = new A();
+        System.out.println(a.foo);
+    }
+
+}
+\end{lstlisting}
+
+Ist das Objektattribut \code{public}, kann von überall her auf das geerbte Attribut zugegriffen werden.
+
+
+\begin{itemize}
+    \item Geerbte Klassenattribute sind in Klasse A und B identisch.
+\end{itemize}
+
+Ein Klassenattribut, das für Klasse \code{B} definiert wurde, wird enstprechend des Zugriffsmodifizierers auch von Klasse \code{A} geerbt.
+Wird der Wert des Klassenattributs geändert, ist diese Änderung in allen Unterklassen sichtbar - egal, in welchem Codeteil die Änderung
+implementiert ist.
+
+
+\begin{lstlisting}[language=java]
+class B {
+    public static int foo = 2;
+}
+
+class A extends B {
+
+    public void changeFoo() {
+        foo = 4;
+    }
+
+}
+
+
+public class KlassenAttribut {
+
+    public static void main(String[] args) {
+        System.out.println(A.foo); // 2
+        B.foo = 3;
+        System.out.println(A.foo); // 3
+        A a = new A();
+        a.changeFoo();
+        System.out.println(B.foo); // 4
+        System.out.println(A.foo); // 4
+
+
+    }
+
+}
+\end{lstlisting}
+
+Wird ein Klassenattribut in \code{A} angelegt, welches ein Klassenattribut in \code{B} \underline{verdeckt}\footnote{
+    im Skript auf Seite 212 ff.
+    Im Englischen ist der Begriff hierzu ``hiding``.
+    Ein ausführliches Beispiel findet sich in der Sprachreferenz unter ``Java Language Specification - Example 8.4.9-2. Overloading, Overriding, and Hiding``:
+    \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#d5e15760},
+    weitere Hinweise in ``The Java™ Tutorials - Hiding Fields``\url{https://docs.oracle.com/javase/tutorial/java/IandI/hidevariables.html} sowie
+    bei Ullenboom in~\cite[483 ff.]{Ull12}.
+}, steuert der Aufrufkontext Zuweisung und Rückgabe des Klassenattributs:
+
+\begin{lstlisting}[language=java]
+class B {
+    public static int foo = 2;
+}
+
+class A extends B {
+public static int foo = 2;
+
+    public void printFoo() {
+        System.out.println(foo);
+    }
+
+    public void printParentFoo() {
+        System.out.println(super.foo);
+        System.out.println(B.foo);
+    }
+
+}
+
+public class KlassenAttribut {
+
+    public static void main(String[] args) {
+        System.out.println(A.foo); // 2
+        B.foo = 3;
+        System.out.println(A.foo); // 2
+        System.out.println(B.foo); // 3
+        A.foo = 1;
+        System.out.println(A.foo); // 1
+        A a = new A();
+        a.printFoo();              // 1
+        a.printParentFoo();        // 3\n3
+    }
+
+}
+\end{lstlisting}
