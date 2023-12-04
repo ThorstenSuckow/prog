@@ -1,0 +1,84 @@
+\chapter{Modifikatoren}
+
+\section*{Lösung}
+
+\begin{itemize}
+    \item Eine Methode kann nicht private abstract erklärt werden.
+    \item Von Klassen, die als abstract gekennzeichnet sind, können keine Exemplare erzeugt werden.
+    werden.
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+Im Folgenden werden die Antworten anhand der Sprachspezifikationen hergeleitet bzw. widerlegt.
+
+\begin{itemize}
+    \item Eine Methode kann nicht private abstract erklärt werden.
+\end{itemize}
+
+Eine Implementierung einer als \code{private} markierten abstrakten Methode in einer Kindklasse wäre u.a. aus folgenden Gründen \underline{nicht} möglich.
+
+Die Sprachspezifikationen legen fest:\blockquote{
+It is a compile-time error to declare an abstract class type such that it is not possible to create a subclass that implements all of its abstract methods.\footnote{
+    ``Java Language Specification - 8.1.1.1. abstract Classes``:\url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.1.1.1}
+}
+}
+
+
+Eine abstrakte Klasse stellt  eine unvollständige Klasse dar\footnote{
+``An abstract class is a class that is incomplete, or to be considered incomplete.`` in ``Java Language Specification - 8.1.1.1. abstract Classes``: \url{8.1.1.1. abstract Classes https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.1.1.1
+}}.
+Unterklassen müssen entweder selber als \code{abstract} gekennzeichnet werden oder die abstrakten Methoden implementieren.
+
+Folglich führt eine als \code{private} markierte abstrakte Methode zu dem Compilerfehler\footnote{Fehlermeldung generiert durch JDK21.0.0}
+
+\begin{lstlisting}[language=text]
+illegal combination of modifiers: abstract and private
+\end{lstlisting}
+
+
+\begin{itemize}
+    \item Von Klassen, die als abstract gekennzeichnet sind, können keine Exemplare erzeugt werden.
+\end{itemize}
+
+Die Sprachspezifikation legt fest:\blockquote{
+    It is a compile-time error if an attempt is made to create an instance of an abstract class using a class instance creation expression.\footnote{
+        ``Java Language Specification - 8.1.1.1. abstract Classes``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.1.1.1}
+    }
+}
+
+\begin{itemize}
+    \item Von Klassen, die als abstract gekennzeichnet sind, können keine Unterklassen gebildet werden.
+\end{itemize}
+
+Abstrakte Klassen sind unvollständige Klassen.
+Es \underline{muss} deshalb möglich sein, Unterklassen von ihnen zu erzeugen.
+Die Sprachspezifikationen legen hierzu fest: \blockquote{
+    The declaration of an abstract method m must appear directly within an abstract class (call it A).\footnote{
+      ``Java Language Specification - 8.4.3.1. abstract Methods``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.4.3.1}
+    }
+}
+
+und weiter \blockquote{
+    Every subclass of A that is not abstract[...] must provide an implementation for m, or a compile-time error occurs.\footnote{
+       ebenda
+    }
+}
+
+
+\begin{itemize}
+    \item  Eine final erklärte Klasse darf keine abstract erklärten Methoden haben.
+\end{itemize}
+
+Von als \code{final} deklarierte Klassen können keine Unterklassen gebildet werden\footnote{
+siehe hierzu Skript Seite 38, Absatz ``final``.
+}.
+
+Wenn die Klasse abstrakte Methoden beinhaltet, muss die Klasse als \code{abstract} implementiert werden.
+Dies schließt die gleichzeitige Verwendung von \code{final}
+aus:\blockquote{
+    It is a compile-time error if a class is declared both final and abstract, because the implementation of such a class could never be completed (§8.1.1.1).\footnote{
+        ``Java Language Specification - 8.1.1.2. sealed, non-sealed, and final Classes``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.1.1.2}
+    }
+}
