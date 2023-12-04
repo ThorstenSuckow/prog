@@ -1,0 +1,99 @@
+\chapter{Schnittstellen}
+
+\section*{Lösung}
+
+\begin{itemize}
+    \item Jede nicht abstrakte Klasse, die eine Schnittstelle implementiert, muss alle Methoden dieser Schnittstelle bereitstellen.
+    \item Alle Methoden einer Schnittstelle sind öffentlich.
+\end{itemize}
+
+(für beides siehe auch den Exkurs unter ``Anmerkungen und Ergänzungen``)
+
+\section*{Anmerkungen und Ergänzungen}
+
+Das Konzept von Schnittstellen mit Anwendungsbeispielen findet sich im Skript auf Seite 230 ff.
+
+Die in der Aufgabe getroffenen Aussagen lassen sich darüber hinaus über die Sprachspezifikationen herleiten bzw. widerlegen.
+
+\begin{itemize}
+    \item Jede Klasse kann nur eine Schnittstelle implementieren.
+\end{itemize}
+
+Widerlegt durch das Skript auf Seite 232, Absatz 3, außerdem wird in den Java Tutorials darauf hingewiesen, dass
+\blockquote{
+    Your class can implement more than one interface, so the implements keyword is followed by a comma-separated list of the interfaces implemented by the class.\footnote{``The Java™ Tutorials - Implementing an Interface``: \url{https://docs.oracle.com/javase/tutorial/java/IandI/usinginterface.html}}
+}
+
+
+\begin{itemize}
+    \item Schnittstellen müssen als abstract gekennzeichnet werden.
+\end{itemize}
+
+Ein \code{interface} ist in Java implizit \code{abstract}\footnote{im Skript erklärt auf Seite 231, Absatz 2}.
+Der Modifizierer darf zwar angegeben werden, aber da er obsolet ist, sollte er nicht verwendet werden\footnote{
+``Java Language Specification - 9.1.1. Interface Modifiers``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-9.html#jls-9.1.1}
+}
+
+\begin{itemize}
+    \item Jede nicht abstrakte Klasse, die eine Schnittstelle implementiert, muss alle Methoden dieser Schnittstelle bereitstellen.
+\end{itemize}
+
+Ist die Methode einer Schnittstelle \code{abstract}\footnote{siehe nachfolgender Exkurs}, gilt hier das gleiche Prinzip wie bei den abstrakten Klassen:
+Ist eine implementierende Klasse selber nicht abstrakt, muss die implementierende Klasse die Schnittstellenfunktionen zur Verfügung stellen\footnote{
+siehe hierzu auch ``Java Language Specification - 9.4.1. Inheritance and Overriding``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-9.html#jls-9.4.1}
+}.
+
+\subsection*{Exkurs - Alle Methoden einer Schnittstelle sind öffentlich}
+
+Im Kontext des im Skript enthaltenen Lehrmaterials wird diese Antwort als richtige Antwort gezählt.
+Denn ein Interface beschreibt eine Schnittstelle, deren öffentliche Methoden in implementierenden Klassen zur Verfügung gestellt werden müssen.
+\\
+
+Allerdings bietet Java seit Version 8 bereits die Möglichkeit, Methoden in Schnittstellen auszuimplementieren, sofern diese mit dem Modfizierer \code{default} deklariert werden\footnote{
+    ``The Java™ Tutorials - Default Methods``: \url{https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html}
+}.
+
+Seit Java 9 is es außerdem erlaubt, als \code{private} deklarierte Methoden in einem \code{interface} zu implementieren\footnote{
+siehe hierzu ``JEP 213: Milling Project Coin`` unter \url{https://bugs.openjdk.org/browse/JDK-8042880} sowie ``Java Language Specification - 9.4. Method Declarations``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-9.html#jls-9.4}
+}.
+Als \code{private} deklarierte Schnittstellenmethoden erlauben eine weitere Kapselung von Funktionalität, die von den \textit{default}-Methoden
+benötigt wird: Werden mehrere default-Methoden implementiert, die Funktionalität wiederverwenden, kann diese Funktionalität in private Methoden ausgelagert werden.
+
+Als einfaches Beispiel sei folgender Code gegeben, der von JDK21.0.0.0 problemlos übersetzt wird:
+
+\begin{lstlisting}[language=java]
+
+interface Fooable {
+    default String getFoo() {
+        return foo();
+    }
+
+    private String foo() {
+        return "foo";
+    }
+
+}
+
+public class B implements Fooable {
+    public static void main(String[] args) {
+        B b = new B();
+        System.out.println(b.getFoo());
+    }
+}
+
+\end{lstlisting}
+
+In diesem Zusammenhang  ist die Aussage wie folgt zu verstehen ist:\\
+
+``Alle \textbf{abstrakten} Methoden einer Schnittstelle sind öffentlich``.\\
+
+Die Sprachspezifikationen halten hierzu fest:
+\blockquote{
+    If no access modifier is given, the method is implicitly public.
+}
+sowie
+\blockquote{
+    An interface method lacking a private, default, or static modifier is implicitly abstract.\footnote{
+    beides zu finden in  ``Java Language Specification - 9.4. Method Declarations``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-9.html#jls-9.4}
+    }
+}
