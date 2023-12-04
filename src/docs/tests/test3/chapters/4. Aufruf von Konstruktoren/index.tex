@@ -1,0 +1,46 @@
+\chapter{Aufruf von Konstruktoren}
+
+\section*{Lösung}
+
+\begin{itemize}
+    \item Der Konstruktor der Unterklasse ruft automatisch den Standard-Konstruktor der Oberklasse auf, falls kein expliziter super(...)-Aufruf vorhanden ist.
+    \item Gibt es in der Oberklasse keinen Standard-Konstruktor, dann muss in der Unterklasse ein parametrisierter Konstruktor der Oberklasse mit super(arg1,…) aufgerufen werden.
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+\begin{itemize}
+    \item Der Konstruktor der Unterklasse ruft automatisch den Standard-Konstruktor der Oberklasse auf, falls kein expliziter super(...)-Aufruf vorhanden ist.
+werden.
+\end{itemize}
+
+Im Skript findet sich hierzu im Abschnitt ``8.3 Das Schlüsselwort super``:\blockquote{
+Der Aufruf von super() darf nur in Konstruktoren verwendet werden und muss dann die erste Anweisung im Konstruktorrumpf sein.
+}
+
+Ist der erste Aufruf in einem Konstruktor nicht \code{this} und nicht \code{super(...)}, wird der Aufruf des Elternklassen-Konstruktors
+ durch den Compiler implizit durchgeführt (mittels \code{super()}. Findet sich in der Elternklasse kein parameterloser Konstruktor (der \textit{Standardkonstruktor}), kommt es zu einem Compilerfehler\footnote{Im Skript auf Seite 214, Abschnitt ``Konstruktoren in Subklassen``, außerdem bei ``The Java™ Tutorials - Using the Keyword super```: \url{https://docs.oracle.com/javase/tutorial/java/IandI/super.html}}.
+
+
+\begin{itemize}
+\item Konstruktoren der Oberklassen werden automatisch von der Unterklasse geerbt.
+\end{itemize}
+
+Die Java Tutorials wiesen diesbzgl. darauf hin, dass:\footnote{
+``The Java™ Tutorials - Inheritance``: \url{https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html}
+}:~\blockquote{
+Constructors are not members, so they are not inherited by subclasses, but the constructor of the superclass can be invoked from the subclass.
+}
+
+\begin{itemize}
+\item Ist in der Oberklasse ein Konstruktor mit Parametern definiert, wird dieser an Stelle des Standard-Konstruktors in der Unterklasse automatisch aufgerufen.
+\end{itemize}
+
+Bis hierhin sollte klar geworden sein, dass das nicht korrekt ist:~\blockquote{
+ If a constructor does not explicitly invoke a superclass constructor, the Java compiler automatically inserts a call to the no-argument constructor of the superclass.
+ }\footnote{
+ ``The Java™ Tutorials - Using the Keyword super```: \url{https://docs.oracle.com/javase/tutorial/java/IandI/super.html}
+ }
+
+Für weitere ausführliche Anmerkungen und Ergänzungen bzgl. Konstruktoren in Java sei auf den Abschnitt ``Konstruktoren II`` in den Lösungshinweisen von Test 1 verwiesen.
