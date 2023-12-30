@@ -1,10 +1,10 @@
 package implementierung;
 
 import schnittstellen.IList;
-import schnittstellen.IStack;
+import schnittstellen.IQueue;
 import schnittstellen.IValueElement;
 
-public class Stack implements IStack {
+public class Queue implements IQueue {
 
     private final IList list;
 
@@ -12,7 +12,7 @@ public class Stack implements IStack {
 
     private final static int MAX_SIZE = 7;
 
-    public Stack() {
+    public Queue() {
         list = new List();
     }
 
@@ -36,20 +36,21 @@ public class Stack implements IStack {
         return size == MAX_SIZE;
     }
 
+
     @Override
-    public int pop() {
+    public int dequeue() {
         if (isEmpty()) {
             return -1;
         }
 
-        IValueElement last = list.getElementAt(size);
-        list.deleteFirstOf(last);
+        IValueElement first = list.getElementAt(1);
+        list.deleteFirstOf(first);
         size--;
-        return last.getValue();
+        return first.getValue();
     }
 
     @Override
-    public void push(int value) {
+    public void enqueue(int value) {
         if (size == MAX_SIZE) {
             return;
         }
@@ -63,14 +64,16 @@ public class Stack implements IStack {
     }
 
     @Override
-    public int top() {
+    public int front() {
         if (size == 0) {
             return -1;
         }
-        return list.getElementAt(size).getValue();
+        return list.getElementAt(1).getValue();
     }
 
     public String toString() {
         return list.toString();
     }
+
+
 }
