@@ -19,5 +19,5 @@ public interface IList {
 
     public void reverse();
 
-public String toString();
+    public String toString();
 }
