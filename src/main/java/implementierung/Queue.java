@@ -54,10 +54,12 @@ public class Queue implements IQueue {
         if (size == MAX_SIZE) {
             return;
         }
-        value = Math.max(value, 0);
+        if (value < 0) {
+            return;
+        }
 
         IValueElement el = new ValueElement(String.valueOf(value), value);
-        list.insertAtPos(1, el);
+        list.insertAtTheEnd(el);
         size++;
     }
 
