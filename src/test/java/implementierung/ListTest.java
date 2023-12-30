@@ -30,6 +30,8 @@ public class ListTest {
 
         list.insertAtTheEnd(one);
         assertEquals(1, list.getSize());
+        list.reverse();
+        assertEquals("[1,1]", list.toString());
 
         System.out.println(list);
         IListElement oneEl = list.getHead().getSuccessor();
@@ -132,8 +134,6 @@ public class ListTest {
         assertFalse(list.member(five));
         assertTrue(list.member(two));
 
-        System.out.println(fourEl.getPredecessor()+ " "+fourEl.getSuccessor());
-
         list.deleteFirstOf(three);
         System.out.println(list);
         list.reverse();
@@ -143,10 +143,13 @@ public class ListTest {
 
         list.reverse();
         System.out.println(list);
-        assertEquals("[3,3],[2,2],[1,1]", list.toString());
+        assertEquals("[1,1],[2,2]", list.toString());
 
+        list.insertAtTheEnd(three);
         list.reverse();
         System.out.println(list);
+        assertEquals("[3,3],[2,2],[1,1]", list.toString());
+        list.reverse();
         assertEquals("[1,1],[2,2],[3,3]", list.toString());
 
         list.insertAtPos(4, four);

@@ -111,7 +111,31 @@ public class List implements IList {
     @Override
     public void reverse() {
 
+        IListElement oldFirst = head.getSuccessor();
+        IListElement oldLast = head.getPredecessor();
 
+        // list is empty
+        if (oldFirst == null) {
+            return;
+        }
+
+        // iterate through the elements and switch pointers
+        IListElement element = oldFirst;
+        IListElement prev = null;
+        while (element != null) {
+            IListElement next = element.getSuccessor();
+            element.setSuccessor(prev);
+            element.setPredecessor(next);
+
+            prev = element;
+            element = next;
+        }
+
+        // adjust head and update oldFirst / oldLast
+        oldFirst.setSuccessor(null);
+        oldLast.setPredecessor(head);
+        head.setPredecessor(oldFirst);
+        head.setSuccessor(oldLast);
     }
 
 
@@ -128,9 +152,7 @@ public class List implements IList {
         IListElement element = head.getSuccessor();
 
         StringBuilder b = new StringBuilder();
-        int i = 0;
         while (element != null) {
-            if (i++ > 100) {break;}
             b.append(element).append(",");
             element = element.getSuccessor();
         }
@@ -192,6 +214,8 @@ public class List implements IList {
             head.setPredecessor(drop.getPredecessor() == head ? null : drop.getPredecessor());
         }
 
+        drop.setPredecessor(null);
+        drop.setSuccessor(null);
 
 
         size--;
