@@ -53,7 +53,9 @@ public class Stack implements IStack {
         if (size == MAX_SIZE) {
             return;
         }
-        value = Math.max(value, 0);
+        if (value < 0) {
+            return;
+        }
 
         IValueElement el = new ValueElement(String.valueOf(value), value);
         list.insertAtTheEnd(el);
