@@ -7,7 +7,7 @@ public class SelectionSort {
 
     public static int[] sort(int[] arr) {
 
-        int steps = 0, min, tmp;
+        int min, tmp;
         for (int i = 0; i < arr.length; i++) {
             min = i;
 
@@ -17,7 +17,6 @@ public class SelectionSort {
                 if (arr[j] < arr[min]) {
                     min = j;
                 }
-                steps++;
             }
 
             // change the elements, i becomes the new minimum
