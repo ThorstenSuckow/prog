@@ -1,0 +1,36 @@
+\chapter{Datenstrukturen}
+
+\section*{Lösung}
+
+\begin{itemize}
+    \item Bei einer Liste können Elemente an einer beliebigen Position eingefügt oder entfernt werden.
+    \item Eine Sequenz darf Duplikate enthalten.
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+\subsection*{Einfügen an beliebiger Position}
+Sowohl die \textbf{Queue} als auch der \textbf{Stack} sind Datenstrukturen\footnote{wiederum basierend auf der Datenstruktur \textit{Liste}}, die im Gegensatz zu (linearen) Listen weder Einfügen noch Entfernen an beliebiger Position erlauben (vgl.~\cite[41]{OW17a}): Beide geben die Hinzufüge- und Löschenreihenfolge vor(vgl.~\cite[42]{OW17a})\footnote{im Skript (Teil 2) in dem Abschnitt 5.2 ausführlich erklärt}.
+
+\begin{itemize}
+    \item Die \textbf{Queue} arbeitet nach dem \textbf{FIFO}-Prinzip (\textit{first in, first out}): Das Element,
+    das als Erstes in die Liste eingefügt wurde, wird auch als Erstes wieder entfernt.
+    In der ASB-Aufgabe 3 wurden hierzu die Operationen \code{enqueue} (für Hinzufügen) bzw. \code{dequeue} (für Entfernen) implementiert.
+    \code{java.util.Queue} stellt diese Operationen unter \code{add} bzw \code{remove} zur Verfügung~\footnote{
+        \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Queue.html}
+    }
+    \item Der \textbf{Stack} arbeitet nach dem \textbf{LIFO}-Prinzip (\textit{last in, first out}): Das Element,
+    das zuletzt in die Liste eingefügt wurde, wird auch als Erstes wieder entfernt.
+    In der ASB-Aufgabe 3 wurden hierzu die Operationen \code{push} (für Hinzufügen) bzw. \code{pop} (für Entfernen) implementiert.
+    \code{java.util.Stack} stellt diese Operationen unter den gleichen Namen zur Verfügung~\footnote{
+        \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Stack.html}
+    }
+\end{itemize}
+
+
+\subsection*{Duplikate in einer Sequenz}
+
+Im Skript (Teil 2) auf Seite 70 wird dies als ein Kriterium für Sequenzen (repräsentiert durch eine \textbf{Liste} als Datenstruktur\footnote{
+S. 71 im Skript (Teil2)
+}) festgehalten~\footnote{als Beispiel: Ein Pfad in einem zyklischen Graphen, dargestellt als Liste von Knoten, kann Duplikate enthalten}.
