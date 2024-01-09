@@ -13,8 +13,10 @@ public class ShellSort {
 
         for (int a = 0; a < increments.length; a++) {
 
-            for (int i = increments[a]; i < arr.length; i++) {
-                int delta = increments[a];
+            int delta = increments[a];
+
+            for (int i = delta; i < arr.length; i++) {
+
                 int min = arr[i];
                 int n = i;
                 while (n - delta >= 0 && min < arr[n - delta]) {
