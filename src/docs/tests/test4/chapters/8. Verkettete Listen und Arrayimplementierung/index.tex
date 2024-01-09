@@ -41,17 +41,17 @@ Bei der Einfügeoperation in einer doppelt verketteten Liste werden die Zeiger e
 Der Rest der Liste bleibt unberührt\footnote{
 das ist allerdings von der Implementierung abhängig. Sollte bspw. noch ein Element existieren, welches das Ende der Liste repräsentiert, muss dieses ggfl. noch mit aktualisiert werden (vgl. \cite[35 ff.]{OW17a}).
 }.
-Auch bei der Arrayimplementierung muss in dem Fall \underline{nicht jedes Element} aktualisiert werden - im wort case müssen $n-1$ Folgeelemente aktualisiert werden.
+Auch bei der Arrayimplementierung muss \underline{nicht in jedem Fall jedes Element} aktualisiert werden\footnote{
+im wort case müssen $n-1$ Folgeelemente aktualisiert werden, bei einer Einfügeoperation muss evtl. noch das Array vergrößert werden.
+}
 
 
-\subsection*{Das Einfügen am Beginn des Array benötigt immer Zeit $O(1)$.}
-Wie bis hierher gesehen, bedingt das Einfügen eines Elements am Beginn eines Arrays eine Laufzeit von $O(n)$, falls $n-1$ Folgeelemnte verschoben werden müssen.
+\subsection*{Das Einfügen am Beginn des Arrays benötigt immer Zeit $O(1)$.}
+Wie bis hierher gesehen, bedingt das Einfügen eines Elements am Beginn eines Arrays eine Laufzeit von $O(n)$, falls $n-1$ Folgeelemente verschoben werden müssen.
 Muss das Array vergrößert werden, erhöht das auch die Laufzeit\footnote{
     mit einer neuen Größe von $m$ freien Plätzen entspricht das einer Laufzeit von $O(m)$. Siehe hierzu Skript (Teil 2) S. 89 ``Nachteile der Darstellung als Array``.
 }.
 
 \subsection*{Falls bereits $(n-1)$-Elemente im Array liegen, dann benötigt die Einfügeoperation am Schluss Zeit $O(n)$.}
-Die Einfügeoperation im Array am Schluss des Arrays ist in konstanter Zeit $O(1)$ möglich, da keine Elemente verschoben werden müssen\footnote{
-    bei der Fragestellung ist davon auszugehen, dass das Array nicht vergrößert werden muss.
-}.
+Die Einfügeoperation im Array am Schluss des Arrays ist in konstanter Zeit $O(1)$ möglich, da keine Elemente verschoben werden müssen.
 

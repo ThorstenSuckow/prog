@@ -5,8 +5,9 @@
 Nach dem Löschen eines Knotens in einem Suchbaum soll der durch die Löschoperation entstehende Baum wieder ein Suchbaum sein, und die in Abschnitt~\ref{ch:binarytree} aufgeführten Kriterien erfüllen.
 
 Die Ausführung der Löschoperation findet sich im Skript (Teil 2) auf Seite 147 ff., aus der sich die korrekte Antwort herleiten lässt.
-\\
 
+
+\section*{Anmerkungen und Ergänzungen}
 Etwas ausführlicher beschreiben \textit{Ottmann und Widmayer} die Knoten, die an die Stelle des gelöschten Knotens treten können, als den \textit{symmetrischen Vorgänger} bzw. den \textit{symmetrischen Nachfolger} (vgl.~\cite[288 f.]{OW17e})\footnote{
 in Abschnitt 5.1.2, ebenda, wird die \textit{Inorder}-Durchlaufordnung auch als \textit{Symmetrische Reihenfolge} bezeichnet.
 }.
@@ -20,7 +21,8 @@ Der \textbf{symmetrische Nachfolger} \textit{v} des Knotens \textit{p} ist der K
 }.
 \\
 
-Die folgende Darstellung verdeutlicht den Zusammenhang von einem Knoten mit seinem symmetrischen Vorgänger {bzw.} Nachfolger.
+Die folgende Darstellung (Abbildung~\ref{fig:symm}) verdeutlicht den Zusammenhang von einem Knoten mit seinem symmetrischen Vorgänger {bzw.} Nachfolger.
+
 In dem  {geg.} Suchbaum gilt, dass der Betrag der Differenz von $x - y$ bzw. $x - z$ jeweils der kleinste Betrag aller möglichen Beträge ist, die aus der Menge der möglichen Schlüssel des linken {bzw.} rechten Teilbaums mit $x$ gebildet werden können.
 Die beiden Knoten nähern sich mit ihrem Schlüsselwert also dem Schlüsselwert des Knotens \textit{p} am ehesten an.
 
@@ -32,7 +34,7 @@ Die beiden Knoten nähern sich mit ihrem Schlüsselwert also dem Schlüsselwert 
         keepaspectratio,
     ]{chapters/3. delete/img/symm}
     \caption{Der symmetrische Vorgänger \textit{u} und der symmetrische Nachfolger \textit{v} des Knotens \textit{p}.}
-
+    \label{fig:symm}
 \end{figure}
 
 
