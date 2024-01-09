@@ -1,0 +1,64 @@
+\chapter{Hashfunktion}
+
+\section*{Lösung}
+
+Die Schlüsselfolge $5, 28, 14, 24, 19, 27, 23, 17, 13$ soll mit der Hashfunktion
+
+\begin{equation}\label{eq:hash}
+h(k) = h_0(k) = k\mod 9
+\end{equation} in eine Hashtabelle eingefügt werden.
+\\
+
+Kollisionen sollen durch lineares Sondieren\footnote{
+siehe~\cite[205]{OW17d}, außerdem im Skript (Teil 2) S. 135 ff.
+} behandelt werden, die Funktion hierzu lautet
+
+\begin{equation}\label{eq:sond}
+    h_i(k) = (h_0(k) + i)\mod 9
+\end{equation}
+
+\\
+
+Im Folgenden werden die Schlüssel der Reihenfolge an die Hashfunktionen~\ref{eq:hash} übergeben.
+Bei einer Kollision übernimmt die Sondierungsfunktion~\ref{eq:sond} die Berechnung der Speicherzelle (s. Tabelle~\ref{tab:hash}):
+
+{\renewcommand{\arraystretch}{1.5}%
+\begin{table} %[hbtp]
+    \begin{center}
+        \begin{tabular}{c |l |c |c | c}
+            \textbf{Schlüssel} & \textbf{$h_i(k)$} & \textbf{Ergebnis} & \textbf{Kollision} & \textbf{Speicherzelle} \\
+            \hline
+            $5$  &  $h_0(5) = 5\mod 9$ & $5$ & $-$ & $5$ \\
+            \hline
+            $28$  &  $h_0(28) = 28\mod 9$ & $1$ & $-$ & $1$ \\
+            \hline
+            $14$  &  $h_0(14) = 14\mod 9$ & $5$ & $5$ &  \\
+                  &  $h_1(14) = (14\mod 9 + 1)\mod 9$ & $6$ & $-$ & $6$ \\
+            \hline
+            $24$  &  $h_0(24) = 24\mod 9$ & $6$ & $6$ &  \\
+                  &  $h_1(24) = (24\mod 9 + 1)\mod 9$ & $7$ & $-$ & $7$ \\
+            \hline
+            $19$  &  $h_0(19) = 19\mod 9$ & $1$ & $1$ \\
+                  &  $h_1(19) = (19\mod 9 + 1)\mod 9$ & $2$ & $-$ & $2$\\
+            \hline
+            $27$  &  $h_0(27) = 27\mod 9$ & $0$ & $-$ & $0$ \\
+            \hline
+            $23$  &  $h_0(23) = 23\mod 9$ & $5$ & $5$ & \\
+                  &  $h_1(23) = (23\mod 9 + 1)\mod 9$ & $6$ & $6$ & \\
+                  &  $h_2(23) = (23\mod 9 + 2)\mod 9$ & $7$ & $7$ &  \\
+                  &  $h_3(23) = (23\mod 9 + 3)\mod 9$ & $8$ & $-$ & $8$ \\
+            \hline
+            $17$  &  $h_0(17) = 17\mod 9$ & $8$ & $8$ & \\
+                  &  $h_1(17) = (17\mod 9 + 1)\mod 9$ & $0$ & $0$ &  \\
+                  &  $h_2(17) = (17\mod 9 + 2)\mod 9$ & $1$ & $1$ &  \\
+                  &  $h_3(17) = (17\mod 9 + 3)\mod 9$ & $2$ & $2$ &  \\
+                  &  $h_4(17) = (17\mod 9 + 4)\mod 9$ & $3$ & $-$ & $3$ \\
+            \hline
+            $13$  &  $h_0(13) = 13\mod 9$ & $4$ & $-$ & $4$\\
+            \hline
+
+        \end{tabular}
+        \caption{Speicherzellenbelegung für die Schlüsselfolge $5, 28, 14, 24, 19, 27, 23, 17, 13$ unter Verwendung der Hashfunktion~\ref{eq:hash} und Sondierungsfunktion~\ref{eq:sond}. Es treten insgesamt 10 Kollisionen auf.}
+        \label{tab:hash}
+    \end{center}
+\end{table}

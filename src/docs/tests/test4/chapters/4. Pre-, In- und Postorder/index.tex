@@ -1,0 +1,33 @@
+\chapter{Pre-, In- und Postorder}
+
+\section*{Lösung}
+
+\begin{itemize}
+    \item \textbf{Preorder}: $35, 20,  10,  12,  24,  42,  40,  38,  80$
+    \item \textbf{Inorder}: $10,  12,  20,  24,  35,  38,  40,  42,  80$
+    \item \textbf{Postorder}: $12,  10,  24,  20,  38,  40,  80,  42,  35$
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+Die Durchlaufordnungen werden im Skript (Teil 2) auf Seite 106 f. erklärt.
+\\
+
+
+\textit{Ottmann und Widmayer} führen für die Durchlaufordnung in Binärbäumen die Bezeichnungen \textbf{Hauptreihenfolge},
+\textbf{Nebenreihenfolge} und \textbf{Symmetrische Reihenfolge} an (vgl.~\cite[272]{OW17e}):
+
+\begin{itemize}
+    \item \textbf{Hauptreihenfolge}: \textit{Preorder}
+    \item \textbf{Symmetrische Reihenfolge}: \textit{Inorder}
+    \item \textbf{Nebenreihenfolge} \textit{Postorder}
+\end{itemize}
+
+Die Präfixe ``Pre``, ``Post`` und ``In`` dürfen als Eselsbrücke dienen, denn sie beziehen sich auf die Reihenfolge, in der die Knoten betrachtet werden:
+
+\begin{itemize}
+    \item \textbf{Pre}: \textbf{Knoten zuerst}, dann linker Teilbaum, dann rechter Teilbaum (\textit{KLR}\footnote{L = Linker Teilbaum, R = Rechter Teilbaum, K = Knoten})
+    \item \textbf{In}: erst linker Teilbaum, \textbf{danach Knoten}, dann rechter Teilbaum (\textit{LKR})
+    \item \textbf{Post}:  erst linker Teilbaum, dann rechter Teilbaum, \textbf{zuletzt Knoten} (\textit{LRK})
+\end{itemize}

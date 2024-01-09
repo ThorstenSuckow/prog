@@ -1,0 +1,57 @@
+\chapter{Verkettete Listen und Arrayimplementierung}
+
+\section*{Lösung}
+
+\begin{itemize}
+    \item Einfügeoperationen können bei der Arrayimplementierung einen höheren Aufwand erfordern als bei einer verketteten Implementierung.
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+
+\subsection*{Löschoperationen der einfach verketteten Listenimplementierug arbeiten immer mit gleichem Aufwand wie Löschoperationen der Arrayimplementierung.}
+
+Löschoperationen der Arrayimplementierung\footnote{
+bei \textit{Ottmann und Widmayer} als ``Sequenziell gespeicherte lineare Liste`` bezeichnet (vgl. \cite[30 ff.]{OW17a})
+} erfordern unter Umständen ein Verschieben nachfolgender Elemente um eine Position nach links in dem Array.
+Wird {bspw.} das Element an Position $0$ gelöscht, hat diese Operation den Aufwand $O(1)$, wenn die Liste nur einen Eintrag enthält.
+Besitzt hingegen die Liste eine Größe von $n$ Einträgen, müssen die Positionen der verbliebenen $n-1$ Einträge aktualisiert werden\footnote{
+s. Skript (Teil 2) S. 89 ``Nachteile der Darstellung als Array``
+}.
+Wird hingegen das Element an der letzten Position gelöscht, ist kein Verschieben nachfolgender Elemente nötig, der Aufwand ist hier mit $O(1)$ konstant.
+\\
+
+Löschoperationen in einer einfach verketteten Liste besitzen i.d.R. eine mittlere Laufzeit von $O(n)$, da in der Liste zu dem \underline{Vorgängerelement} des zu löschenden Elements gelaufen werden muß, um dessen Zeiger zu aktualisieren, und zwar auf den Nachfolger des zu löschenden Elements\footnote{
+Skript (Teil 2) S. 82. Auf Seite 83 ist eine alternative Realisierung angegeben, in der Löschoperationen in $O(1)$ möglich sind.
+}.
+Bei $n$ Einträgen in der Liste ist dann Löschen des letzten Elements mit einem Aufwand von $O(n)$ verbunden.
+
+
+\subsection*{Einfügeoperationen können bei der Arrayimplementierung einen höheren Aufwand erfordern als bei einer verketteten Implementierung.}
+Einfügeoperationen bei der Arrayimplementierung erfordern nicht nur ein Verschieben von Folgeelementen, sondern {ggfl.} auch eine Anpassung der Größe des Arrays\footnote{
+    s. Skript (Teil 2) S. 89 ``Nachteile der Darstellung als Array``. Der Fall wird bei \textit{Ottmann und Widmayer} in \cite[32]{OW17a} nicht berücksichtigt: Ist die Liste bei der Einfügeoperation bereits voll, wird ein Fehler ausgegeben.
+}.
+Einfügeoperationen in verketteten Listen benötigen hingegen eine konstante Laufzeit\footnote{
+    wenn das Element an der Zielposition erst ermittelt werden muss, ändert sich die Laufzeit zu $O(n)$.
+}.
+
+\subsection*{Die doppelt verkettete Liste und die Arrayimplementierung müssen die Positions- und Zeigerwerte von jedem Element nach jeder Einfüge- und Löschoperation aktualisieren.}
+Bei der Einfügeoperation in einer doppelt verketteten Liste werden die Zeiger eines Vorgängerelements und des eingefügten Elements aktualisiert.
+Der Rest der Liste bleibt unberührt\footnote{
+das ist allerdings von der Implementierung abhängig. Sollte bspw. noch ein Element existieren, welches das Ende der Liste repräsentiert, muss dieses ggfl. noch mit aktualisiert werden (vgl. \cite[35 ff.]{OW17a}).
+}.
+Auch bei der Arrayimplementierung muss \underline{nicht in jedem Fall jedes Element} aktualisiert werden\footnote{
+im wort case müssen $n-1$ Folgeelemente aktualisiert werden, bei einer Einfügeoperation muss evtl. noch das Array vergrößert werden.
+}
+
+
+\subsection*{Das Einfügen am Beginn des Arrays benötigt immer Zeit $O(1)$.}
+Wie bis hierher gesehen, bedingt das Einfügen eines Elements am Beginn eines Arrays eine Laufzeit von $O(n)$, falls $n-1$ Folgeelemente verschoben werden müssen.
+Muss das Array vergrößert werden, erhöht das auch die Laufzeit\footnote{
+    mit einer neuen Größe von $m$ freien Plätzen entspricht das einer Laufzeit von $O(m)$. Siehe hierzu Skript (Teil 2) S. 89 ``Nachteile der Darstellung als Array``.
+}.
+
+\subsection*{Falls bereits $(n-1)$-Elemente im Array liegen, dann benötigt die Einfügeoperation am Schluss Zeit $O(n)$.}
+Die Einfügeoperation im Array am Schluss des Arrays ist in konstanter Zeit $O(1)$ möglich, da keine Elemente verschoben werden müssen.
+
