@@ -23,7 +23,7 @@ public class MergeSortIt {
             return arr;
         }
 
-        int mid = start + end / 2;
+        int mid = (start + end) / 2;
         int[] left = partition(arr, start, mid);
         int[] right = partition(arr, mid + 1, end);
 
