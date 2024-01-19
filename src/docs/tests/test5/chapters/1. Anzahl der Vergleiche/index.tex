@@ -1,0 +1,264 @@
+\chapter{Anzahl der Vergleiche}
+
+\section*{Lösung}
+
+Eine Laufzeitabschätzung führt zu $O(n^2)$.
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+Bei dem vorgestellten Algorithmus handelt es sich um einen Sortieralgorithmus, der bereits 1959 von \textit{Donald Shell} vorgestellt wurde, und mit \textbf{Shellsort} auch nach ihm benannt wurde.\\
+
+Die in dem Algorithmus verwendete Sortiermethode ist auch bekannt als \textit{Sortieren mit abnehmenden Inkrementen}\cite[88]{OW17b}.
+
+In der vorliegenden Implementierung werden $t = log_2(n)$\footnote{
+    mit $n =$ Länge des zu sortierenden Feldes. Im folgenden $lg$ für $log_2$.
+}  Inkremente $h_t$\footnote{
+vgl. \cite[84]{Knu97b}
+} der Form $\floor{\frac{n}{2^i}}$ verwendet, um $lg(n)$ $h$-sortierte Folgen zu erzeugen.
+Im letzten Schritt sortiert der Algorithmus mittels $h_1$ (Abstand=$1$) die Schlüssel, die stattfindenden Operationen sind vergleichbar mit denen von Insertion-Sort.
+
+\\
+Für die Laufzeit $T(n)$ gilt im worst-case $O(n^2)$.
+Allerdings ist die Effizienz des Sortierverfahrens stark abhängig von $h$: So zeigt \textit{Knuth}, dass $O(n^{\frac{3}{2}})$ gilt, wenn für $h$ gilt: $h_s = 2^{s+1} - 1$ mit $0 \leq s < t = \floor{lg(n)}$ (vgl. \cite[91]{Knu97b})\footnote{
+weitere Verweise auf Laufzeiten in Abhängigkeit von $n$ und $h$ listet der Wikipedia-Artikel zusammen mit Quellenangaben unter \url{https://en.wikipedia.org/wiki/Shellsort} auf.
+}.
+
+\subsection*{Laufzeitanalyse}
+
+Für die nachfolgenden Betrachtungen sei eine Eingabegröße $n = 2^p$ gegeben.
+Die Inkremente $h$ entsprechen der über die Implementierung vorgegebenen Folge $h$ mit
+$h_t = \frac{n}{2}, h_{t-1} = \frac{n}{4}, \dots, h_1 = 1$.
+\\
+
+Für die Analyse ist die \textbf{Shellsort}-Implementierung in Listing~\ref{lst:shellsort}) gegeben.
+
+\begin{lstlisting}[language=java,label=lst:shellsort]
+
+    public static int[] sort(int[] arr) {
+
+        int n = arr.length;
+        int delta = n/2;
+        int min;
+        int j;
+
+        while (delta > 0) { // c1
+
+            for (int i = delta; i < arr.length; i++) {
+
+                // c2
+
+                min = arr[i];
+                j = i;
+
+                while (j - delta >= 0 && min < arr[j - delta]) {
+
+                    // c3;
+
+                    arr[j] = arr[j - delta];
+                    j -= delta;
+                }
+                arr[j] = min;
+            }
+
+            delta = delta / 2;
+
+        }
+        return arr;
+    }
+
+\end{lstlisting}
+
+
+Im Folgenden betrachten wir die Anzahl für die im Code durch Kommentare markierten Stellen $c1$ in Zeile 11, $c2$ in Zeile 13 und $c3$ in Zeile 20.
+
+\\
+Für eine erste \textit{worst case} Analyse ist ein Feld der Länge $16$ gegeben, in absteigender Reihenfolge sortiert (s. Abbildung~\ref{fig:bestcase})
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=15cm,
+        keepaspectratio,
+    ]{chapters/1. Anzahl der Vergleiche/img/bestcase-sequence.png}
+    \caption{Die für die Laufzeitabschätzung verwendete Eingabefolge $16..1$}
+\label{fig:bestcase}
+\end{figure}
+
+\\
+
+Ganz offensichtlich gilt für \textbf{c3}, dass es $lg(n)$-mal aufgerufen wird\footnote{hier wie im folgenden ohne Betrachtung der Schleifenbedingung, die an dieser Stelle insgesamt $lg(n) + 1$-mal aufgerufen wird}.
+\\
+
+\textbf{c2} befindet sich im Block der durch die in Zeile 11 definierten Zählschleife.
+
+Der Startwert für \code{i} ist in jedem Durchgang des Blocks $c1$ der aktuelle Wert von \code{delta}\footnote{${8, 4, 2, 1}$ für das gegebene Beispiel}, und läuft jeweils bis $n - 1$.
+
+In einem kompletten Durchlauf der Schleife enstpricht die Anzahl der Aufrufe von $c2$ also
+
+\begin{equation}
+(n - 1) - delta + 1
+\end{equation}
+
+Für die  Gesamtzahl der Aufrufe von $c2$ ergibt sich somit unter Berücksichtigung von $c1$
+
+\begin{equation}
+\sum_{i=1}^{lg(n)} n - 2^{i-1}
+\end{equation}
+
+was nach Auflösen
+
+\begin{equation}
+    n * lg(n) - n + 1
+\end{equation}
+
+entspricht, und für unser Beispiel
+
+\begin{equation}
+    16 * lg(16) - 16 + 1 = 49
+\end{equation}
+
+ist.
+
+In dem durch die in Zeile 18 definierte \code{while}-Schleife findet die eigentliche Arbeit des Algorithmus statt: Es wird überprüft, ob $delta$-entfernte Elemente in aufsteigender Reihenfolge sortiert angeordnet sind.
+
+Ist das nicht der Fall, werden die Elemente an den Stellen $j$ und $j - delta$ ausgetauscht, bis die $h$-Folge sortiert ist.
+
+Für den ersten Durchlauf des Algorithmus an dieser Stelle mit $h_4 = 8$ ergibt sich somit die in Abbildung~\ref{fig:bestcase-it1} dargestellte Reihenfolge der Schlüssel:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=15cm,
+        keepaspectratio,
+    ]{chapters/1. Anzahl der Vergleiche/img/bestcase-it1.png}
+    \caption{Nach dem ersten Durchlauf sind die Schlüssel in den Abständen $h_4 = 8$ sortiert, es ergeben sich zwei sortierte Teilfolgen der Länge $8$ }
+    \label{fig:bestcase-it1}
+\end{figure}
+
+Die weiteren Durchgänge des Algorithmus sortieren das Feld entsprechend der Größe $h$: Es sind danach jeweils Schlüssel mit den Abständen $4$ (Abbildung~\ref{fig:bestcase-it2}), $2$  (Abbildung~\ref{fig:bestcase-it3}), und im letzten Schritt vollständig sortiert (Abbildung~\ref{fig:bestcase-it4}):
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=15cm,
+        keepaspectratio,
+    ]{chapters/1. Anzahl der Vergleiche/img/bestcase-it2.png}
+    \caption{Die Sortierung für $h_3 = 4$, es sind 4 Folgen, deren Schlüssel jeweils den Abstand $4$ haben. }
+    \label{fig:bestcase-it2}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=15cm,
+        keepaspectratio,
+    ]{chapters/1. Anzahl der Vergleiche/img/bestcase-it3.png}
+    \caption{Im vorletzten Sortierschritt sind $8$ Folgen der Länge $2$ sortiert. }
+    \label{fig:bestcase-it3}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=15cm,
+        keepaspectratio,
+    ]{chapters/1. Anzahl der Vergleiche/img/bestcase-it4.png}
+    \caption{Der letzte Durchlauf des Algorithmus vergleicht Schlüssel mit Distanzfolgen der Länge $1$, also direkt benachbarte Schlüssel. }
+    \label{fig:bestcase-it4}
+\end{figure}
+
+\\
+Für die Berechnung der Anzahl der Aufrufe von $c3$ stellt man fest, das in diesem Fall in jedem Schritt \textit{immer} 2 Elemente, die eine Distanz von $h_s$ aufweisen, falsch sortiert sind.
+
+Der Algorithmus tauscht also in diesem Fall in jedem Durchgang alle Schlüssel untereinander aus, die er über \code{min < arr[j-delta]} miteinander vergleicht, was folglich die maximale Anzahl von Schlüsselvertauschungen in dieser vergleichsbasierten Implementierung für ein Feld der Größe $n$ ergibt, nämlich $\frac{n}{2}$.
+Insgesamt finden dadurch für $c3$
+
+\begin{equation}
+    lg(n) * \frac{n}{2}
+\end{equation}
+
+Aufrufe statt.
+
+Mit der Anzahl der berechneten Aufrufe $c1, c2, c3$ ergibt sich somit für die Laufzeit $T(n)$ für diesen Fall
+
+
+\begin{equation}
+    lg(n) + n * lg(n) - n + 1 +  lg(n) * \frac{n}{2}
+\end{equation}
+
+und zusammengefasst
+
+\begin{equation}\label{eq:bestcase}
+ f(n) = \frac{3}{2} * n * lg(n) + lg(n) - n + 1
+\end{equation}
+
+was nach Einsetzen zu
+
+\begin{equation}
+    lg(16) + 16 * lg(16) - 16 + 1 +  lg(16) * \frac{16}{2} = 85
+\end{equation}
+
+Aufrufen für unser Beispiel  führt.
+\\
+
+\subsection*{Nachweis der Komplexitätsklasse}
+Um $O$ zu ermitteln, werden nun alle Konstanten der Funktion~\ref{eq:bestcase} eliminiert, und der ``dominante`` Summand in Abhängigkeit von $n$ betrachtet, der in diesem Fall $lg(n) * n$ ist.
+
+Wir vermuten ein $N-log-N$-Wachstum (vgl.~\cite[5]{OW17a}), und wollen nun zeigen, dass $T(n)$ in $O(n*log(n))$ liegt.
+\\
+Hierfür müssen wir ein geeignetes $c$ und ein $n_0$ finden, so dass gilt:
+
+\begin{equation}
+    f \in O(n*log(n)): \leftrightarrow \exists n_0 \in \mathbb{N}, c \in \mathbb{R}, c > 0: \forall n \geq n_0: f(n) \leq c * n*lg(n)
+\end{equation}
+
+(vgl. \cite[11]{GD18a}).
+\begin{proof}\label{pr:nlogn}
+    \\
+Zu zeigen ist
+\begin{equation}
+\frac{3}{2} * n * lg(n) + lg(n) - n + 1 \leq c * n * lg(n)
+\end{equation}
+
+Wir wählen für $n_0 = 1$  und $c = \frac{3}{2}$, denn es gilt sicher $\forall n \geq n_0: \frac{3}{2} * n * lg(n)  \leq \frac{3}{2} * n * lg(n)$.
+
+Ausserdem gilt stets $\forall n \in \mathbb{N}: lg(n) < n$, woraus $lg(n) - n < 0$ folgt, und damit auch $lg(n) - n + 1 \leq 0$.
+\\
+Insgesamt gilt also
+
+\begin{equation}
+n_0 = 1, c = \frac{3}{2}: \forall n \geq n_0: \frac{3}{2} * n * lg(n) + lg(n) - n + 1 \leq c * n * lg(n)
+\end{equation}
+
+    womit $f = O(n * log(n))$ gezeigt ist.\blacksquare
+\end{proof}
+
+\subsection*{Worst-Case-Analyse}
+
+Unter der Annahme, dass ein in umgekehrter Reihenfolge sortiertes Feld zu einer Laufzeit von $O(n^2)$ bei dem \textbf{Shellsort}-Algorithmus führt, konnten wir mit dem in dem vorherigen Abschnitt gewählten Parametern nur eine Laufzeit von $O(n*log(n))$ nachweisen.
+\\
+
+Tatsächlich stellt der Anwendungsfall nicht den worst-case für den Algorithmus dar, da ja gerade diese Form von Sortierreihenfolge dem Algorithmus die Vorsortierung der $h$-Folgen ermöglicht.
+\\
+
+Für Insertion-Sort ist die Laufzeit im worst-case $O(n^2)$ (vgl.~\cite[87]{OW17b}). Da Shellsort mindestens im letzten Schritt diese Sortiermethoden auf Distanzfolgen der Länge $1$ anwendet, muss der Algorithmus eine Folge als Eingabe erhalten, die durch die ersten $lg(n) - 1$-Durchgänge (mit $h_s = 2^{s - 1}, 1 <= s < log(n)$) \underline{keine} Änderungen an der Schlüsselfolge vornimmt, um dann im allerletzten Schritt \underline{alle} Daten zu sortieren, was $\frac{n}{2}$ Inversionen bedeutet zuzüglich der benötigten Verschiebe-Operationen.
+\\
+Hierzu kann wie im vorherigen Beispiel für $n=16$ ein Feld mit folgender Schlüsselanordnung verwendet werden: Felder mit geradem Index enthalten kleinere Schlüssel als Felder mit ungeradem Index.
+Hier gilt für alle Elemente aus dem Feld $A$:
+
+\begin{equation}
+\forall i, j \in \mathbb{N}_{[0, n - 1]}, 2 \mid i, 2 \nmid j:  A[i] < A[j] \land A[i] < A[i + 1] \land A[j] < A[j +1]
+\end{equation}
+
+Abbildung~\ref{fig:worstcase-sequence} veranschaulicht die Anordnung.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=15cm,
+        keepaspectratio,
+    ]{chapters/1. Anzahl der Vergleiche/img/worstcase-sequence}
+    \caption{Eine \textit{worst-case} Schlüsselfolge für Shellsort unter den o.a. Parametern. Felder mit geradem Index enthalten kleinere Schlüssel als Felder mit ungeradem Index.}
+    \label{fig:worstcase-sequence}
+\end{figure}
