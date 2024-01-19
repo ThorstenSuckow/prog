@@ -1,12 +1,52 @@
 package sandbox;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import test5.AnzahlDerVergleiche;
+
+import java.util.Arrays;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ShellSortTest {
 
+    @Test
+    @DisplayName("ShellSort")
+    public void testShellSort32() {
+
+        int[] tests = new int[]{16};//1024, 512, 256, 128, 64, 32, 16, 8, 4, 2};//10, 100, 1000, 10_000, 100_000};
+        //int[] tests = new int[]{10_000_000};//10, 100, 1000, 10_000, 100_000, 500_000};
+
+        //while (true) {
+            for (int i = 0; i < tests.length; i++) {
+                int l = tests[i];
+                int[] arr = new int[l];
+                Random r = new Random();
+                for (int j = l; j > 0; j--) {
+                    /*if (j % 2 != 0) {
+                        arr[l - j] = l - j +  arr.length;
+                    } else {
+                        arr[l - j] = l - j;
+                    }*/
+                    arr[l - j] = j ;
+                    //arr[l - j] = r.nextInt(1000001);
+                }
+
+                ShellSort.sort(Arrays.copyOfRange(arr, 0, arr.length ));
+                ShellSort.sortAlt(Arrays.copyOfRange(arr, 0, arr.length ));
+
+                for (int o = 0; o < arr.length - 1; o++) {
+                    if (arr[o] > arr[o + 1]) {
+                     //   fail();
+                    }
+                }
+            }
+      //  }
+
+    }
 
     @Test
     @DisplayName("ShellSort")
