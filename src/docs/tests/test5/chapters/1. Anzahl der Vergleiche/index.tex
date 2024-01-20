@@ -125,7 +125,7 @@ In dem durch die in Zeile 18 definierte \code{while}-Schleife findet die eigentl
 
 Ist das nicht der Fall, werden die Elemente an den Stellen $j$ und $j - delta$ ausgetauscht, bis die $h$-Folge sortiert ist.
 
-Für den ersten Durchlauf des Algorithmus an dieser Stelle mit $h_4 = 8$ ergibt sich somit die in Abbildung~\ref{fig:bestcase-it1} dargestellte Reihenfolge der Schlüssel:
+Für den ersten Durchgang des Algorithmus an dieser Stelle mit $h_4 = 8$ ergibt sich somit die in Abbildung~\ref{fig:bestcase-it1} dargestellte Reihenfolge der Schlüssel:
 
 \begin{figure}[h]
     \centering
@@ -133,7 +133,7 @@ Für den ersten Durchlauf des Algorithmus an dieser Stelle mit $h_4 = 8$ ergibt 
         width=15cm,
         keepaspectratio,
     ]{chapters/1. Anzahl der Vergleiche/img/bestcase-it1.png}
-    \caption{Nach dem ersten Durchlauf sind die Schlüssel in den Abständen $h_4 = 8$ sortiert, es ergeben sich zwei sortierte Teilfolgen der Länge $8$ }
+    \caption{Nach dem ersten Durchgang sind die Schlüssel in den Abständen $h_4 = 8$ sortiert, es ergeben sich zwei sortierte Teilfolgen der Länge $8$ }
     \label{fig:bestcase-it1}
 \end{figure}
 
@@ -165,7 +165,7 @@ Die weiteren Durchgänge des Algorithmus sortieren das Feld entsprechend der Gr�
         width=15cm,
         keepaspectratio,
     ]{chapters/1. Anzahl der Vergleiche/img/bestcase-it4.png}
-    \caption{Der letzte Durchlauf des Algorithmus vergleicht Schlüssel mit Distanzfolgen der Länge $1$, also direkt benachbarte Schlüssel. }
+    \caption{Der letzte Durchgang des Algorithmus vergleicht Schlüssel mit Distanzfolgen der Länge $1$, also direkt benachbarte Schlüssel. }
     \label{fig:bestcase-it4}
 \end{figure}
 
@@ -274,3 +274,44 @@ Abbildung~\ref{fig:worstcase-sequence} veranschaulicht die Anordnung.
     \caption{Eine \textit{worst-case} Schlüsselfolge für Shellsort unter den o.a. Parametern. Felder mit geradem Index enthalten kleinere Schlüssel als Felder mit ungeradem Index.}
     \label{fig:worstcase-sequence}
 \end{figure}
+
+Markiert sind die direkt benachbarten Felder, die eine \textit{Inversion} aufweisen\footnote{
+in diesem Zusammenhang bedeutet Inversion: \textit{Fehlstellung} (vgl.~\cite[87]{OW17b})
+}, die im letzten Schritt des Algorithmus eine bzw. mehrere Verschiebungen bedingen.
+\\
+In den vorherigen Schritten - also bei den Durchgängen mit Distanzfolgen $h_s > 1$, findet der Algorithmus jeweils Schlüssel in korrekter Sortierreihenfolge vor.
+
+
+Mit $h_4 = 8$ werden die Felder $A[0..7]$ mit den Feldern $A[8..15]$ verglichen - hier gilt in jedem Fall, dass die Schlüssel $A[i] < A[j] (\forall i < j, j - i = 8)$ sind.
+
+Auch im darauffolgenden Durchgang ($h_3 = 4, j - i = 4$) finden keine Verschiebungen statt, da keine Inversion gefunden wird.
+Erst im letzten Schritt, in dem direkt benachbarte Elemente miteinander verglichen werden, werden die Inversionen ermittelt und die Verschiebung der Elemente findet statt (s. Abbildung~\ref{fig:worstcase-sortsequence}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=15cm,
+        keepaspectratio,
+    ]{chapters/1. Anzahl der Vergleiche/img/worstcase-sortsequence}
+    \caption{Für die \textit{worst-case} Schlüsselfolge werden im letzten Schritt 7 Fehlstellungen festgestellt. Jede Fehlstellung bedingt eine Verschiebung um die angegebene Anzahl von Positionen.}
+    \label{fig:worstcase-sortsequence}
+\end{figure}
+
+In diesem Fall wird $c3$ insgesamt $32$ mal aufgerufen.
+\\
+Da jeweils zwei Schlüssel bereits korrekt sortiert sind ($A[0]$ und $A[n-1]$) existieren noch $\frac{n}{2} - 1$ Inversionen.
+Jede Inversion erzwingt eine Verschiebung des größten Elements um $\frac{i}{2}$ Positionen nach links.
+\\
+Für die Berechnung der Laufzeitkomplexität ergibt sich somit der Term
+
+\begin{equation}
+    \sum_{i=1}^{\frac{n}{2} - 1} i = \frac{\frac{n}{2}(\frac{n}{2} - 1)}{2} = \frac{n^2 - 2n}{8}
+\end{equation}
+
+und unter Berücksichtigung der Terme für $c1$, $c2$, $c3$ die Funktion
+
+\begin{equation}
+    f(n) = lg(n) + n * lg(n) - n + 1 +  \frac{n^2 - 2n}{8}
+\end{equation}
+
+was zu einer Laufzeitabschätzung von $O(n^2)$ führt.
