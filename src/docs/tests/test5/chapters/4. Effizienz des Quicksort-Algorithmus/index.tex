@@ -1,0 +1,27 @@
+\chapter{4. Effizienz des Quicksort-Algorithmus}
+
+\section*{Lösung}
+
+\begin{itemize}
+    \item von den gewählten Schrittfolgen
+    \item von den gewählten Vergleichswerten
+    \item von der Rekursionstiefe
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+Wichtige Maße für die Effizienz eines Algorithmus sind der benötigte Speicherplatz sowie die benötigte Rechenzeit zur Ausführung (vgl. \cite[2]{OW17a}, außerdem Skript (Teil 2) S. 157).
+\\
+Das Skript (Teil 2) stellt auf Seite 177 fest, dass der Aufwand für das Sortieren mit Quicksort wesentlich dadurch bestimmt wird, wie die Folgen in Teilfolgen aufgeteilt werden: So sind bspw. für Folgen der Länge $n$ Teilfolgen der Längen $1$ und $n-1$ möglich, wodurch ein Aufrufbaum \textit{entarten} kann und hohe Rekursionstiefe entsteht (vgl. \cite[177 f.]{GD18e})
+\\
+
+\textit{Ottmann und Widmayer} stellen fest:
+
+\blockquote[{\cite[96]{OW17b}}]{
+    Die im ungünstigsten Fall auszuführende Anzahl von Schlüsselvergleichen und Bewegungen
+    hängt damit stark von der Anzahl der Aufteilungsschritte und damit von der Zahl der
+    initiierten rekursiven Aufrufe ab.
+}
+
+Sie stellen zur Verbesserung der Effizienz die 3-Median-Strategie vor (vgl. \cite[102]{OW17b} sowie \cite[183]{GD18e}), die auch im Skript (Teil 2) auf Seite 177 zur Auswahl des Pivotelements gezeigt wird.
