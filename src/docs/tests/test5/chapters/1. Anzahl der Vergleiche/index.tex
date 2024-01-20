@@ -21,7 +21,8 @@ Im letzten Schritt sortiert der Algorithmus mittels $h_1$ (Abstand=$1$) die Schl
 \\
 Für die Laufzeit $T(n)$ gilt im worst-case $O(n^2)$.
 Allerdings ist die Effizienz des Sortierverfahrens stark abhängig von $h$: So zeigt \textit{Knuth}, dass $O(n^{\frac{3}{2}})$ gilt, wenn für $h$ gilt: $h_s = 2^{s+1} - 1$ mit $0 \leq s < t = \floor{lg(n)}$ (vgl. \cite[91]{Knu97b})\footnote{
-weitere Verweise auf Laufzeiten in Abhängigkeit von $n$ und $h$ listet der Wikipedia-Artikel zusammen mit Quellenangaben unter \url{https://en.wikipedia.org/wiki/Shellsort} auf.
+Knuth bezieht sich hier auf die Arbeit von \textit{Papernov und Stasevich} (\cite[]{PS65}).
+Weitere Verweise auf Laufzeiten in Abhängigkeit von $n$ und $h$ fasst übersichtlich der Wikipedia-Artikel zusammen: \url{https://en.wikipedia.org/wiki/Shellsort} auf.
 }.
 
 \subsection*{Laufzeitanalyse}
@@ -205,12 +206,14 @@ Aufrufen für unser Beispiel  führt.
 \subsection*{Nachweis der Komplexitätsklasse}
 Um $O$ zu ermitteln, werden nun alle Konstanten der Funktion~\ref{eq:bestcase} eliminiert, und der ``dominante`` Summand in Abhängigkeit von $n$ betrachtet, der in diesem Fall $lg(n) * n$ ist.
 
-Wir vermuten ein $N-log-N$-Wachstum (vgl.~\cite[5]{OW17a}), und wollen nun zeigen, dass $T(n)$ in $O(n*log(n))$ liegt.
+Wir vermuten ein $N-log-N$-Wachstum\footnote{
+    mit $O(log\ n)$ bzw $O(n\ log \ n)$ nehmen wir für die $O$-Notation wieder die in der Fachliteratur gebräuchlichere Schreibweise auf. Sowohl \textit{Güting und Dieker} als auch \textit{Ottmann und Widmayer} weisen in \cite[15]{GD18a} bzw. \cite[5]{OW17a} darauf hin, dass die Angabe der Basis keine Rolle spielt, da sich Logarithmen mit verschiedenen Basen ohnehin nur durch einen konstanten Faktor unterscheiden (es gilt $log_a(x) = \frac{log_b(x)}{log_b(a)}$).
+} (vgl.~\cite[5]{OW17a}), und wollen nun zeigen, dass $T(n)$ in $O(n\ log\ n)$ liegt.
 \\
 Hierfür müssen wir ein geeignetes $c$ und ein $n_0$ finden, so dass gilt:
 
 \begin{equation}
-    f \in O(n*log(n)): \leftrightarrow \exists n_0 \in \mathbb{N}, c \in \mathbb{R}, c > 0: \forall n \geq n_0: f(n) \leq c * n*lg(n)
+    f \in O(n\ log\ n): \leftrightarrow \exists n_0 \in \mathbb{N}, c \in \mathbb{R}, c > 0: \forall n \geq n_0: f(n) \leq c * n*lg(n)
 \end{equation}
 
 (vgl. \cite[11]{GD18a}).
@@ -236,13 +239,22 @@ n_0 = 1, c = \frac{3}{2}: \forall n \geq n_0: \frac{3}{2} * n * lg(n) + lg(n) - 
 
 \subsection*{Worst-Case-Analyse}
 
-Unter der Annahme, dass ein in umgekehrter Reihenfolge sortiertes Feld zu einer Laufzeit von $O(n^2)$ bei dem \textbf{Shellsort}-Algorithmus führt, konnten wir mit dem in dem vorherigen Abschnitt gewählten Parametern nur eine Laufzeit von $O(n*log(n))$ nachweisen.
+Unter der Annahme, dass ein in umgekehrter Reihenfolge sortiertes Feld zu einer Laufzeit von $O(n^2)$ bei dem \textbf{Shellsort}-Algorithmus führt, konnten wir mit dem in dem vorherigen Abschnitt gewählten Parametern nur eine Laufzeit von $O(n\ log\ n)$ nachweisen.
 \\
 
-Tatsächlich stellt der Anwendungsfall nicht den worst-case für den Algorithmus dar, da ja gerade diese Form von Sortierreihenfolge dem Algorithmus die Vorsortierung der $h$-Folgen ermöglicht.
+Tatsächlich stellt der Anwendungsfall nicht den worst-case für den Algorithmus dar, da ja gerade diese Form von Sortierreihenfolge dem Algorithmus die Vorsortierung der $h$-Folgen ermöglicht:
+\\
+\blockquote[{\cite[3]{Pra72}}]{
+    The idea underlying Shellsort is that moving elements of A long
+    distances at each swap in the early stages, then shorter distances later,
+    may reduce this $O(n^2)$ bound.
+}
 \\
 
-Für Insertion-Sort ist die Laufzeit im worst-case $O(n^2)$ (vgl.~\cite[87]{OW17b}). Da Shellsort mindestens im letzten Schritt diese Sortiermethoden auf Distanzfolgen der Länge $1$ anwendet, muss der Algorithmus eine Folge als Eingabe erhalten, die durch die ersten $lg(n) - 1$-Durchgänge (mit $h_s = 2^{s - 1}, 1 <= s < log(n)$) \underline{keine} Änderungen an der Schlüsselfolge vornimmt, um dann im allerletzten Schritt \underline{alle} Daten zu sortieren, was $\frac{n}{2}$ Inversionen bedeutet zuzüglich der benötigten Verschiebe-Operationen.
+Es gilt also, die Vorsortierung auszuhebeln.
+\\
+
+Für \textbf{Insertion-Sort} ist die Laufzeit im worst-case $O(n^2)$ (vgl.~\cite[87]{OW17b}). Da Shellsort mindestens im letzten Schritt diese Sortiermethoden auf Distanzfolgen der Länge $1$ anwendet, muss der Algorithmus eine Folge als Eingabe erhalten, die durch die ersten $lg(n) - 1$-Durchgänge (mit $h_s = 2^{s - 1}, 1 <= s < lg(n)$) \underline{keine} Änderungen an der Schlüsselfolge vornimmt, um dann im allerletzten Schritt \underline{alle} Daten zu sortieren, was $\frac{n}{2}$ Inversionen bedeutet zuzüglich der benötigten Verschiebe-Operationen.
 \\
 Hierzu kann wie im vorherigen Beispiel für $n=16$ ein Feld mit folgender Schlüsselanordnung verwendet werden: Felder mit geradem Index enthalten kleinere Schlüssel als Felder mit ungeradem Index.
 Hier gilt für alle Elemente aus dem Feld $A$:
