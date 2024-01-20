@@ -74,7 +74,7 @@ Für die Analyse ist die \textbf{Shellsort}-Implementierung in Listing~\ref{lst:
 Im Folgenden betrachten wir die Anzahl für die im Code durch Kommentare markierten Stellen $c1$ in Zeile 11, $c2$ in Zeile 13 und $c3$ in Zeile 20.
 
 \\
-Für eine erste \textit{worst case} Analyse ist ein Feld der Länge $16$ gegeben, in absteigender Reihenfolge sortiert (s. Abbildung~\ref{fig:bestcase})
+Für eine erste \textit{worst-case}-Analyse ist ein Feld der Länge $16$ gegeben, in absteigender Reihenfolge sortiert (s. Abbildung~\ref{fig:bestcase})
 
 \begin{figure}[h]
     \centering
@@ -254,7 +254,7 @@ Tatsächlich stellt der Anwendungsfall nicht den worst-case für den Algorithmus
 Es gilt also, die Vorsortierung auszuhebeln.
 \\
 
-Für \textbf{Insertion-Sort} ist die Laufzeit im worst-case $O(n^2)$ (vgl.~\cite[87]{OW17b}). Da Shellsort mindestens im letzten Schritt diese Sortiermethoden auf Distanzfolgen der Länge $1$ anwendet, muss der Algorithmus eine Folge als Eingabe erhalten, die durch die ersten $lg(n) - 1$-Durchgänge (mit $h_s = 2^{s - 1}, 1 <= s < lg(n)$) \underline{keine} Änderungen an der Schlüsselfolge vornimmt, um dann im allerletzten Schritt \underline{alle} Daten zu sortieren, was $\frac{n}{2}$ Inversionen bedeutet zuzüglich der benötigten Verschiebe-Operationen.
+Für \textbf{Insertion-Sort} ist die Laufzeit im worst-case $O(n^2)$ (vgl.~\cite[87]{OW17b}). Da Shellsort mindestens im letzten Schritt diese Sortiermethoden auf Distanzfolgen der Länge $1$ anwendet, muss der Algorithmus eine Folge als Eingabe erhalten, die durch die ersten $lg(n) - 1$-Durchgänge (mit $h_s = 2^{s - 1}, 1 <= s < lg(n)$) \underline{keine} Änderungen an der Schlüsselfolge vornimmt, um dann im allerletzten Schritt \underline{alle} Daten zu sortieren, was maximal $\frac{n}{2}$ Inversionen bedeutet zuzüglich der benötigten Verschiebe-Operationen.
 \\
 Hierzu kann wie im vorherigen Beispiel für $n=16$ ein Feld mit folgender Schlüsselanordnung verwendet werden: Felder mit geradem Index enthalten kleinere Schlüssel als Felder mit ungeradem Index.
 Hier gilt für alle Elemente aus dem Feld $A$:
@@ -271,7 +271,7 @@ Abbildung~\ref{fig:worstcase-sequence} veranschaulicht die Anordnung.
         width=15cm,
         keepaspectratio,
     ]{chapters/1. Anzahl der Vergleiche/img/worstcase-sequence}
-    \caption{Eine \textit{worst-case} Schlüsselfolge für Shellsort unter den o.a. Parametern. Felder mit geradem Index enthalten kleinere Schlüssel als Felder mit ungeradem Index.}
+    \caption{Eine \textit{worst-case} Schlüsselfolge für Shellsort. Felder mit geradem Index enthalten kleinere Schlüssel als Felder mit ungeradem Index.}
     \label{fig:worstcase-sequence}
 \end{figure}
 
