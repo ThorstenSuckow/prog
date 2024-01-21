@@ -57,11 +57,11 @@ public class ShellSort {
 
         double logn = 3 * n * (Math.log(n) / Math.log(2));
 
-        double lgn = ceilbinlog((int)n);
+
 
         double s = n * (Math.log(n) / Math.log(2)) - n +1 + ((Math.pow(n, 2) - n) / 2);
 
-
+        double lgn = ceilbinlog((int)n);
         double c2log = n * lgn - uppern((int)n);
 //System.out.println(uppern((int)n));
        /* System.out.println("n: " + n+ ", s: " + s + "; shifts: " + total + "(" + (((Math.pow(n, 2) - n) / 4)) + "); outer: " + total);
@@ -89,13 +89,13 @@ public class ShellSort {
         return arr;
     }
 
-    public static int[] sortAlt(int[] feld) {
+    public static int[] sortLog(int[] feld, HashMap<String, Integer> hits) {
 
         int i, j;
         int n = feld.length;
         int distanz = n / 2;
         int temp;
-        int c1 = 0, c2 = 0, c3 = 0;
+        int c1 = 0, c2 = 0, c3 = 0, c4 = 0;
 
         while (distanz > 0) {
 
@@ -104,10 +104,12 @@ public class ShellSort {
             for (i = distanz; i < feld.length; i++) {
                 j = i - distanz;
 
+                c2++;
+
                 while (j >= 0) {
-                    c2++;
+                    c3++;
                     if (feld[j] > feld[j + distanz]) {
-                        c3++;
+                        c4++;
                         temp = feld[j];
                         feld[j] = feld[j + distanz];
                         feld[j + distanz] = temp;
@@ -115,53 +117,57 @@ public class ShellSort {
                     } else {
                         j=-1;
                     }
-
                 }
             }
             distanz = distanz / 2;
         }
 
-
-        double lgn = ceilbinlog((int)n);
-
-        HashMap<String, Integer> hits = new HashMap<String, Integer>();
-
-        if (c2  < Math.pow(n, 1.1)) {
-            hits.put("n - hits.)
-            System.out.println("1.1 ["+n+"] " +(c2 < n*lgn) +" " + (c2  < Math.pow(n, 1.3)) + " " + ( n*lgn < Math.pow(n, 1.3)));// c2log < n*lgn && Math.pow(n, 1.3) < n*lgn ));
-            System.exit(0);
-        }
-
-        if (c2  < n*lgn) {
-            System.out.println("nlgn ["+n+"] " +(c2 < n*lgn) +" " + (c2  < Math.pow(n, 1.3)) + " " + ( n*lgn < Math.pow(n, 1.3)));// c2log < n*lgn && Math.pow(n, 1.3) < n*lgn ));
-            System.exit(0);
-        }
-
-        if (c2 > n*lgn && c2  < Math.pow(n, 1.3) ) {
-            System.out.println("n*lgn - 1.3 ["+n+"] " +(c2 < n*lgn) +" " + (c2  < Math.pow(n, 1.3)) + " " + ( n*lgn < Math.pow(n, 1.3)));// c2log < n*lgn && Math.pow(n, 1.3) < n*lgn ));
-            System.exit(0);
-        }
-
-        /* if (c2 > Math.pow(n, 1.3) && c2 < Math.pow(n, 2))  {
-            System.out.println("1.3 - 2 ["+n+"] " +(c2 < n*lgn) +" " + (c2  < Math.pow(n, 1.3)) + " " + ( n*lgn < Math.pow(n, 1.3)));// c2log < n*lgn && Math.pow(n, 1.3) < n*lgn ));
-            System.exit(0);
-        }*/
-        if (c2 > Math.pow(n, 1.3) && c2 < n*lgn)  {
-            System.out.println("1.3 - nlgn ["+n+"] " +(c2 < n*lgn) +" " + (c2  < Math.pow(n, 1.3)) + " " + ( n*lgn < Math.pow(n, 1.3)));// c2log < n*lgn && Math.pow(n, 1.3) < n*lgn ));
-            System.exit(0);
-        }
-        if (c2 > Math.pow(n, 1.3) && c2 < n*lgn)  {
-            System.out.println("1.3 ["+n+"] " +(c2 < n*lgn) +" " + (c2  < Math.pow(n, 1.3)) + " " + ( n*lgn < Math.pow(n, 1.3)));// c2log < n*lgn && Math.pow(n, 1.3) < n*lgn ));
-            System.exit(0);
-        }
-       // System.out.println("["+n+"] " +(c2 < n*lgn) +" " + (c2  < Math.pow(n, 1.3)) + " " + ( n*lgn < Math.pow(n, 1.3)));// c2log < n*lgn && Math.pow(n, 1.3) < n*lgn ));
-
-        // System.out.println("result: " + Arrays.toString(feld));
-      //  System.out.println("c1: " + c1+ "; c2: " + c2 +"; c3: " +c3);
-
+        increment(n, c3, hits);
 
         return feld;
     }
+
+    public static void increment(double n, double x, HashMap<String, Integer> hits) {
+        String key;
+        double n1_1 = Math.pow(n, 1.1);
+        double n1_3 = Math.pow(n, 1.3);
+        double n2 = Math.pow(n, 2);
+        double nlgn = n * (Math.log(n) / Math.log(2));
+
+        if (x <= n1_1) {
+            key = "x < n^1.1";
+            hits.put(key, hits.get(key) != null ? hits.get(key) + 1 : 1);
+        } else if (x <= nlgn && nlgn <= n1_3) {
+
+            key = "x < nlgn < n^1.3";
+            hits.put(key, hits.get(key) != null ? hits.get(key) + 1 : 1);
+
+        } else if (x <= n1_3 && n1_3 <= nlgn) {
+
+            key = "x < n^1.3 < nlgn";
+            hits.put(key, hits.get(key) != null ? hits.get(key) + 1 : 1);
+
+        } else if (nlgn <= x && x <= n1_3) {
+            key = "nlgn < x < n^1.3";
+            hits.put(key, hits.get(key) != null ? hits.get(key) + 1 : 1);
+
+        } else if (n1_3 <= x  && x <= nlgn) {
+
+            key = "n^1.3 < x < nlgn";
+            hits.put(key, hits.get(key) != null ? hits.get(key) + 1 : 1);
+
+        } else if (n1_3 <= nlgn && nlgn <= x && x <= n2) {
+
+            key = "n^1.3 < nlgn < x < n^2";
+            hits.put(key, hits.get(key) != null ? hits.get(key) + 1 : 1);
+
+        } else if (nlgn <= n1_3 && n1_3 <= x && x <= n2) {
+            key = "nlgn < n^1.3 < x < n^2";
+            hits.put(key, hits.get(key) != null ? hits.get(key) + 1 : 1);
+        }
+
+    }
+
 
     public static int uppern(int n) {
 
