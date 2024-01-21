@@ -27,17 +27,16 @@ Knuth bezieht sich hier auf die Arbeit von \textit{Papernov und Stasevich} (\cit
 Weitere Verweise auf Laufzeiten in Abhängigkeit von $n$ und $h$ fasst übersichtlich der Wikipedia-Artikel zusammen: \url{https://en.wikipedia.org/wiki/Shellsort} auf.
 }.
 \\
-
-In der Aufgabe wurde nach der Anzahl der zwischen zwei Feldelementen gemachte Vergleiche gefragt (\code{feld[j] > feld[j + distanz]}), die für große randomisierte Felder durchgeführt werden.
+\subsection*{Aufgabenstellung}
+In der Aufgabe wurde nach der Anzahl der zwischen zwei Feldelementen gemachten Vergleiche gefragt (\code{feld[j] > feld[j + distanz]}), die für große randomisierte Felder durchgeführt werden.
 Mit dem Programmcode in Listing~\ref{lst:shellsort} entspricht dies der Anzahl von Aufrufen von dem mit $c3$ markierten Codeblock.
-Zur Lösung der Aufgabe genügt es, randomisierte Felder zu erzeugen und zu überprüfen, ob sich die Aufrufanzahl von $c3$ innerhalb der folgenden Intervalle bewegen:
+Zur Lösung der Aufgabe genügt es, randomisierte Felder zu erzeugen und zu überprüfen, ob sich die Aufrufanzahl von $c3$ innerhalb gewisser Bereiche bewegt. Uns interessieren vor allem die folgenden Intervalle$\footnote{ab einem bestimmten $n$ wird $n\ log\ n$ kleiner als $n^1.3$, siehe dazu Tabelle~\ref{tab:calls}}:
 
 \begin{itemize}
-    \item $[n, n^{1.1}]$
-    \item $[n^{1.1}, n^{1.3}]$
-    \item $[n^{1.3}, n\ log \n]$
-    \item $[n\ log \n, n^{1.3}]$\footnote{ab einem bestimmten $n$ wird $n\ log\ n$ kleiner als $n^1.3$, siehe dazu Tabelle~\ref{tab:calls}}
-    \item $[n^{1.3}, n^2]$
+     \item $n^{1.3} \leq x \leq n\ log \n$
+     \item $n\ log \n \leq x \leq n^{1.3}$
+     \item $n\ log \n \leq n^{1.3} \leq x \leq n^2$
+
 \end{itemize}
 
 

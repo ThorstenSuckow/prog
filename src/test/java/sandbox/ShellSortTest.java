@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import test5.AnzahlDerVergleiche;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -14,13 +16,14 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ShellSortTest {
 
     @Test
-    @DisplayName("ShellSort")
-    public void testShellSort32() {
+    @DisplayName("ShellSortHits")
+    public void testShellSortHits() {
 
-        int t = 0;
-        while(true) {
-            System.out.println("Test: " + (t++));
-            int[] tests = new int[]{1000, 10000, 100000, 1000000};//)/ 100000, 1_000_000, 5_000_000};
+        HashMap<String, Integer> hits = new HashMap<String, Integer>();
+
+        int t = 2000;
+        while(t-- >= 0) {
+            int[] tests = new int[]{1_000_000};
             Random r = new Random();
             for (int i = 0; i < tests.length; i++) {
                 int l = tests[i];
@@ -30,9 +33,14 @@ public class ShellSortTest {
                     arr[l - j] = r.nextInt(l + 1);
                 }
 
-
-                ShellSort.sortAlt(Arrays.copyOfRange(arr, 0, arr.length));
+                ShellSort.sortLog(Arrays.copyOfRange(arr, 0, arr.length), hits);
             }
+        }
+
+        for (Map.Entry<String, Integer> entry : hits.entrySet()) {
+            String key = entry.getKey();
+            int value = entry.getValue();
+            System.out.println(key + ": " + value);
         }
 
     }
