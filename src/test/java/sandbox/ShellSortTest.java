@@ -11,9 +11,26 @@ import java.util.Map;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ShellSortTest {
+
+
+    @Test
+    @DisplayName("ValidateLogN")
+    public void testValidateLogN() {
+
+        int n = 100;
+
+
+        while ((n * Math.log(n) / Math.log(2)) > Math.pow(n, 4/3d)) {
+            n++;
+        }
+
+        assertEquals(982, n);
+
+    }
 
     @Test
     @DisplayName("ShellSortLognHits")
