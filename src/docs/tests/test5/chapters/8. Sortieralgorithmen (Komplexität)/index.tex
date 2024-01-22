@@ -1,0 +1,24 @@
+\chapter{Sortieralgorithmen (Komplexität)}
+
+\section*{Lösung}
+
+\begin{itemize}
+    \item Alle auf Vergleichen beruhenden Sortierverfahren sind in der Laufzeitklasse $\Omega(n\ log\ n)$
+    \item MergeSort ist in der Laufzeitklasse $\O(n^2)$
+    \item MergeSort ist in der Laufzeitklasse $\O(n\ log\ n)$
+    \item QuickSort ist in der Laufzeitklasse $\O(n^2)$
+\end{itemize}
+
+
+\section*{Anmerkungen und Ergänzungen}
+
+\blockquote[{\cite[154, Satz 2.4]{OW17b}}]{
+    Jedes allgemeine Sortierverfahren benötigt zum Sortieren von N verschiedenen Schlüsseln sowohl im schlechtesten Fall als auch im Mittel wenigstens $\Omega(N\ log\ N)$
+    Schlüsselvergleiche.
+}\\
+
+Aus diesem Grund gilt die Aussage, dass alle auf Vergleichen beruhenden Sortierverfahren in der Laufzeitklasse $\Omega(n\ log\ n)$ sind.\\
+
+Für \textit{Merge Sort} gilt auch im \textit{worst-case} die obere Schranke $O(n\ log \n)$ (vgl.(~\cite[116]{OW17b})).\\
+
+\textit{QuickSort} benötigt im Mittel eine Laufzeit von $O(n\ log\ n)$ (vgl.~\cite[99]{OW17b}) sowie im worst-case quadratische Laufzeit (vgl.~\cite[96]{OW17b}, außerdem Abschnitt~\ref{ch:quicksort}).
