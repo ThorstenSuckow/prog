@@ -95,7 +95,7 @@ public class ShellSort {
         int n = feld.length;
         int distanz = n / 2;
         int temp;
-        int c1 = 0, c2 = 0, c3 = 0, c4 = 0;
+        long c1 = 0, c2 = 0, c3 = 0, c4 = 0;
 
         while (distanz > 0) {
 
@@ -122,7 +122,7 @@ public class ShellSort {
             distanz = distanz / 2;
         }
 
-        increment(n, c3, hits);
+        increment(n, c4, hits);
 
         return feld;
     }
@@ -133,6 +133,7 @@ public class ShellSort {
         double n1_3 = Math.pow(n, 1.3);
         double n2 = Math.pow(n, 2);
         double nlgn = n * (Math.log(n) / Math.log(2));
+
 
         if (x <= n1_1) {
             key = "x < n^1.1";

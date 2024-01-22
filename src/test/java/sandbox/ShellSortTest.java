@@ -16,14 +16,74 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ShellSortTest {
 
     @Test
+    @DisplayName("ShellSortLognHits")
+    public void testShellSortLognits() {
+
+        HashMap<String, Integer> hits = new HashMap<String, Integer>();
+
+        int epochs = 100;
+        while(epochs-- > 0) {
+            int[] tests = new int[]{(int)Math.pow(2, 20)};
+
+            for (int i = 0; i < tests.length; i++) {
+                int l = tests[i];
+                int[] arr = new int[l];
+
+                for (int j = l; j > 0; j--) {
+                    arr[l - j] = j;
+                }
+
+                ShellSort.sortLog(Arrays.copyOfRange(arr, 0, arr.length), hits);
+            }
+        }
+
+        for (Map.Entry<String, Integer> entry : hits.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+
+    @Test
+    @DisplayName("ShellSortN2Hits")
+    public void testShellSortN2its() {
+
+        HashMap<String, Integer> hits = new HashMap<String, Integer>();
+
+        int epochs = 1;
+        while(epochs-- > 0) {
+            int[] tests = new int[]{(int)Math.pow(2, 20)};
+
+            for (int i = 0; i < tests.length; i++) {
+                int l = tests[i];
+                int[] arr = new int[l];
+
+                for (int j = 0; j < l; j++) {
+                    if (j % 2 != 0) {
+                        arr[j] = l / 2 + j - 1;
+                    } else {
+                        arr[j] = j / 2;
+                    }
+                }
+
+                ShellSort.sortLog(Arrays.copyOfRange(arr, 0, arr.length), hits);
+            }
+        }
+
+        for (Map.Entry<String, Integer> entry : hits.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+
+
+
+    @Test
     @DisplayName("ShellSortHits")
     public void testShellSortHits() {
 
         HashMap<String, Integer> hits = new HashMap<String, Integer>();
 
-        int t = 2000;
-        while(t-- >= 0) {
-            int[] tests = new int[]{1_000_000};
+        int epochs = 2000;
+        while(epochs-- > 0) {
+            int[] tests = new int[]{10, 100, 1000, 100_000, 1_000_000};
             Random r = new Random();
             for (int i = 0; i < tests.length; i++) {
                 int l = tests[i];
@@ -38,9 +98,7 @@ public class ShellSortTest {
         }
 
         for (Map.Entry<String, Integer> entry : hits.entrySet()) {
-            String key = entry.getKey();
-            int value = entry.getValue();
-            System.out.println(key + ": " + value);
+            System.out.println(entry.getKey() + ": " + entry.getValue());
         }
 
     }
