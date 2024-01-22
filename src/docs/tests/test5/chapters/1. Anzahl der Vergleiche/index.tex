@@ -29,8 +29,46 @@ Weitere Verweise auf Laufzeiten in Abhängigkeit von $n$ und $h$ fasst übersich
 \\
 \subsection*{Aufgabenstellung}
 In der Aufgabe wurde nach der Anzahl der zwischen zwei Feldelementen gemachten Vergleiche gefragt (\code{feld[j] > feld[j + distanz]}), die für große randomisierte Felder durchgeführt werden.
-Mit dem Programmcode in Listing~\ref{lst:shellsort} entspricht dies der Anzahl von Aufrufen von dem mit $c3$ markierten Codeblock.
-Zur Lösung der Aufgabe genügt es, randomisierte Felder zu erzeugen und zu überprüfen, ob sich die Aufrufanzahl von $c3$ innerhalb gewisser Bereiche bewegt. Uns interessieren vor allem die folgenden Intervalle$\footnote{ab einem bestimmten $n$ wird $n\ log\ n$ kleiner als $n^1.3$, siehe dazu Tabelle~\ref{tab:calls}}:
+
+Um die Aufrufe zu zählen, kann wie in Listing~\ref{lst:counter} eine Zählvariable $c4$ eingesetzt wird, die jeden Aufruf über ein \textit{increment} protokolliert.
+
+\begin{lstlisting}[language=java,label=lst:counter]
+
+    while (distanz > 0) {
+        c1++;
+        for (i = distanz; i < feld.length; i++) {
+            j = i - distanz;
+            c2++;
+            while (j >= 0) {
+                c3++;
+                if (feld[j] > feld[j + distanz]) {
+                    c4++;
+                    swap(feld, j, j+distanz);
+                    j = j - distanz;
+                } else {
+                    j =-1;
+                }
+            }
+        }
+        distanz = distanz / 2;
+}
+
+\end{lstlisting}
+
+Zur Lösung der Aufgabe genügt es jetzt, randomisierte Felder zu erzeugen, wie es der Test-Code in Listing~\ref{lst:test} demonstriert. Nun wird überprüft, in welchen Bereichen sich $c4$ bewegt. Da bereits bekannt ist, das jeder auf Vergleichsoperationen basierende Sortieralgorithmus zu der Laufzeitklasse $\Omega(n\ log\ n)$ gehört, kann $c4$ ignoriert werden, wenn $c4 < n\ log\ n$ gilt.
+Allerdings wird $n^1.3$ ab $n=3865$ schneller wachsen als $n\ log\ n$ (siehe Abbildung~\ref{fig:lognplot}), weshalb das in der Auswertung berücksichtigt werden muss - man könnte sonst fälschlicherweise meinen, das in dem geg. Fall die Laufzeit im Durchschnitt auch $n\ log \n$ beträgt.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=15cm,
+        keepaspectratio,
+    ]{chapters/1. Anzahl der Vergleiche/img/lognplot.png}
+    \caption{Ab $n=3865$ wächst $x^1.3$ schneller als $n\ log \n$.}
+\label{fig:bestcase}
+\end{figure}
+
+die Ausgabe der Anzahl der   als $n\ log\ n$, weshalb wird noch überprüfen allerdings wächst   Uns interessieren vor allem die folgenden Intervalle$\footnote{ab einem bestimmten $n$ wird $n\ log\ n$ kleiner als $n^1.3$, siehe dazu Tabelle~\ref{tab:calls}}:
 
 \begin{itemize}
      \item $n^{1.3} \leq x \leq n\ log \n$
@@ -38,6 +76,29 @@ Zur Lösung der Aufgabe genügt es, randomisierte Felder zu erzeugen und zu übe
      \item $n\ log \n \leq n^{1.3} \leq x \leq n^2$
 
 \end{itemize}
+
+\begin{lstlisting}[language=java,label=lst:test]
+
+    while (distanz > 0) {
+        c1++;
+        for (i = distanz; i < feld.length; i++) {
+            j = i - distanz;
+            c2++;
+            while (j >= 0) {
+                c3++;
+                if (feld[j] > feld[j + distanz]) {
+                    c4++;
+                    swap(feld, j, j+distanz);
+                    j = j - distanz;
+                } else {
+                    j =-1;
+                }
+            }
+        }
+        distanz = distanz / 2;
+}
+
+\end{lstlisting}
 
 
 \subsection*{Laufzeitanalyse}
