@@ -7,25 +7,27 @@ Eine Laufzeitabschätzung führt zu $O(n^{\frac{4}{3}})$ ($ = O(n^{1.3})$).
 
 \section*{Anmerkungen und Ergänzungen}
 
-Bei dem vorgestellten Algorithmus handelt es sich um einen Sortieralgorithmus, der bereits 1959 von \textit{Donald Shell}\footnote{
+Bei dem Algorithmus handelt es sich um einen Sortieralgorithmus, der bereits 1959 von \textit{Donald Shell}\footnote{
 \cite[]{She59}
 } vorgestellt wurde, und mit \textbf{Shellsort} auch nach ihm benannt wurde.\\
 
-Die in dem Algorithmus verwendete Sortiermethode ist auch bekannt als \textit{Sortieren mit abnehmenden Inkrementen}\cite[88]{OW17b}.
+Die in dem Algorithmus verwendete Sortiermethode ist auch bekannt als \textit{Sortieren mit abnehmenden Inkrementen}~\cite[88]{OW17b}, das Verfahren ist eine Variation von \textbf{Insertion Sort}:
+
+\blockquote[{\cite[48]{CL22}}]{
+    [Shellsort] uses insertion sort on periodic subarrays of the input to produce a faster sorting algorithm.
+}\\
 
 In der vorliegenden Implementierung werden $t = log_2(n)$  Inkremente\footnote{
     mit $n =$ Länge des zu sortierenden Feldes. Im folgenden $lg$ für $log_2$.
 } $h_t$\footnote{
 vgl. \cite[84]{Knu97b}
 } der Form $\floor{\frac{n}{2^i}}$ verwendet, um $lg(n)$ $h$-sortierte Folgen zu erzeugen.
-Im letzten Schritt sortiert der Algorithmus mittels $h_1$ (Abstand=$1$) die Schlüssel; die stattfindenden Operationen sind vergleichbar mit denen von Insertion-Sort.
+Im letzten Schritt sortiert der Algorithmus dann in $h_1$ die Schlüssel mit Abstand=$1$.\\
 
-\\
-Für die Laufzeit $T(n)$ gilt im worst-case $O(n^2)$.
-Allerdings ist die Effizienz des Sortierverfahrens stark abhängig von $h$: So zeigt \textit{Knuth}, dass $O(n^{\frac{3}{2}})$ gilt, wenn für $h$ gilt: $h_s = 2^{s+1} - 1$ mit $0 \leq s < t = \floor{lg(n)}$ (vgl. \cite[91]{Knu97b})\footnote{
+Die Effizienz des Sortierverfahrens ist stark abhängig von $h$: So zeigt \textit{Knuth}, dass $O(n^{\frac{3}{2}})$ gilt, wenn für $h$ gilt: $h_s = 2^{s+1} - 1$ mit $0 \leq s < t = \floor{lg(n)}$ (vgl. \cite[91]{Knu97b})\footnote{
 Knuth bezieht sich hier auf die Arbeit von \textit{Papernov und Stasevich} (\cite[]{PS65}).
 Weitere Verweise auf Laufzeiten in Abhängigkeit von $n$ und $h$ fasst übersichtlich der Wikipedia-Artikel zusammen: \url{https://en.wikipedia.org/wiki/Shellsort} auf.
-}.
+}. In unserem Fall können wir von $O(n^2)$ ausgehen.
 \\
 \subsection*{Aufgabenstellung}
 In der Aufgabe wurde nach der Anzahl der zwischen zwei Feldelementen gemachten Vergleiche gefragt (\code{feld[j] > feld[j + distanz]}), die für große randomisierte Felder durchgeführt werden.
@@ -63,8 +65,8 @@ Jedes allgemeine Sortierverfahren benötigt zum Sortieren von N verschiedenen Sc
 Schlüsselvergleiche.
 }\\
 
-Allerdings wird $n^{1.3}$ ab $n=3865$ schneller wachsen als $n\ log\ n$ (siehe Abbildung~\ref{fig:lognplot}), weshalb das in der Auswertung berücksichtigt werden muss - man könnte sonst fälschlicherweise meinen, das in dem geg. Fall die Laufzeit im Durchschnitt $n\ log\ n$ beträgt.
-
+Allerdings wird $n^{1.3}$ ab $n=982$ schneller wachsen als $n\ log\ n$ (siehe Abbildung~\ref{fig:lognplot}), weshalb das in der Auswertung berücksichtigt werden muss - man könnte sonst fälschlicherweise meinen, das in dem geg. Fall die Laufzeit im Durchschnitt $n\ log\ n$ beträgt.
+\newpage
 \begin{lstlisting}[language=java,caption={Code zum Erzeugen randomisierter Felder zum Testen von Shellsort.},label=lst:test]
 
 int epochs = 2000;
@@ -91,19 +93,25 @@ while(epochs-- >= 0) {
         width=10cm,
         keepaspectratio,
     ]{chapters/1. Anzahl der Vergleiche/img/lognplot.png}
-    \caption{Ab $n=3865$ wächst $x^{1.3}$ schneller als $n\ log \n$.}
+    \caption{Ab $n=982$ wächst $n^{1.3}$ schneller als $n\ log\ n$.}
 \label{fig:lognplot}
 \end{figure}
 
-Uns interessieren vor allem die folgenden Intervalle$\footnote{siehe dazu auch Tabelle~\ref{tab:calls}}:
+Wegen $\Omega(n\ log\ n)$ interessieren wir uns für die Intervalle$\footnote{siehe dazu auch Tabelle~\ref{tab:calls}}:
 
 \begin{itemize}
-     \item $n^{1.3} \leq x \leq n\ log \n$
-     \item $n\ log \n \leq x \leq n^{1.3}$
-     \item $n\ log \n \leq n^{1.3} \leq x \leq n^2$
+     \item $n\ log\ n \leq c4 \leq n^{1.3}$
+     \item $n\ log\ n \leq n^{1.3} \leq c4 \leq n^2$
 \end{itemize}
 
-Die Ausführung der Tests zeigen, dass sich die Aufrufanzahl von $c4$ bei großen $n$ unterhalb $n^{1.3}$ bewegt, im worst-case zwischen $n^{1.3}$ und $n^2$.
+Die Ausführung des Tests zeigt, dass die Aufrufanzahl von $c4$ bei großen $n$ unterhalb $n^{1.3}$ oder zwischen $n^{1.3}$ und $n^2$ liegt:
+
+\blockquote[{\cite[31]{She59}}]{
+It appears that the time required to sort $n$ elements is proportional to $n^{1.226}$.\footnote{
+\textit{Shell} führt in seinem Paper keinen Beweis auf. Er stützt seine Behauptung auf Messungen, die er selber in Tests durchgeführt hat: ``[...] an analytical determination of the expected speed has eluded the writer. However, experimental use has
+established its speed characteristics.`` (ebenda)
+}
+}
 
 \subsection*{Laufzeitanalyse}
 
@@ -114,7 +122,7 @@ $h_t = \frac{n}{2}, h_{t-1} = \frac{n}{4}, \dots, h_1 = 1$.
 
 Für die Analyse ist die \textbf{Shellsort}-Implementierung in Listing~\ref{lst:shellsort}) gegeben.
 
-\begin{lstlisting}[language=java,label=lst:shellsort,caption={Alternative Implementierung von Shellsort.}]
+\begin{lstlisting}[language=java,label=lst:shellsort,caption={Implementierung des Shellsort-Algorithmus.}]
 
 public static int[] sort(int[] arr) {
 
@@ -215,7 +223,6 @@ entspricht, und für unser Beispiel
 
 ist.
 
-für verschiedene $n$ ausgelistet sind.
 
 \setlength{\tabcolsep}{0.8em}
 {\renewcommand{\arraystretch}{1.7}%
@@ -266,7 +273,7 @@ für verschiedene $n$ ausgelistet sind.
             $1.000.000$ & $18.000.007$ & \cellcolor{green!25}$3.981.071$ & \cellcolor{red!25}$6.30..E7$ & \cellcolor{yellow!25}$1.99..E7$ & \cellcolor{red!25}$1.0E12$ \\
             \hline
         \end{tabular}
-        \caption{Die Aufrufzahlen für $c2$ für verschiedene $n$. Schlüsselvergleiche spielen an dieser Stelle keine Rolle. Grün hinterlegte Werte sind kleiner als $c2$, rote sind größer. Mit $n > 2156$ wächst $O(n^\frac{4}{3})$ schneller als $c2$. $O(n\ log\ n)$ wächst für $n > 3865$ langsamer als $O(n^\frac{4}{3})$ (gelb).
+        \caption{Die Aufrufzahlen für $c2$ für verschiedene $n$. Schlüsselvergleiche spielen an dieser Stelle keine Rolle. Grün hinterlegte Werte sind kleiner als $c2$, rote sind größer. Mit $n > 2156$ wächst $O(n^\frac{4}{3})$ schneller als $c2$ und mit $n >= 982$ schneller als $O(n\ log\ n)$.
         }
         \label{tab:calls}
     \end{center}
@@ -359,7 +366,7 @@ Aufrufen für unser Beispiel  führt.
 Um $O$ zu ermitteln, werden nun alle Konstanten der Funktion~\ref{eq:bestcase} eliminiert, und der ``dominante`` Summand in Abhängigkeit von $n$ betrachtet, der in diesem Fall $lg(n) * n$ ist.
 
 Wir vermuten ein $N-log-N$-Wachstum\footnote{
-    mit $O(log\ n)$ bzw $O(n\ log \ n)$ nehmen wir für die $O$-Notation wieder die in der Fachliteratur gebräuchlichere Schreibweise auf. Sowohl \textit{Güting und Dieker} als auch \textit{Ottmann und Widmayer} weisen in \cite[15]{GD18a} bzw. \cite[5]{OW17a} darauf hin, dass die Angabe der Basis keine Rolle spielt, da sich Logarithmen mit verschiedenen Basen ohnehin nur durch einen konstanten Faktor unterscheiden (es gilt $log_a(x) = \frac{log_b(x)}{log_b(a)}$).
+    mit $O(log\ n)$ bzw $O(n\ log\ n)$ nehmen wir für die $O$-Notation wieder die in der Fachliteratur gebräuchlichere Schreibweise auf. Sowohl \textit{Güting und Dieker} als auch \textit{Ottmann und Widmayer} weisen in \cite[15]{GD18a} bzw. \cite[5]{OW17a} darauf hin, dass die Angabe der Basis keine Rolle spielt, da sich Logarithmen mit verschiedenen Basen ohnehin nur durch einen konstanten Faktor unterscheiden (es gilt $log_a(x) = \frac{log_b(x)}{log_b(a)}$).
 } (vgl.~\cite[5]{OW17a}), und wollen nun zeigen, dass $T(n)$ in $O(n\ log\ n)$ liegt.
 \\
 Hierfür müssen wir ein geeignetes $c$ und ein $n_0$ finden, so dass gilt:
@@ -369,6 +376,7 @@ Hierfür müssen wir ein geeignetes $c$ und ein $n_0$ finden, so dass gilt:
 \end{equation}
 
 (vgl. \cite[11]{GD18a}).
+
 \begin{proof}\label{pr:nlogn}
     \\
 Zu zeigen ist
@@ -386,7 +394,7 @@ Insgesamt gilt also
 n_0 = 1, c = \frac{3}{2}: \forall n \geq n_0: \frac{3}{2} * n * lg(n) + lg(n) - n + 1 \leq c * n * lg(n)
 \end{equation}
 
-    womit $f = O(n * log(n))$ gezeigt ist.\blacksquare
+    womit $f = O(n * log(n))$ gezeigt ist.\square
 \end{proof}
 
 \subsection*{Worst-Case-Analyse}

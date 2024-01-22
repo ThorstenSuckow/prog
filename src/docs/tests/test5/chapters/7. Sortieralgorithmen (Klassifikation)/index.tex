@@ -19,7 +19,7 @@ Bei \textbf{Merge Sort} werden hingegen in Teilschritten Felder angelegt, die je
 Mit \textit{Merge Sort} als Beispiel kann auch die Aussage widerlegt werden, dass \textit{in place}-Verfahren nur genau den Hauptspeicher belegen, der von den zu sortierenden Elementen schon belegt ist: Wenn ein Feld der Länge $n$ gegeben ist, werden $2 * n - 2$ zusätzliche Felder in den Teilschritten angelegt - es wird also zusätzlicher Speicher angefordert.
 \\
 
-Per Defintion bewahren \textbf{stabile Verfahren} die relative Reihenfolge der Daten bei. Ein Beispiel für ein nicht-stabiles Verfahren ist \textbf{Selection Sort}.
+Per Defintion bewahren \textbf{stabile Verfahren} die relative Reihenfolge der Daten bei (vgl.~\cite[170]{GD18e}). Ein Beispiel für ein nicht-stabiles Verfahren ist \textbf{Selection Sort}.
 Im folgenden werden die Schlüssel $1, 4_1, 5, 4_2, 2$ sortiert.
 Da die $4$ mehrfach vorkommt, ist sie entsprechender der ursprünglichen Reihenfolge nummeriert.
 Abbildung \ref{fig:unstablesort} stellt die Sortierung dar.
@@ -33,7 +33,7 @@ Im letzten Schritt haben $4_1$ und $4_2$ ihre Reigenfolge getauscht.
         width=8cm,
         keepaspectratio,
     ]{chapters/7. Sortieralgorithmen (Klassifikation)/img/unstablesort.png}
-    \caption{Ein Beispiel für eine instabile Sortierung (Selection Sort): Nach Durchführung des Verfahrens ist die Reihenfolge von $4_1$ und $4_2$ vertauscht.}
+    \caption{Ein Beispiel für eine instabile Sortierung (Selection Sort): Nach Anwendung des Verfahrens ist die Reihenfolge von $4_1$ und $4_2$ vertauscht.}
     \label{fig:unstablesort}
 \end{figure}
 

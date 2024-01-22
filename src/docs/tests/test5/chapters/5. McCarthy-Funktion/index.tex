@@ -29,11 +29,11 @@ Die maximale Rekursionstiefe kann für die \code{McCarthy 91}-Methode programmat
 
 private static m91depth = 0;
 
-public static int f(int n) {
+public static int m(int n) {
     return f(n, 0);
 }
 
-private static int f(int n, int depth) {
+private static int m(int n, int depth) {
 
     m91depth = Math.max(m91depth, depth);
 
@@ -41,11 +41,23 @@ private static int f(int n, int depth) {
         return n - 10;
     }
 
-    return f(
-        f(n + 11, depth + 1),
+    return m(
+        m(n + 11, depth + 1),
         depth + 1
     );
 
  }
 
 \end{lstlisting}
+
+Abbildung~\ref{fig:recursiontree} zeigt den Aufrufbaum für $n=97$:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=12cm,
+        keepaspectratio,
+    ]{chapters/5. McCarthy-Funktion/img/recursiontree}
+    \caption{Der Aufrufbaum für $m(97)$: Rechte Knoten werden als Rückgabewert der inneren Aufrufe an die äußeren Methoden der Vorgängerknoten übergeben, aus denen die Methodenaufrufe in den linken Teilbäumen resultieren.}
+    \label{fig:recursiontree}
+\end{figure}
