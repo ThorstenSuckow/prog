@@ -18,7 +18,7 @@ In der vorliegenden Implementierung werden $t = log_2(n)$  Inkremente\footnote{
 } $h_t$\footnote{
 vgl. \cite[84]{Knu97b}
 } der Form $\floor{\frac{n}{2^i}}$ verwendet, um $lg(n)$ $h$-sortierte Folgen zu erzeugen.
-Im letzten Schritt sortiert der Algorithmus mittels $h_1$ (Abstand=$1$) die Schlüssel, die stattfindenden Operationen sind vergleichbar mit denen von Insertion-Sort.
+Im letzten Schritt sortiert der Algorithmus mittels $h_1$ (Abstand=$1$) die Schlüssel; die stattfindenden Operationen sind vergleichbar mit denen von Insertion-Sort.
 
 \\
 Für die Laufzeit $T(n)$ gilt im worst-case $O(n^2)$.
@@ -29,16 +29,81 @@ Weitere Verweise auf Laufzeiten in Abhängigkeit von $n$ und $h$ fasst übersich
 \\
 \subsection*{Aufgabenstellung}
 In der Aufgabe wurde nach der Anzahl der zwischen zwei Feldelementen gemachten Vergleiche gefragt (\code{feld[j] > feld[j + distanz]}), die für große randomisierte Felder durchgeführt werden.
-Mit dem Programmcode in Listing~\ref{lst:shellsort} entspricht dies der Anzahl von Aufrufen von dem mit $c3$ markierten Codeblock.
-Zur Lösung der Aufgabe genügt es, randomisierte Felder zu erzeugen und zu überprüfen, ob sich die Aufrufanzahl von $c3$ innerhalb gewisser Bereiche bewegt. Uns interessieren vor allem die folgenden Intervalle$\footnote{ab einem bestimmten $n$ wird $n\ log\ n$ kleiner als $n^1.3$, siehe dazu Tabelle~\ref{tab:calls}}:
+
+Um die Aufrufe zu zählen, kann wie in Listing~\ref{lst:counter} eine Zählvariable $c4$ eingesetzt wird, die jeden Aufruf über ein \textit{increment} protokolliert.
+
+\begin{lstlisting}[language=java,caption={Zur Protokollierung der Aufrufe können in dem Code Zählvariablen eingesetzt werden ($c1, .. ,c4$).},label=lst:counter]
+
+while (distanz > 0) {
+    c1++;
+    for (i = distanz; i < feld.length; i++) {
+        j = i - distanz;
+        c2++;
+        while (j >= 0) {
+            c3++;
+            if (feld[j] > feld[j + distanz]) {
+                c4++;
+                swap(feld, j, j+distanz);
+                j = j - distanz;
+            } else {
+                j =-1;
+            }
+        }
+    }
+    distanz = distanz / 2;
+}
+
+\end{lstlisting}
+
+Zur Lösung der Aufgabe können randomisierte Felder erzeugt werden, wie es der Test-Code in Listing~\ref{lst:test} demonstriert. Dann wird überprüft, in welchen Bereichen sich $c4$ bewegt.
+Da jeder auf Vergleichsoperationen basierende Sortieralgorithmus zu der Laufzeitklasse $\Omega(n\ log\ n)$ gehört\footnote{\cite[154]{OW17b}, Skript (Teil2) S. 180}, kann $c4 \geq n\ log\ n$ angenommen werden:
+
+\blockquote[{\cite[154, Satz 2.4]{OW17b}}]{
+Jedes allgemeine Sortierverfahren benötigt zum Sortieren von N verschiedenen Schlüsseln sowohl im schlechtesten Fall als auch im Mittel wenigstens $\Omega(N\ log\ N)$
+Schlüsselvergleiche.
+}\\
+
+Allerdings wird $n^{1.3}$ ab $n=3865$ schneller wachsen als $n\ log\ n$ (siehe Abbildung~\ref{fig:lognplot}), weshalb das in der Auswertung berücksichtigt werden muss - man könnte sonst fälschlicherweise meinen, das in dem geg. Fall die Laufzeit im Durchschnitt $n\ log\ n$ beträgt.
+
+\begin{lstlisting}[language=java,caption={Code zum Erzeugen randomisierter Felder zum Testen von Shellsort.},label=lst:test]
+
+int epochs = 2000;
+while(epochs-- >= 0) {
+    int[] tests = new int[]{10, 100, 1000, 100_000, 1_000_000};
+    java.util.Random r = new java.util.Random();
+    for (int i = 0; i < tests.length; i++) {
+        int l = tests[i];
+        int[] arr = new int[l];
+
+        for (int j = l; j > 0; j--) {
+            arr[l - j] = r.nextInt(l + 1);
+        }
+
+        ShellSort.sort(Arrays.copyOfRange(arr, 0, arr.length));
+    }
+}
+\end{lstlisting}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=10cm,
+        keepaspectratio,
+    ]{chapters/1. Anzahl der Vergleiche/img/lognplot.png}
+    \caption{Ab $n=3865$ wächst $x^{1.3}$ schneller als $n\ log \n$.}
+\label{fig:lognplot}
+\end{figure}
+
+Uns interessieren vor allem die folgenden Intervalle$\footnote{siehe dazu auch Tabelle~\ref{tab:calls}}:
 
 \begin{itemize}
      \item $n^{1.3} \leq x \leq n\ log \n$
      \item $n\ log \n \leq x \leq n^{1.3}$
      \item $n\ log \n \leq n^{1.3} \leq x \leq n^2$
-
 \end{itemize}
 
+Die Ausführung der Tests zeigen, dass sich die Aufrufanzahl von $c4$ bei großen $n$ unterhalb $n^{1.3}$ bewegt, im worst-case zwischen $n^{1.3}$ und $n^2$.
 
 \subsection*{Laufzeitanalyse}
 
@@ -49,39 +114,39 @@ $h_t = \frac{n}{2}, h_{t-1} = \frac{n}{4}, \dots, h_1 = 1$.
 
 Für die Analyse ist die \textbf{Shellsort}-Implementierung in Listing~\ref{lst:shellsort}) gegeben.
 
-\begin{lstlisting}[language=java,label=lst:shellsort]
+\begin{lstlisting}[language=java,label=lst:shellsort,caption={Alternative Implementierung von Shellsort.}]
 
-    public static int[] sort(int[] arr) {
+public static int[] sort(int[] arr) {
 
-        int n = arr.length;
-        int delta = n/2;
-        int min;
-        int j;
+    int n = arr.length;
+    int delta = n/2;
+    int min;
+    int j;
 
-        while (delta > 0) { // c1
+    while (delta > 0) { // c1
 
-            for (int i = delta; i < arr.length; i++) {
+        for (int i = delta; i < arr.length; i++) {
 
-                // c2
+            // c2
 
-                min = arr[i];
-                j = i;
+            min = arr[i];
+            j = i;
 
-                while (j - delta >= 0 && min < arr[j - delta]) {
+            while (j - delta >= 0 && min < arr[j - delta]) {
 
-                    // c3;
+                // c3;
 
-                    arr[j] = arr[j - delta];
-                    j -= delta;
-                }
-                arr[j] = min;
+                arr[j] = arr[j - delta];
+                j -= delta;
             }
-
-            delta = delta / 2;
-
+            arr[j] = min;
         }
-        return arr;
+
+        delta = delta / 2;
+
     }
+    return arr;
+}
 
 \end{lstlisting}
 
@@ -198,10 +263,10 @@ für verschiedene $n$ ausgelistet sind.
 
             $500.000$ & $8.500.007$  &  \cellcolor{green!25}$1.857.235$ & \cellcolor{red!25}$2.56..E7$ & \cellcolor{yellow!25}$9.465.784$ & \cellcolor{red!25}$2.5E11$ \\
             \hline
-            $1.                                        000.000$ & $18.000.007$ & $3.981.071,70$ & $6.30..E7$ & $1.99..E7$ & $1.0E12$ \\
+            $1.000.000$ & $18.000.007$ & \cellcolor{green!25}$3.981.071$ & \cellcolor{red!25}$6.30..E7$ & \cellcolor{yellow!25}$1.99..E7$ & \cellcolor{red!25}$1.0E12$ \\
             \hline
         \end{tabular}
-        \caption{Die Aufrufzahlen für $c2$ für verschiedene $n$ mit randomisierten Schlüsseln. Grün hinterlegte Werte sind kleiner als $c2$, rote sind größer. Mit $n > 2156$ wächst $O(n^\frac{4}{3})$ schneller als $c2$. $O(n\ log\ n)$ wächst ab einem bestimmten Wert ebenfalls langsamer als $O(n^\frac{4}{3})$ (gelb) aber immer noch schneller als $c2$, ohne Beweis vermuten wir $T_{c2}(n) = O(n\ log\ n)$.
+        \caption{Die Aufrufzahlen für $c2$ für verschiedene $n$. Schlüsselvergleiche spielen an dieser Stelle keine Rolle. Grün hinterlegte Werte sind kleiner als $c2$, rote sind größer. Mit $n > 2156$ wächst $O(n^\frac{4}{3})$ schneller als $c2$. $O(n\ log\ n)$ wächst für $n > 3865$ langsamer als $O(n^\frac{4}{3})$ (gelb).
         }
         \label{tab:calls}
     \end{center}

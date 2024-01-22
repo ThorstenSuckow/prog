@@ -1,10 +1,10 @@
-\usepackage{amsmath}\chapter{5. McCarthy Funktion}
+\chapter{McCarthy-Funktion}
 
 \section*{Lösung}
 
 \begin{itemize}
-    \itemn für $1 \leq i \leq 100$ liefert die Funktion den Wert $f(i) = 91$
-    \item für $n > 100$ den Wert $f(n) = (n - 10)$
+    \item für $1 \leq i \leq 100$ liefert die Funktion den Wert $f(i) = 91$
+    \item für $n > 100$ liefert die Funktion den Wert $f(n) = (n - 10)$
     \item die maximale Rekursionstiefe von $19$ tritt bei $n = 1$ auf
 \end{itemize}
 
@@ -17,37 +17,35 @@ Die \textit{Rekursionstiefe} ist i.A. nicht mit der Anzahl der Methodenaufrufe g
 Die \textbf{Tiefe} eines Knotens ist im Skript auf Seite 101 beschrieben, für sie gilt
 
 \begin{equation}
-
     T(n) = \begin{cases}
-        0\ falls\ n\ Wurzel \\
-        1\ +\ T(n')\ sonst\ (mit\ n'\ =\ Elterknoten)
-        \end{cases}
+               0\ falls\ n\ Wurzel \\
+               1\ +\ T(n')\ sonst\ (mit\ n'\ =\ Elterknoten)
+    \end{cases}
+\end{equation}\\
 
-\end{equation}
+Die maximale Rekursionstiefe kann für die \code{McCarthy 91}-Methode programmatisch wie folgt ermittelt werden (s. Listing~\ref{lst:mccarthy}):
 
-Die maximale Rekursionstiefe kann für die \code{McCarthy 91}-Methode wie folgt ermittelt werden (s. Listing~\ref{lst:mccarthy}):
+\begin{lstlisting}[language=java,caption={Ermittlung der Rekursiontiefe für die McCarthy 91-Funktion. Die Rekursionstiefe wird in einer statischen Variable gespeichert.},label=lst:mccarthy]
 
-\begin{lstlisting}[language=java,label=lst:mccarthy]
+private static m91depth = 0;
 
-    private static m91depth = 0;
+public static int f(int n) {
+    return f(n, 0);
+}
 
-    public static int f(int n) {
-        return f(n, 0);
+private static int f(int n, int depth) {
+
+    m91depth = Math.max(m91depth, depth);
+
+    if (n > 100) {
+        return n - 10;
     }
 
-    private static int f(int n, int depth) {
+    return f(
+        f(n + 11, depth + 1),
+        depth + 1
+    );
 
-        m91depth = Math.max(m91depth, depth);
-
-        if (n > 100) {
-            return n - 10;
-        }
-
-        return f(
-            f(n + 11, depth + 1),
-            depth + 1
-        );
-
-     }
+ }
 
 \end{lstlisting}
