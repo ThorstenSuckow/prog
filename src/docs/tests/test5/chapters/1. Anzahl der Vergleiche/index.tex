@@ -55,7 +55,14 @@ while (distanz > 0) {
 
 \end{lstlisting}
 
-Zur Lösung der Aufgabe können randomisierte Felder erzeugt werden, wie es der Test-Code in Listing~\ref{lst:test} demonstriert. Dann wird überprüft, in welchen Bereichen sich $c4$ bewegt. Da jeder auf Vergleichsoperationen basierende Sortieralgorithmus zu der Laufzeitklasse $\Omega(n\ log\ n)$ gehört\footnote{\cite[154]{OW17b}, Skript (Teil2) S. 180}, kann $c4$ ignoriert werden, wenn $c4 < n\ log\ n$ gilt.
+Zur Lösung der Aufgabe können randomisierte Felder erzeugt werden, wie es der Test-Code in Listing~\ref{lst:test} demonstriert. Dann wird überprüft, in welchen Bereichen sich $c4$ bewegt.
+Da jeder auf Vergleichsoperationen basierende Sortieralgorithmus zu der Laufzeitklasse $\Omega(n\ log\ n)$ gehört\footnote{\cite[154]{OW17b}, Skript (Teil2) S. 180}, kann $c4 \geq n\ log\ n$ angenommen werden:
+
+\blockquote[{\cite[154, Satz 2.4]{OW17b}}]{
+Jedes allgemeine Sortierverfahren benötigt zum Sortieren von N verschiedenen Schlüsseln sowohl im schlechtesten Fall als auch im Mittel wenigstens $\Omega(N\ log\ N)$
+Schlüsselvergleiche.
+}\\
+
 Allerdings wird $n^{1.3}$ ab $n=3865$ schneller wachsen als $n\ log\ n$ (siehe Abbildung~\ref{fig:lognplot}), weshalb das in der Auswertung berücksichtigt werden muss - man könnte sonst fälschlicherweise meinen, das in dem geg. Fall die Laufzeit im Durchschnitt $n\ log\ n$ beträgt.
 
 \begin{lstlisting}[language=java,caption={Code zum Erzeugen randomisierter Felder zum Testen von Shellsort.},label=lst:test]
