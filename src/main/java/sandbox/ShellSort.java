@@ -122,7 +122,7 @@ public class ShellSort {
             distanz = distanz / 2;
         }
 
-        increment(n, c4, hits);
+        increment(n, c3, hits);
 
         return feld;
     }

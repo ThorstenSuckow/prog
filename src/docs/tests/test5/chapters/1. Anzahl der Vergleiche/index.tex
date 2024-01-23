@@ -57,8 +57,8 @@ while (distanz > 0) {
 
 \end{lstlisting}
 
-Zur Lösung der Aufgabe können randomisierte Felder erzeugt werden, wie es der Test-Code in Listing~\ref{lst:test} demonstriert. Dann wird überprüft, in welchen Bereichen sich $c4$ bewegt.
-Da jeder auf Vergleichsoperationen basierende Sortieralgorithmus zu der Laufzeitklasse $\Omega(n\ log\ n)$ gehört\footnote{\cite[154]{OW17b}, Skript (Teil2) S. 180}, kann $c4 \geq n\ log\ n$ angenommen werden:
+Zur Lösung der Aufgabe können randomisierte Felder erzeugt werden, wie es der Test-Code in Listing~\ref{lst:test} demonstriert. Dann wird überprüft, in welchen Bereichen sich $c3$ bewegt.
+Da jeder auf Vergleichsoperationen basierende Sortieralgorithmus zu der Laufzeitklasse $\Omega(n\ log\ n)$ gehört\footnote{\cite[154]{OW17b}, Skript (Teil2) S. 180}, kann im Mittel $c3 \geq n\ log\ n$ angenommen werden:
 
 \blockquote[{\cite[154, Satz 2.4]{OW17b}}]{
 Jedes allgemeine Sortierverfahren benötigt zum Sortieren von N verschiedenen Schlüsseln sowohl im schlechtesten Fall als auch im Mittel wenigstens $\Omega(N\ log\ N)$
@@ -68,7 +68,6 @@ Schlüsselvergleiche.
 Allerdings wird $n^{1.3}$ ab $n=982$ schneller wachsen als $n\ log\ n$ (siehe Abbildung~\ref{fig:lognplot}), weshalb das in der Auswertung berücksichtigt werden muss - man könnte sonst fälschlicherweise meinen, das in dem geg. Fall die Laufzeit im Durchschnitt $n\ log\ n$ beträgt.
 \newpage
 \begin{lstlisting}[language=java,caption={Code zum Erzeugen randomisierter Felder zum Testen von Shellsort.},label=lst:test]
-
 int epochs = 2000;
 while(epochs-- >= 0) {
     int[] tests = new int[]{10, 100, 1000, 100_000, 1_000_000};
@@ -86,6 +85,15 @@ while(epochs-- >= 0) {
 }
 \end{lstlisting}
 
+\begin{tcolorbox}
+Mit einer Wert von $100$ für die Epochen und einer Feldgröße von $2.000.000$ liefert der Test in Listing \ref{lst:test} folgende Ausgabe:
+
+$nlgn < n^{1.3} < x < n^2: 74$\\
+$nlgn < x < n^{1.3}: 26$
+
+\end{tcolorbox}
+
+
 
 \begin{figure}[h]
     \centering
@@ -100,11 +108,11 @@ while(epochs-- >= 0) {
 Wegen $\Omega(n\ log\ n)$ interessieren wir uns für die Intervalle$\footnote{siehe dazu auch Tabelle~\ref{tab:calls}}:
 
 \begin{itemize}
-     \item $n\ log\ n \leq c4 \leq n^{1.3}$
-     \item $n\ log\ n \leq n^{1.3} \leq c4 \leq n^2$
+     \item $n\ log\ n \leq c3 \leq n^{1.3}$
+     \item $n\ log\ n \leq n^{1.3} \leq c3 \leq n^2$
 \end{itemize}
 
-Die Ausführung des Tests zeigt, dass die Aufrufanzahl von $c4$ bei großen $n$ unterhalb $n^{1.3}$ oder zwischen $n^{1.3}$ und $n^2$ liegt:
+Die Ausführung des Tests zeigt, dass die Aufrufanzahl von $c3$ bei großen $n$ unterhalb $n^{1.3}$ oder zwischen $n^{1.3}$ und $n^2$ liegt:
 
 \blockquote[{\cite[31]{She59}}]{
 It appears that the time required to sort $n$ elements is proportional to $n^{1.226}$.\footnote{
