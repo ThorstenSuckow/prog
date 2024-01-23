@@ -98,9 +98,9 @@ public class ShellSortTest {
 
         HashMap<String, Integer> hits = new HashMap<String, Integer>();
 
-        int epochs = 2000;
+        int epochs = 100;
         while(epochs-- > 0) {
-            int[] tests = new int[]{10, 100, 1000, 100_000, 1_000_000};
+            int[] tests = new int[]{2_000_000};
             Random r = new Random();
             for (int i = 0; i < tests.length; i++) {
                 int l = tests[i];
