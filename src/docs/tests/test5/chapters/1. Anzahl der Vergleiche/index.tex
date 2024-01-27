@@ -191,7 +191,7 @@ Ganz offensichtlich gilt für \textbf{c3}, dass es $lg(n)$-mal aufgerufen wird\f
 
 Der Startwert für \code{i} ist in jedem Durchgang des Blocks $c1$ der aktuelle Wert von \code{delta}\footnote{${8, 4, 2, 1}$ für das gegebene Beispiel}, und läuft jeweils bis $n - 1$.
 
-In einem kompletten Durchlauf der Schleife enstpricht die Anzahl der Aufrufe von $c2$ also
+In einem kompletten Durchlauf der Schleife entspricht die Anzahl der Aufrufe von $c2$ also
 
 \begin{equation}
 (n - 1) - delta + 1 = n - delta
@@ -288,7 +288,7 @@ ist.
 \end{table}
 
 
-In dem durch die in Zeile 18 definierte \code{while}-Schleife findet die eigentliche Arbeit des Algorithmus statt: Es wird überprüft, ob $delta$-entfernte Elemente in aufsteigender Reihenfolge sortiert angeordnet sind.
+In der \code{while}-Schleife in Zeile 18 findet die eigentliche Arbeit des Algorithmus statt: Es wird überprüft, ob $delta$-entfernte Elemente in aufsteigender Reihenfolge sortiert angeordnet sind.
 
 Ist das nicht der Fall, werden die Elemente an den Stellen $j$ und $j - delta$ ausgetauscht, bis die $h$-Folge sortiert ist.
 
