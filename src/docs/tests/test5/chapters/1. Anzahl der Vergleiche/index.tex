@@ -304,7 +304,7 @@ Für den ersten Durchgang des Algorithmus an dieser Stelle mit $h_4 = 8$ ergibt 
     \label{fig:bestcase-it1}
 \end{figure}
 
-Die weiteren Durchgänge des Algorithmus sortieren das Feld entsprechend der Größe $h$: Es sind danach jeweils Schlüssel mit den Abständen $4$ (Abbildung~\ref{fig:bestcase-it2}), $2$  (Abbildung~\ref{fig:bestcase-it3}), und im letzten Schritt vollständig sortiert (Abbildung~\ref{fig:bestcase-it4}):
+Die weiteren Durchgänge des Algorithmus sortieren das Feld entsprechend der Größe $h$: Es sind danach jeweils Schlüssel mit den Abständen $4$ (Abbildung~\ref{fig:bestcase-it2}) und $2$  (Abbildung~\ref{fig:bestcase-it3}) sortiert; im letzten Schritt dann vollständig (Abbildung~\ref{fig:bestcase-it4}):
 
 \begin{figure}[h]
     \centering
@@ -312,7 +312,7 @@ Die weiteren Durchgänge des Algorithmus sortieren das Feld entsprechend der Gr�
         width=15cm,
         keepaspectratio,
     ]{chapters/1. Anzahl der Vergleiche/img/bestcase-it2.png}
-    \caption{Die Sortierung für $h_3 = 4$, es sind 4 Folgen, deren Schlüssel jeweils den Abstand $4$ haben. }
+    \caption{Die Sortierung für $h_3 = 4$, es sind 4 Folgen, deren Schlüssel jeweils den Abstand $4$ zueinander haben. }
     \label{fig:bestcase-it2}
 \end{figure}
 
@@ -339,7 +339,7 @@ Die weiteren Durchgänge des Algorithmus sortieren das Feld entsprechend der Gr�
 \\
 Für die Berechnung der Anzahl der Aufrufe von $c3$ stellt man fest, das in diesem Fall in jedem Schritt \textit{immer} 2 Elemente, die eine Distanz von $h_s$ aufweisen, falsch sortiert sind.
 
-Der Algorithmus tauscht also in diesem Fall in jedem Durchgang alle Schlüssel untereinander aus, die er über \code{min < arr[j-delta]} miteinander vergleicht, was folglich die maximale Anzahl von Schlüsselvertauschungen in dieser vergleichsbasierten Implementierung für ein Feld der Größe $n$ ergibt, nämlich $\frac{n}{2}$.
+Der Algorithmus tauscht daraufhin in jedem Durchgang alle Schlüssel untereinander aus, die er über \code{min < arr[j-delta]} miteinander vergleicht, was folglich die maximale Anzahl von Schlüsselvertauschungen in dieser vergleichsbasierten Implementierung für ein Feld der Größe $n$ ergibt, nämlich $\frac{n}{2}$.
 Insgesamt finden dadurch für $c3$
 
 \begin{equation}
