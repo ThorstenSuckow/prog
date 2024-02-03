@@ -422,7 +422,10 @@ Tatsächlich stellt der Anwendungsfall nicht den worst-case für den Algorithmus
 Es gilt also, die Vorsortierung auszuhebeln.
 \\
 
-Für \textbf{Insertion-Sort} ist die Laufzeit im worst-case $O(n^2)$ (vgl.~\cite[87]{OW17b}). Da Shellsort mindestens im letzten Schritt diese Sortiermethoden auf Distanzfolgen der Länge $1$ anwendet, muss der Algorithmus eine Folge als Eingabe erhalten, die durch die ersten $lg(n) - 1$-Durchgänge (mit $h_s = 2^{s - 1}, 1 <= s < lg(n)$) \underline{keine} Änderungen an der Schlüsselfolge vornimmt, um dann im allerletzten Schritt \underline{alle} Daten zu sortieren, was maximal $\frac{n}{2}$ Inversionen bedeutet zuzüglich der benötigten Verschiebe-Operationen.
+Für \textbf{Insertion-Sort} ist die Laufzeit im worst-case $O(n^2)$ (vgl.~\cite[87]{OW17b}). Da Shellsort mindestens im letzten Schritt diese Sortiermethode auf Distanzfolgen der Länge $1$ anwendet, muss der Algorithmus eine Folge als Eingabe erhalten, die durch die ersten $lg(n) - 1$-Durchgänge (mit $h_s = 2^{s - 1}, 1 \leq s < lg(n)$) \underline{keine} Änderungen erfährt, um dann im allerletzten Schritt \underline{auf einen Schlag} sortiert wird, was maximal $\frac{n}{2}$ Inversionen\footnote{
+in diesem Zusammenhang bedeutet Inversion: \textit{Fehlstellung} (vgl.~\cite[87]{OW17b})
+} bedeutet, und damit ebenso viele Vertauschungen (zuzüglich der benötigten
+Verschiebe-Operationen).
 \\
 Hierzu kann wie im vorherigen Beispiel für $n=16$ ein Feld mit folgender Schlüsselanordnung verwendet werden: Felder mit geradem Index enthalten kleinere Schlüssel als Felder mit ungeradem Index.
 Hier gilt für alle Elemente aus dem Feld $A$:
@@ -443,11 +446,9 @@ Abbildung~\ref{fig:worstcase-sequence} veranschaulicht die Anordnung.
     \label{fig:worstcase-sequence}
 \end{figure}
 
-Markiert sind die direkt benachbarten Felder, die eine \textit{Inversion} aufweisen\footnote{
-in diesem Zusammenhang bedeutet Inversion: \textit{Fehlstellung} (vgl.~\cite[87]{OW17b})
-}, die im letzten Schritt des Algorithmus eine bzw. mehrere Verschiebungen bedingen.
+Markiert sind die direkt benachbarten Felder, die eine \textit{Inversion} aufweisen, die im letzten Schritt des Algorithmus eine bzw. mehrere Verschiebungen bedingen.
 \\
-In den vorherigen Schritten - also bei den Durchgängen mit Distanzfolgen $h_s > 1$, findet der Algorithmus jeweils Schlüssel in korrekter Sortierreihenfolge vor.
+In den vorherigen Schritten - also bei den Durchgängen mit Distanzfolgen $h_s > 1$ - findet der Algorithmus jeweils Schlüssel in korrekter Sortierreihenfolge vor.
 
 
 Mit $h_4 = 8$ werden die Felder $A[0..7]$ mit den Feldern $A[8..15]$ verglichen - hier gilt in jedem Fall, dass die Schlüssel $A[i] < A[j] (\forall i < j, j - i = 8)$ sind.
