@@ -1,0 +1,82 @@
+\chapter{Klassen und Objekte}
+
+\section{Lösung}
+
+Die folgende Lösung enthält eine komplette Ausimplementierung der Klasse:
+
+\begin{minted}[mathescape,
+    linenos,
+    numbersep=5pt,
+    gobble=2,
+    fontsize=\small,
+    frame=lines,
+    framesep=2mm]{java}
+    public class Auto {
+
+        private int kmStand;
+        private double verbrauch;
+        private double tankVolumen;
+        private double kraftstoffVorrat;
+
+        public Auto(int kmStand, double verbrauch, double tankVolumen, double kraftstoffVorrat) {
+            this.kmStand = kmStand;
+            this.verbrauch = verbrauch;
+            this.tankVolumen = tankVolumen;
+            this.kraftstoffVorrat = kraftstoffVorrat;
+        }
+
+        public String toString() {
+            return "verbrauch: " + verbrauch + "; tankVolumen: " + tankVolumen +
+                "; kmStand: " + kmStand + "; kraftstoffVorrat: " + kraftstoffVorrat;
+        }
+
+        public void fahren(int km) {
+
+            if (km <= 0) {
+                return;
+            }
+
+            double proKm = verbrauch / 100;
+
+            int maxReichweite = (int) (kraftstoffVorrat / proKm);
+
+            if (maxReichweite < km) {
+                kmStand += maxReichweite;
+                kraftstoffVorrat =0;
+            } else {
+                kmStand += km;
+                kraftstoffVorrat -= proKm * km;
+            }
+        }
+
+        public void tanken(double liter) {
+            if (liter <= 0) {
+                return;
+            }
+
+            if (liter + kraftstoffVorrat >= tankVolumen) {
+                kraftstoffVorrat = tankVolumen;
+            } else {
+                kraftstoffVorrat += liter;
+            }
+        }
+
+        public static void main (String[] args) {
+            Auto gogoMobil = new Auto(0, 5.0, 50, 30);
+            gogoMobil.fahren(300);
+            gogoMobil.tanken(25);
+        }
+    }
+\end{minted}\\
+
+\section{Anmerkung und Ergänzungen}
+
+\begin{itemize}
+    \item Es ist darauf zu achten, die Aufgabenstellung hinsichtlich der Parameterbedingungen aufmerksam zu lesen.\\
+    So ergibt sich bspw. für \code{tanken()}, dass die Methode nichts tut, wenn eine $0$ oder ein \textit{negativer} Wert übergeben wird - die Überprüfung der übergebenen Argumente resultiert in diesen Fällen in einer direkten Rückkehr aus der Methode.\\
+    Gleiches gilt für \code{fahren()}, Werte für \code{int km} $\leq 0$ wirken sich nicht auf eine Änderung des Objekt-Zustands aus.
+    \item Variablenüberdeckung ist o.k. wenn man bedenkt, dass auch das ASB-System diesbzgl. keinen checkstyle-Fehler produziert hat (s. \code{Flugzeug}-Aufgabe).
+    \item \textbf{reelle Zahl} - \code{float} oder \code{double} benutzen?
+    In Java ist \code{double} der Standarddatentyp für Fließkommazahlen\footnote{Konstanten wie $123.45$ werden im Quellcode automatisch als \textit{double} behandelt; sollen sie als \textit{float} behandelt werden, muss ein großes oder ein kleines ``f`` hintenangestellt werden: $1234.56f$ (vgl~\cite[124 f.]{Ull23})}.
+    Ist der Datentyp nicht ausdrücklich beschrieben, sollte \code{double} ohne Einschränkung verwendet werden können.
+\end{itemize}
