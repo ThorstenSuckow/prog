@@ -1,0 +1,67 @@
+\chapter{Zeichenketten}
+
+\section{Lösung}
+
+\begin{minted}[mathescape,
+    linenos,
+    numbersep=5pt,
+    gobble=2,
+    fontsize=\small,
+    frame=lines,
+    framesep=2mm]{java}
+    public static void main(String[] args) {
+        int sum = 0;
+        for (int i = 0; i < args.length; i++) {
+            String arg = args[i];
+            char c;
+            int v;
+            for (int j = 0; j < arg.length(); j++) {
+                c = arg.charAt(j);
+                v = c - '0';
+                if (v >= 0 && v <= 9) {
+                    sum += v;
+                }
+            }
+        }
+        System.out.println("Ergebnis: " + sum);
+    }
+\end{minted}\\
+
+\section{Anmerkung und Ergänzungen}
+
+Der Datentyp \code{char} ist in Java ein ganzzahliger Datentyp\footnote{
+    ``4.2.1. Integral Types and Values``: \utl{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.2.1} - abgerufen 10.2.2024
+}, hat eine Länge von 16 Bit, ist vorzeichenlos (im Unterschied zu den anderen ganzzahligen Datentypen \code{byte}, \code{short}, \code{int}, \code{long}) und besitzt damit einen Wertebereich von $0 -- 65.535$.\\
+Damit unterstützt \code{char} \textb{Unicode}-Zeichen im hexadezimalen Bereich von $0x0000$ bis $0xFFFF$\footnote{
+    ``The Java Tutorials - Unicode``: \url{https://docs.oracle.com/javase/tutorial/i18n/text/unicode.html}
+}.\\
+
+\noindent
+\code{char}-Variablen können als Ganzzahlwert ausgegeben werden, was dem Dezimalwert des Unicode-Zeichens entspricht\footnote{s. ``List of Unicode characters``: \url{https://en.wikipedia.org/wiki/List_of_Unicode_characters} - abgerufen 10.2.2024}:
+
+\begin{minted}[mathescape,
+    numbersep=5pt,
+    gobble=2,
+    framesep=2mm]{java}
+    int toInt = 'c'; // entspricht dem Integer-Wert 99
+\end{minted}
+
+\noindent
+Mittels \code{charAt(pos: int):char} der Klasse \code{String}\footnote{
+    ``Class String``: \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html#charAt(int)} - abgerufen 10.2.2024
+} kann ein einzelner \textit{character} der \code{String}-Argumente dahingehend überprüft werden, ob dieser eine Ziffer repräsentiert.\\
+Eine Ziffer bedeutet in diesem Fall ein \textit{character} aus der Liste $0..9$.\\
+Dadurch, dass arithmetische Operationen auf dem Ganzzahl-Typ \code{char} möglich sind, ermittelt man für ein einzelnes Zeichen nun seine \textit{relative Position} (oder auch \textbf{Distanz}) zu dem Zeichen \code{'0'} - indem man diesen Wert einfach von dem zu vergleichenden Zeichen abzieht:
+
+\begin{minted}[mathescape,
+    numbersep=5pt,
+    gobble=2,
+    framesep=2mm]{java}
+    int relC = 'c' - '0'; // 99 - 48 = 51
+    int relA = 'a' - '0'; // 97 - 48 = 49
+    int rel0 = '0' - '0'; // 48 - 48 = 0
+    int rel7 = '7' - '0'; // 55 - 48 = 7
+\end{minted}
+
+Die Distanz liegt für die Ziffern $0..9$ dann in genau diesem Bereich, wodurch man den numerischen Wert des \code{chars} enthält.
+Darüber läßt sich dann einfach die Summe berechnen.
