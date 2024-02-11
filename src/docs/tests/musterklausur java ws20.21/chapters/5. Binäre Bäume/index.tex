@@ -44,8 +44,9 @@ The running time of algorithms on binary search trees depend on the shapes of th
 \noindent
 Ein \textbf{balancierter Baum} ist ein Baum, bei dem die Differenz der Höhe des linken Teilbaums und die Höhe des rechten Teilbaums eines Knotens max. $1$ ist (vgl. \cite[284]{OW17e}).\\
 Die maximale Pfadlänge in einem balancierten Baum ist $O(log\ n)$\footnote{$n=$ Anzahl der Knoten} (vgl.\cite[135]{GD18d}).\\
-Hiermit ergibt sich im \textit{ungünstigsten Fall}, dass mindestens $O(log\ n)$ Operationen nötig sind, um einen Schlüssel für eine Einfügeoperation zu finden.\\
-Es läßt sich vermuten, dass mit ${k+1}$ Blättern\footnote{mit $k=$ Anzahl innere Knoten, wobei innerer Knoten $=$ Knoten mit Grad $\geq 1$} in einem vollständigen Baum im ungünstigsten Fall $(k+1) * log(n)$ Operationen nötig sind (für jedes Blatt muss einmal der komplette Pfad durchlaufen werden).\\
+Hiermit ergibt sich im \textit{ungünstigsten Fall}, dass mindestens $O(log\ n)$ Operationen nötig sind, um einen Schlüssel für eine Einfügeoperation zu finden.\footnote{
+In einem vollständigen Baum (\textit{nicht} Suchbaum!) mit $2^{h-1} - 1$ Knoten (mit $h$ = Höhe des Baumes) müssen im ungünstigsten Fall genausoviele (also der Anzahl der Knoten entsprechende) Vergleiche durchgeführt werden, um ein Blatt zu finden.
+}\\
 Eine vollständige Analyse, die für den \textbf{average-case} zu $O(log\ n)$ führt, findet sich bei \textit{Güting und Dieker} (~\cite[136 ff.]{GD18d}).
 
 
