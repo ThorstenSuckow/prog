@@ -59,8 +59,6 @@ Eine vollständige Analyse, die für den \textbf{average-case} zu $O(log\ n)$ f�
     \item \textbf{Postorder}: $10,\ 20,\ 25,\ 50,\ 35,\ 40,\ 45,\ 70$
 \end{itemize}
 
-Im \textbf{}
-
 
 \subsection{Anmerkung und Ergänzungen}
 
@@ -90,6 +88,85 @@ Die eindeutige Rekonstruktion des Bäumes kann mithilfe der  \textbf{Preorder un
 
 Die Rekonstruktion anhand Postorder und Inorder erfolgt analog.
 
+\newpage
+
+\section{Lösung c}
+
+Es gibt mehrere Bäume (s. Abbildung~\ref{fig:preproreconstruction}).
+
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.5]{chapters/5. Binäre Bäume/img/preproreconstruction}
+        \caption{Die angegebenen Lienarisierungen werden von mehreren Bäumen gleichzeitig erfüllt (Quelle: eigene)}
+        \label{fig:preproreconstruction}
+    \end{center}
+\end{figure}
+
+
+\subsection{Anmerkung und Ergänzungen}
+
+Die angegebenen Reihenfolgen $t_{Pre}$: A B C D E und $t_{Post}$: C B E D A lassen sich wie folgt untersuchen:
+
+Der Baum $t_{Pre}$ hat als Wurzelknoten den Knoten \textbf{A}.\\
+Der Baum $t_{Post}$ hat diesen Knoten ebenfalls als Knoten (s. Abbildung~\ref{fig:tree_a}).
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.5]{chapters/5. Binäre Bäume/img/a}
+        \caption{}
+        \label{fig:tree_a}
+    \end{center}
+\end{figure}
+
+\noindent
+$t_{Pre}$: \textbf{A} B C D E\\
+$t_{Post}$: C B E D \textbf{A}\\
+
+
+\\
+Es verbleiben die Teilbäume mit den Knoten \textbf{(B C D E)} (Preorder) sowie \textbf{(C B E D)} (Postorder).\\
+
+\noindent
+Für $t_{Pre}$ kann der Knoten \textbf{(B)} als linker Nachfolger von \textbf{(A)} verwendet werden.\\
+Diese Bedingung kann auch von $t_{Post}$ erfüllt werden (s. Abbildung~\ref{fig:tree_ab}).
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.5]{chapters/5. Binäre Bäume/img/ab}
+        \caption{}
+        \label{fig:tree_ab}
+    \end{center}
+\end{figure}
+
+
+Da \textbf{(C B E D)} in Postorder-Reihenfolge angegeben ist, muss folglich \textbf{(C)} ein Nachfolger von \textbf{(B)} sein, und zwar ein linker oder ein rechter Nachfolger. \\
+Die Bedingung kann ebenfalls von $t_{Pre}$ erfüllt werden (s. Abbildung~\ref{fig:tree_abc}).\\
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.5]{chapters/5. Binäre Bäume/img/abc}
+        \caption{}
+        \label{fig:tree-abc}
+    \end{center}
+\end{figure}
+
+\noindent
+$t_{Pre}$: \textbf{A} \textbf{B C} D E\\
+$t_{Post}$: \textbf{C B} E D \textbf{A}\\
+
+\\
+Mit \textbf{(B)} als direkter Nachfolger von dem Wurzelnoten \textbf{(A)} können jetzt aber \textbf{D} und \textbf{E} keine Vorgänger von \textbf{(B)} mehr sein für $t_{Post}$, sie sind somit Nachfolger von \textbf{A}.\\
+Diese Bedingung läßt sich auch von $t_{Pre}$ erfüllen, \textbf{E} kann entweder linker oder rechter Nachfolger von $D$ sein (s. Abbildung~\ref{fig:tree_abcde}).\\
+
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.5]{chapters/5. Binäre Bäume/img/abcde}
+        \caption{}
+        \label{fig:tree_abcde}
+    \end{center}
+\end{figure}
 
 
 
