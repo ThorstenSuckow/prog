@@ -1,0 +1,48 @@
+\usepackage{csquotes}\chapter{Verkette Liste}
+
+
+
+\section{Lösung}
+
+\begin{minted}[mathescape,
+    linenos,
+    numbersep=5pt,
+    gobble=2,
+    fontsize=\small,
+    frame=lines,
+    framesep=2mm]{java}
+    boolean istEnthalten(Object daten) {
+        ListElement next = kopf;
+
+        while (next != null) {
+            if (next.getDaten().equals(daten)) {
+                return true;
+            }
+            next = next.getNaechstes();
+        }
+
+        return false;
+    }
+\end{minted}
+
+\section{Anmerkung und Ergänzungen}
+
+\subsection*{Warum equals()?}
+
+Bei der Datenstruktur handelt es sich um eine einfache verkettete Liste (auch \textit{lineare Liste}, vgl. \cite[238]{Knu97a}):\\
+
+\blockquote[{\cite[142]{SW11}}]{
+A \textit{linked list} is a recursive data structure that is eitehr empty (\textit{null}) or a reference to a \textit{node} having a generic item and a reference to a linked list.
+}
+
+\noindent
+Es gibt unterschiedliche Implementierungsmöglichkeiten für lineare Listen, die entsprechende Zugriffsreihenfolgen auf die in der Liste gespeicherten Daten ermöglichen, u.a. \textbf{Stack} und \textbf{Queue}.\\
+
+\subsection*{Stack}
+Ein \textbf{Stack}\footnote{
+auch \textit{Keller}
+} arbeitet nach dem \textbf{LIFO}-Prinzip: Das Element, was als letztes hinzugefügt wurde, wird als letztes wieder entnommen.\\
+Einfüge- und Löschoperationen erfolgen in $O(1)$.\\
+Suchoperationen benötigen im \code{best-case} $O(1)$, im \code{worst-case} $O(n)$.
+Im Durchschnitt muss man nur die Hälfte der Liste nach einem Element durchsuchen, bis es gefunden wird, was im \textbf{average-case} zu $O(n)$ führt ($\frac{n}{2} = \frac{1}{2} * n \implies O(n)$).
+
