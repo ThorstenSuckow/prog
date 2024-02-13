@@ -1,4 +1,5 @@
-\usepackage{csquotes}\chapter{Verkette Liste}
+\usepackage{csquotes}
+\usepackage{lstmisc}\chapter{Verkette Liste}
 
 
 
@@ -27,13 +28,21 @@
 
 \section{Anmerkung und Ergänzungen}
 
-\subsection*{Warum equals()?}
+Eine Liste ist eine \textbf{Sequenz} von Daten.
+Auf \textbf{Sequenzen} ist eine Ordnung definiert - es gibt ein erstes, zweites, \ldots, letztes Element und zu jedem Element einen Vorgänger und Nachfolger (vgl.\cite[63]{GD18c}).\\
+Sequenzen dürfen \textit{Duplikate} enthalten.\\
 
-Bei der Datenstruktur handelt es sich um eine einfache verkettete Liste (auch \textit{lineare Liste}, vgl. \cite[238]{Knu97a}):\\
+\\
+In der Aufgabe ist die Implementierung einer einfach verketteten Liste (auch \textit{lineare Liste}, vgl. \cite[238]{Knu97a}, außerdem \cite[73]{GD18c}) gegeben:\\
 
 \blockquote[{\cite[142]{SW11}}]{
 A \textit{linked list} is a recursive data structure that is eitehr empty (\textit{null}) or a reference to a \textit{node} having a generic item and a reference to a linked list.
-}
+}\\
+
+\noindent
+Eine \textit{lineare Liste} hat ein Element, auf das kein anderes Element zeigt (\textit{head}, Angfang der Liste), und mindestens ein Element, welches auf kein weiteres Element zeigt (\textit{tail}, Ende der Liste)- ansonsten zeigt ein Element auf seinen Nachfolger (vgl. \cite[259]{CL22})\footnote{
+Ebenda: ist eine Liste \textit{doppelt verkettet} (Element besitzt Zeiger auf Vorgänger\textit{prev}) und zeigt \textit{head} auf \textit{tail} und \textit{tail} auf \textit{head}, handelt es sich um eine \textit{zyklische Liste} (\textit{Ring}) (s.a. \cite[105]{GD18c})
+}.
 
 \noindent
 Es gibt unterschiedliche Implementierungsmöglichkeiten für lineare Listen, die entsprechende Zugriffsreihenfolgen auf die in der Liste gespeicherten Daten ermöglichen, u.a. \textbf{Stack} und \textbf{Queue}.\\
@@ -46,3 +55,52 @@ Einfüge- und Löschoperationen erfolgen in $O(1)$.\\
 Suchoperationen benötigen im \code{best-case} $O(1)$, im \code{worst-case} $O(n)$.
 Im Durchschnitt muss man nur die Hälfte der Liste nach einem Element durchsuchen, bis es gefunden wird, was im \textbf{average-case} zu $O(n)$ führt ($\frac{n}{2} = \frac{1}{2} * n \implies O(n)$).
 
+
+\subsection*{Warum equals()?}
+Die Klasse \code{java.lang.Object} als Elternklasse jeder anderen Klasse in Java\footnote{
+    ``4.3.2. The Class Object``: \url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.3.2} - abgerufen 13.2.2024
+} implementiert die Methode \code{equals(obj: Object):boolean} wie folgt:
+\blockquote[{``equals``:  \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)} - abgerufen 13.2.2024}]{
+    The equals method for class Object implements the most discriminating possible equivalence relation on objects; that is, for any non-null reference values x and y, this method returns true if and only if x and y refer to the same object (x == y has the value true). In other words, under the reference equality equivalence relation, each equivalence class only has a single element.
+}. \\
+
+Die Methode \code{equals()} sollte in Unterklassen überschrieben, \textit{nicht} überladen werden (vgl.~\cite[654]{Ull23}, weitere Hinweise auf die korrekte Implementierung der Methode ebenda, ausserdem bei \textit{Bloch} in \cite[37]{Blo18}).\\
+
+\noindent
+Da wir nicht wissen, welcher spezielle Typ von Objekt in der Liste gespeichert wird, würde bei dem Vergleich auf Identität spätestens bei Typen wie \code{String} dazu führen, dass Elemente nicht gefunden werden:
+
+\begin{minted}[mathescape,
+    linenos,
+    numbersep=5pt,
+    gobble=2,
+    fontsize=\small,
+    frame=lines,
+    framesep=2mm]{java}
+    boolean istEnthalten(Object daten) {
+        ListElement next = kopf;
+
+        while (next != null) {
+            // ==, Vergleich auf Identität
+            if (next.getDaten() == daten) {
+                return true;
+            }
+            next = next.getNaechstes();
+        }
+
+        return false;
+    }
+
+    // liefert immer false zurück, auch wenn vorher über
+    // liste.add("foo") ein entsprechendes Eement hinzugefügt wurde
+    boolean enthalten = liste.istEnthalten("foo");
+\end{minted}
+
+In einer korrekten Implementierung von \code{istEnthalten} wird nun die \code{equals()}-Implementierung der Klasse \code{String} aufgerufen, die einen \textit{inhaltlichen} Vergleich vornimmt, und mit \begin{center}\code{new String("foo").equals("foo")}\end{center} auch \code{true} zurückliefert, im Gegensatz zu \code{new String("foo") == "foo"}.\\
+Die Implementierung kann allerdings bei der Verwendung von \textbf{String-Literalen}  \code{true} zurückliefern, was daran liegt, das String-Literale in einer Art Cache vorgehalten werden, damit die JVM nicht laufend neue String-Objekte erzeugen muss:
+
+\blockquote[{``intern``: \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html#intern()} - abgerufen 13.2.2024}]{
+    All literal strings and string-valued constant expressions are interned.
+ }
+
+\noindent
+Die Sprachspezifikation beinhaltet diesbzgl. weitere Informationen (s. ``3.10.5. String Literals``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.10.5} - abgerufen 13.2.2024).
