@@ -49,11 +49,19 @@ Es gibt unterschiedliche Implementierungsmöglichkeiten für lineare Listen, die
 
 \subsection*{Stack}
 Ein \textbf{Stack}\footnote{
-auch \textit{Keller}
-} arbeitet nach dem \textbf{LIFO}-Prinzip: Das Element, was als letztes hinzugefügt wurde, wird als letztes wieder entnommen.\\
-Einfüge- und Löschoperationen erfolgen in $O(1)$.\\
-Suchoperationen benötigen im \code{best-case} $O(1)$, im \code{worst-case} $O(n)$.
-Im Durchschnitt muss man nur die Hälfte der Liste nach einem Element durchsuchen, bis es gefunden wird, was im \textbf{average-case} zu $O(n)$ führt ($\frac{n}{2} = \frac{1}{2} * n \implies O(n)$).
+auch \textit{Keller} oder \textit{Stapel}
+} arbeitet nach dem \textbf{LIFO}-Prinzip: Das Element, was als letztes (\textit{auf} dem Stack) hinzugefügt wurde, wird als erstes wieder entnommen.\\
+Eingefügt wird am Ende des Stacks.\\
+
+\subsection*{Queue}
+Im Gegensatz zum Stack arbeitet eine \textbf{Queue}\footnote{
+    auch \textit{(Warte)schlange}
+} nach dem \textbf{FIFO}-Prinzip: Das Element, was als erstes hinzugefügt wurde, wird als erstes entnommen.\\
+Wie beim Stack wird auch bei der Queue am Ende der Liste eingefügt.\\
+
+\noindent
+Die Kosten für Einfügen und Entfernen (``Entnahme``} sind für beide Listenarten konstant mit $O(1)$.\\
+Suchoperationen benötigen im \code{best-case} $O(1)$, im \code{worst-case} $O(n)$. Im Durchschnitt muss man nur die Hälfte der Liste nach einem Element durchsuchen, bis es gefunden wird, was im \textbf{average-case} wieder zu einer linearen Laufzeit von $O(n)$ führt ($\frac{n}{2} = \frac{1}{2} * n \implies O(n)$).
 
 
 \subsection*{Warum equals()?}
