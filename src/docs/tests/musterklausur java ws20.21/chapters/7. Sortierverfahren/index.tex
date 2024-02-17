@@ -1,0 +1,26 @@
+\chapter{Sortierverfahren}
+
+\section{Lösung}
+
+\begin{itemize}
+    \item Es gilt, dass jedes allgemeine Sortierverfahren mindestens $\Omega(n\ log\ n)$ Schlüsselvergleiche benötigt (vgl.~\cite[154]{OW17b}).\\
+    Diese untere Schranke gilt sowohl für die \textit{elementaren Sortierverfahren}\footnote{s. ~\cite[81]{OW17b}}  (\textbf{Insertion}-,
+    \textbf{Selection}- und \textbf{Bubble}-Sort), die im \textbf{worst-case} $O(n^2)$ Zeit benötigen, als auch für die
+    Verfahren, die eine \textbf{divide and conquer}-Strategie implementieren, wie \textbf{Quicksort} ($O(n^2)$ worst-case)
+    und \textbf{Merge-Sort} ($O(n\ log\ n)$ worst case).\\
+    \item Bei sehr wenigen Datensätzen (mit wie in der Aufgabe angegeben $\leq 100$) ist die Wahl des Sortierverfahren
+    hinsichtlich Effizienz im Sinne von Speicherplatzverbrauch als Laufzeit eher nebensächlich, wenn man davon ausgeht,
+    dass das Sortieren auf einem der heutigen Technik entsprechenden Rechner mit einem der o.a. Verfahren durchgeführt wird.\\
+    Qualitätskriterien wie Einfachheit der Implementierung und Verständlichkeit können hier eher ins Gewicht gefallen (vgl. \cite[5 f.]{GD18a}).
+    \\
+    Andere Kriterien, die die Eingabedaten betreffen, können jedoch die Auswahl des Sortierverfahrens beeinflussen: Sind die Daten überwiegend
+    vorsortiert, kann bspw. \textbf{Insertion-Sort} verwendet werden, das bei vorsortierten Daten lineare Laufzeit erreichen kann
+    \\
+    Für die o.a. Sortierverfahren mit $O(n^2)$ im worst-case ergeben sich bei einer Eingabelänge von $100$ Datensätzen $\frac{n}{2} = ~5.000$ Operationen\footnote{
+    Nachweise bspw. für Insertion Sort in \cite[87]{OW17b}, Selection Sort in \cite[172]{GD18e}, Bubble Sort in \cite{109}[Knu97b],
+    Quicksort in \cite[97]{OW17b}
+    }, für Merge-Sort $~600 - 700$ Operationen\footnote{
+        Nachweis in \cite[116]{OW17b}
+    }.
+    \item Für größtenteils vorsortierte Daten eignet sich \code{Insertion Sort} besonders gut\footnote{\code{Ottmann und Widmayer} führen außerdem \textbf{Smoothsort} von Dijkstra an, dass $O(n)$ für eine vorsortierte Folge und $O(n\ log\ n)$ benötigt (vgl.~\cite[112]{OW17b})
+\end{itemize}
