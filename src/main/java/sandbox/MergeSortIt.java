@@ -1,23 +1,34 @@
 package sandbox;
 
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MergeSortIt {
 
-
     public static int[] sort(int[] arr) {
+
+        String orgArr = Arrays.toString(arr);
+        AtomicInteger c =  new AtomicInteger(0);
+        int[] res = sort(arr, c);
+
+        System.out.println(orgArr + " required " + c.get() + " sorting steps");
+
+        return res;
+    }
+
+    public static int[] sort(int[] arr, AtomicInteger c) {
 
         if (arr.length == 1) {
             return arr;
         }
 
-        arr = sort(arr, 0,  arr.length -1);
+        arr = sort(arr, 0,  arr.length -1, c);
 
         return arr;
     }
 
 
-    protected static int[] sort(int[] arr, int start, int end) {
+    protected static int[] sort(int[] arr, int start, int end, AtomicInteger c) {
 
         if (arr.length == 1) {
             return arr;
@@ -27,8 +38,11 @@ public class MergeSortIt {
         int[] left = partition(arr, start, mid);
         int[] right = partition(arr, mid + 1, end);
 
-        left = sort(left);
-        right = sort(right);
+        c.set(c.get() + 1);
+        left = sort(left, c);
+        right = sort(right, c);
+
+
 
         arr = merge(arr, left, right, start);
 
@@ -58,16 +72,18 @@ public class MergeSortIt {
         int leftIdx = 0;
         int rightIdx = 0;
         int pos = start;
+        int c = 0;
         while (pos < arr.length) {
             if (left[leftIdx] < right[rightIdx]) {
                 arr[pos] = left[leftIdx++];
             } else {
                 arr[pos] = right[rightIdx++];
             }
-
+            c++;
             pos++;
         }
 
+        System.out.println( c +  " merges");
         return arr;
     }
 

@@ -19,7 +19,7 @@ public class ExceptionsDemo {
     }
 
     class BaseExceptionThrower extends AbstractExceptionThrower {
-        void foo() {
+        void foo() throws IOException{
             super.foo();
         }
 
@@ -31,15 +31,14 @@ public class ExceptionsDemo {
     }
 
     interface Exceptionable {
-        void createClient() throws RemoteException;
+        void createClient() throws IOException;
     }
     static class ExceptionImpl implements Exceptionable {
 
         @Override
-        public void createClient() throws IOException {
+        public void createClient()  {
             // Implementierung benutzt keine
             // Methode, die eine IOException werfen kann
-            throw new IOxception();
         }
     }
 
