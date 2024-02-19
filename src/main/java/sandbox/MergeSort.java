@@ -38,12 +38,15 @@ public class MergeSort {
         
 
         int i = 0, j = 0, k = 0;
+        int c = 0;
         while (i < left && j < right) {
+            c++;
             if (lft[i] <= rgt[j]) {
                 arr[k++] = lft[i++];
             }
             else {
                 arr[k++] = rgt[j++];
+
             }
         }
         while (i < left) {
