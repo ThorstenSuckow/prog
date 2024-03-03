@@ -1,0 +1,88 @@
+\chapter{Hashing}
+
+\section{Lösungsvorschlag}
+
+Die Schlüssel $4,\ 10,\ 3,\ 19$ sollen nacheinander in eine Hashtabelle über die Hashfunktion
+
+\begin{equation}
+    h_0(k) = k\ mod\ 7
+    \label{eq:hash}
+\end{equation}
+
+\noindent
+eingefügt werden.\\
+
+\noindent
+Zur Kollisionsbehandlung\footnote{auch: \textit{Kollisionsauflösung}, vgl.\cite[Abschnitt 4.2 und 4.3]{OW17d}} wird \textbf{quadratisches Sondieren mit wechselndem Vorzeichen} verwendet, wodurch die Sondierungsfolge\footnote{
+die Folge der zu betrachtenden Speicherplätze für einen Schlüssel $k$ (vgl.~\cite[203]{OW17d})
+} für den Schlüssel $k$ nach folgendem Muster berechnet wird:
+
+\begin{align}
+
+    \\
+    h_1(k) = (h_0(k) + 1^2)\ mod\  7 \\
+
+    h_2(k) = (h_0(k) - 2^2)\ mod\  7 \\
+
+    h_3(k) = (h_0(k) + 3^2)\ mod\  7 \\
+
+    h_4(k) = (h_0(k) - 4^2)\ mod\  7 \\
+
+    h_5(k) = (h_0(k) + 5^2)\ mod\  7 \\
+
+    \ldots
+\end{align}
+
+Die resultierende Speicherzellenbelegung ist in Tabelle~\ref{tab:hash} angegeben.
+
+{\renewcommand{\arraystretch}{1.5}%
+\begin{table} %[hbtp]
+    \begin{center}
+        \begin{tabular}{| c |l |c |c | c |}
+            \hline
+            \textbf{Schlüssel} & \textbf{$h_i(k)$} & \textbf{Ergebnis} & \textbf{Kollision} & \textbf{Speicherzelle} \\
+            \hline
+            $4$  &  $h_0(4) = 4\ mod\ 7 $ & $4$ & $-$ & $4$ \\
+            \hline
+            $10$  &  $h_0(10) = 10\ mod\ 7$ & $3$ & $-$ & $3$ \\
+            \hline
+            $3$  &  $h_0(3) = 3\ mod\ 7$ & $3$ & $3$ &  \\
+            &  $h_1(3) = (3\ + 1^2)\ mod\ 7$ & $4$ & $4$ &  \\
+            &  $h_2(3) = (3\ - 2^2)\ mod\ 7$ & $6$ & $-$ & $6$ \\
+            \hline
+            $19$  &  $h_0(19) = 19\ mod\ 7$ & $5$ & $-$ & $5$ \\
+            \hline
+        \end{tabular}
+        \caption{Speicherzellenbelegung für die Schlüsselfolge $4,\ 10,\ 3,\ 19$ für die Hashfunktion~\ref{eq:hash} und der angegebenen Kollisionsbehandlung. Es treten insgesamt 2 Kollisionen auf.}
+        \label{tab:hash}
+    \end{center}
+\end{table}}
+
+\subsection*{Entfernen}
+Bei dem Löschen eines Schlüssels $k_d$ muss sichergestellt werden, dass die Hashadresse $h(k_d)$ als \textit{entfernt} markiert wird - ansonsten würden Schlüssel, die aufgrund einer vorherigen Kollision über eine Sondierungsfolge eine neue Hashadresse zugewiesen bekommen haben, nicht wiedergefunden werden\footnote{
+    vgl. Skript (Teil 2) S. 134, außerdem~\cite[203]{OW17d}
+}.\\
+Unter der Annahme, dass $-1$ nicht in der Menge erlaubter Werte für Schlüssel enthalten ist (bspw. weil $k \in \mathbb{N}$), wird die Hashadresse $h(k_d)$ mit $-1$ markiert.\\
+Für \code{delete(4)} und nachfolgendem \code{delete(3)} würde sich unter dieser Voraussetzung die Speicherzellenbelegung in Tabelle~\ref{tab:hashdel} ergeben.
+
+
+{\renewcommand{\arraystretch}{2.5}%
+\setlength{\tabcolsep}{12pt}%
+\begin{table} %[hbtp]
+    \begin{center}
+        \begin{tabular}{|l | c | c |c |c | c | c| c|}
+            \hline
+            \textbf{Speicherzelle} & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ \\
+            \hline
+            \textbf{Schlüssel} &  - & - & - & $10$ & $-1$ & $19$ & $-1$ &
+            \hline
+        \end{tabular}
+        \caption{Speicherzellenbelegung nach dem Löschen von $4$ und $3$. Die Speicherzellen für die Hashadressen werden mit $-1$ als \textit{entfernt} markiert.}
+        \label{tab:hashdel}
+    \end{center}
+\end{table}}
+
+\subsection*{Suchen}
+
+Unter der Annahme, dass \code{member} einen Wert vom Typ \code{boolean} zurückliefert (\code{true} $\rightarrow$ \textit{enthalten}, \code{false} $\rightarrow$ \textit{nicht enthalten}), liefert
+\code{member(17)} den Wert \code{false} zurück.
