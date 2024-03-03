@@ -7,10 +7,7 @@
 \begin{minted}[mathescape,
     linenos,
     numbersep=5pt,
-    gobble=2,
-    fontsize=\small,
-    frame=lines,
-    framesep=2mm]{java}
+    gobble=2]{java}
     boolean istEnthalten(Object daten) {
         ListElement next = kopf;
 
@@ -79,10 +76,7 @@ Da keine Angaben über den speziellen Typ von dem in der Liste gespeicherten Obj
 \begin{minted}[mathescape,
     linenos,
     numbersep=5pt,
-    gobble=2,
-    fontsize=\small,
-    frame=lines,
-    framesep=2mm]{java}
+    gobble=2]{java}
     boolean istEnthalten(Object daten) {
         ListElement next = kopf;
 
@@ -103,12 +97,15 @@ Da keine Angaben über den speziellen Typ von dem in der Liste gespeicherten Obj
     boolean enthalten = liste.istEnthalten("foo");
 \end{minted}
 
-In einer korrekten Implementierung von \code{istEnthalten} wird nun die \code{equals()}-Implementierung der Klasse \code{String} aufgerufen, die einen \textit{inhaltlichen} Vergleich vornimmt, und mit \begin{center}\code{new String("foo").equals("foo")}\end{center} auch \code{true} zurückliefert, im Gegensatz zu \code{new String("foo") == "foo"}.\\
-Die Implementierung kann allerdings bei der Verwendung von \textbf{String-Literalen}  \code{true} zurückliefern, was daran liegt, das String-Literale in einer Art Cache vorgehalten werden, damit die JVM nicht laufend neue String-Objekte erzeugen muss:
+In einer korrekten Implementierung von \code{istEnthalten} wird nun die \code{equals()}-Implementierung der Klasse \code{String} aufgerufen, die einen \textit{inhaltlichen} Vergleich vornimmt, und mit \begin{center}\code{new String("foo").equals("foo")}\end{center} auch \code{true} zurückliefert, im Gegensatz zu \code{new String("foo") == stringVariable}, wobei \code{stringVariable} vom Typ \code{String} ist und inhaltlich mit \code{"foo"} übereinstimmt.\\
+
+\begin{tcolorbox}[title=String-Literale]
+Eine Verwendung von \code{==} \textit{kann} bei dem Vergleich von \textbf{String-Literalen} \code{true} zurückliefern, was daran liegt, das String-Literale in einer Art Cache vorgehalten werden, damit die JVM nicht laufend neue String-Objekte erzeugen muss:\\
 
 \blockquote[{``intern``: \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html#intern()} - abgerufen 13.2.2024}]{
     All literal strings and string-valued constant expressions are interned.
- }
+ }\\
 
 \noindent
 Die Sprachspezifikation beinhaltet diesbzgl. weitere Informationen (s. ``3.10.5. String Literals``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.10.5} - abgerufen 13.2.2024).
+\end{tcolorbox}
