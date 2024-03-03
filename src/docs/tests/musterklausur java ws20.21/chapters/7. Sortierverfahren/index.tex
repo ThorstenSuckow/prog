@@ -156,3 +156,33 @@ Für die Gesamtzahl der Aufrufe $m_{c_5}$ von $c5$ muss deshalb $n-1$ von $m_{c_
 was der Anzahl der Aufrufe von Zeile 5 entspricht, und somit zu dem Wert von \code{vergleiche} führt\footnote{
     entsprechend führt das Skript (Teil 2) auf Seite 160 die Anzahl an Vergleichen auf.
 }.
+
+
+\subsection{Aufgabenteil d)}
+
+Die Laufvariable \code{i} wird zur Laufzeit - bis auf das in jedem Iterationsschritt erfolgende Inkrement - nicht geändert, die innere Schleife ist stets abhängig von \code{i}.\\
+Des Weiteren bleiben die Schleifenbedingungen konstant.\\
+
+\noindent
+Wie in Aufgabenteil c) gilt auch hier für die Anzahl der Vergleiche
+
+\begin{equation}
+    vergleiche = \frac{n * (n - 1)}{2}
+\end{equation}
+
+\noindent
+woraus wiederum die Komplexitätstklasse $O(n^2)$ folgt.
+
+
+\subsection{Aufgabenteil e)}
+Unter einem \textbf{stabilen} Sortierverfahren versteht man Verfahren, bei denen die \textbf{relative Reihenfolge} gleicher Schlüsselelemente durch das Sortieren nicht verändert wird (vgl.~\cite[210]{CL22}).
+
+\noindent
+Zu den stabilen Sortierverfahren gehören
+
+\begin{itemize}
+    \item Bubble-Sort
+    \item Insertion-Sort
+    \item Merge-Sort
+\end{itemize}
+
