@@ -74,7 +74,7 @@ Die Klasse \code{java.lang.Object} als Elternklasse jeder anderen Klasse in Java
 Die Methode \code{equals()} sollte in Unterklassen überschrieben, \textit{nicht} überladen werden (vgl.~\cite[654]{Ull23}, weitere Hinweise auf die korrekte Implementierung der Methode ebenda, ausserdem bei \textit{Bloch} in \cite[37]{Blo18}).\\
 
 \noindent
-Da wir nicht wissen, welcher spezielle Typ von Objekt in der Liste gespeichert wird, würde bei dem Vergleich auf Identität spätestens bei Typen wie \code{String} dazu führen, dass Elemente nicht gefunden werden:
+Da keine Angaben über den speziellen Typ von dem in der Liste gespeicherten Objekt gegeben ist, würde der Vergleich auf Identität spätestens bei Typen wie \code{String} dazu führen, dass Elemente nicht gefunden werden:
 
 \begin{minted}[mathescape,
     linenos,

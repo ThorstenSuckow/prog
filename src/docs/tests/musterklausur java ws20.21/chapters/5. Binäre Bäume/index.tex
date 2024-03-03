@@ -70,7 +70,7 @@ Die eindeutige Rekonstruktion des Bäumes kann mithilfe der  \textbf{Preorder un
 \begin{enumerate}
     \item In der Preorder-Reihenfolge werden zuerst die Wurzelknoten besuche, dann der linke Teilbaum der Wurzel, dann der rechte (\textbf{KLR}).\\
     Knoten \textbf{(70)} kommt in der Preorder-Reihenfolge als erster Knoten vor, also muss das der Wurzelknoten des zu rekonstruierenden Baumes sein.\\
-    Wir markieren \textbf{(70)} in der Inorder-Reihenfolge und kennen dadurch den linken und den rechten Teilbaum: Der linke Teilbaum muss die Knoten \textbf{(10, 50, 20, 25)} enthalten, der rechte Teilbaum die Knoten \textbf{(40, 35, 45)} (s. Abbildung~\ref{fig:reconstruction}).
+    \textbf{(70)} wird in der Inorder-Reihenfolge markiert; dadurch erkennt man den linken und den rechten Teilbaum: Der linke Teilbaum muss die Knoten \textbf{(10, 50, 20, 25)} enthalten, der rechte Teilbaum die Knoten \textbf{(40, 35, 45)} (s. Abbildung~\ref{fig:reconstruction}).
     \item Im zweiten Schritt wird wieder zunächst die Reihenfolge der Knoten der Preorder-Reihenfolge untersucht: Der linke Teilbaum hat als einen Wurzelknoten die \textbf{(50)}, die wieder als Knoten in der Inorder-Reihenfolge markiert wird; gleiches passiert mit \textbf{(45)} des rechten Teilbaums der Preorder-Reihenfolge.\\
     Aus der Inorder-Reihenfolge lassen sich dann nach Markieren der Knoten weitere Teilbäume auslesen, die für den Knoten \textbf{(50)} den linken Teilbaum \textbf{(10)} und den rechten Teilbaum \textbf{(20, 25)} ergeben.
     Der Knoten \textbf{(45)} hat nur einen rechten Teilbaum mit dem Knoten \textbf{(40, 35)}.
