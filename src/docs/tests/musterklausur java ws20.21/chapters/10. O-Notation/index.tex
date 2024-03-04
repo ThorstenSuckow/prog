@@ -1,0 +1,46 @@
+\chapter{Rekursion}
+
+\section{Lösungsvorschlag}
+
+\subsection{Teil 1}
+
+Die Schleifen können wie folgt als verschachtelte Summe formuliert werden:
+
+\begin{equation}
+    \begin{split}
+        \sum_{i=1}^{\lfloor \frac{n^2}{5}\rfloor}  \sum_{j = 1}^{n} 1 &= \sum_{i=1}^{\lfloor \frac{n^2}{5} \rfloor}  n\\
+        &= n * \lfloor \frac{n^2}{5} \rfloor \\
+        & \approx \frac{1}{5} * n * n^2
+    \end{split}
+\end{equation}
+
+was zu $O(n^3)$ führt (\textit{kubische Komplexität}).
+
+\subsection{Teil 2}
+
+Die Schleifen können wie folgt als verschachtelte Summe formuliert werden:
+
+\begin{equation}
+    \begin{split}
+        \sum_{i=1}^{\lceil \frac{n}{2}\rceil}  \sum_{j = 1}^{\lfloor log_2(n) + 1 \rfloor} 1 &= \sum_{i=1}^{\lceil \frac{n}{2}\rceil} (\lfloor log_2(n) + 1 \rfloor) \\
+        &= \lceil \frac{n}{2}\rceil * \lfloor log_2(n) + 1 \rfloor \\
+        & \approx \frac{1}{2} * (n *  log_2(n) + 1)
+    \end{split}
+\end{equation}
+
+was zu $O(n * log(n))$ führt (\textit{linearithmische} Komplexität).
+
+
+\subsection{Teil 2}
+
+Die Schleifen können wie folgt als verschachtelte Summe formuliert werden:
+
+\begin{equation}
+    \begin{split}
+        \sum_{i=1}^{n}  \sum_{j = 1}^{10} \sum_{k=1}^j 1 &= \sum_{i=1}^{n}  \sum_{j = 1}^{10} j \\
+        &= \sum_{i=1}^{n}  \frac{10*(10+1)}{2}  \\
+        &= n * 55
+    \end{split}
+\end{equation}
+
+was zu $O(n)$ führt (\textit{lineare} Komplexität).
