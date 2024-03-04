@@ -15,7 +15,8 @@ Der folgenden Lösungsvorschlag enthält eine komplette Ausimplementierung der K
         private double tankVolumen;
         private double kraftstoffVorrat;
 
-        public Auto(int kmStand, double verbrauch, double tankVolumen, double kraftstoffVorrat) {
+        public Auto(int kmStand, double verbrauch, double tankVolumen,
+            double kraftstoffVorrat) {
             this.kmStand = kmStand;
             this.verbrauch = verbrauch;
             this.tankVolumen = tankVolumen;
@@ -23,8 +24,10 @@ Der folgenden Lösungsvorschlag enthält eine komplette Ausimplementierung der K
         }
 
         public String toString() {
-            return "verbrauch: " + verbrauch + "; tankVolumen: " + tankVolumen +
-                "; kmStand: " + kmStand + "; kraftstoffVorrat: " + kraftstoffVorrat;
+            return "verbrauch: " + verbrauch +
+                "; tankVolumen: " + tankVolumen +
+                "; kmStand: " + kmStand +
+                "; kraftstoffVorrat: " + kraftstoffVorrat;
         }
 
         public void fahren(int km) {
