@@ -1,0 +1,84 @@
+\section{Datentypen}
+
+
+
+{\renewcommand{\arraystretch}{1.5}%
+\setlength{\tabcolsep}{12pt}%
+    \begin{table} %[hbtp]
+        \begin{center}
+            \begin{tabular}{| l |l |r |r | r |}
+                \hline
+                \textbf{Typ} & \textbf{Inhalt} & \textbf{Default} & \textbf{Bits} & \textbf{Wertebereich}  \\
+                \hline
+                boolean  & \code{true}/ \code{false} & \code{false} & $1$  & $\{true, false\}$\\
+                \hline
+                char  &  Unicode & '\textbackslash{u0000}'\footnote{
+                Steuerzeichen in Uniocode, auch \textit{Nullzeichen}, s. \url{https://www.unicode.org/charts/PDF/U0000.pdf} sowie \url{https://de.wikipedia.org/wiki/Nullzeichen} - beide abgerufen 04.03.20204
+                } & $16$ & $[0,  65.535]$\\
+                \hline
+                byte  & Ganze Zahl (+/-) & $0$ & $8$ &  $[-2^{8-1}, 2^{8-1} - 1]$\footnote{
+                $-1$: Ein Bit wird für das Vorzeichen reserviert
+                } \\
+                \hline
+                short  & Ganze Zahl (+/-) & $0$ & $16$ &  $[-2^{16-1}, 2^{16-1} - 1]$  \\
+                \hline
+                int  & Ganze Zahl (+/-) & $0$ & $32$  &  $[-2^{32-1}, 2^{32-1} - 1]$ \\
+                \hline
+                long  & Ganze Zahl (+/-) & $0$ & $64$  &  $[-2^{64-1}, 2^{64-1} - 1]$  \\
+                \hline
+                float  & IEEE754\footnote{
+                Norm für die Standarddarstellung binärer und dezimaler Gleitkommazahlen in Computern, außerdem für Verfahren zur Durchführung mathematischer Operationen, ins. Rundungen (s. \url{https://ieeexplore.ieee.org/document/8766229} - abgerufen 04.03.2024)
+                } Fließkommazahl (+/-) & $0.0$ & $32$  &  $s * m * 2^{e - N + 1}$ \\
+                \hline
+                double  & IEEE754 Fließkommazahl (+/-) & $0.0$ & $64$  & $s * m * 2^{e - N + 1}$ \\
+                \hline
+            \end{tabular}
+            \caption{Einfache Datentype in Java.}
+            \label{tab:hash}
+        \end{center}
+    \end{table}}
+
+\subsection{Anmerkungen zu Float und Double}
+Fließkommaliterale sind in Java standardmäßig vom Typ \code{double}.\\
+\code{float} kann durch explizites casting erzwungen werden, oder indem man ein \code{f} (oder \code{F}) an das Literal anhängt:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    float  x = 0.2f; // Postfix zwingend erforderlich, ansonsten kommt es
+                     // zu einem Compilerfehler: Es kann nicht implizit
+                     // von double nach float konvertiert werden (``possible
+                     // lossy conversion from double to float``)
+    double y = 0.2;
+    float  z = (float)y;
+\end{minted}
+
+\subsubsection*{Wertebereich}
+Der Wertebereich für \code{float} bzw. \code{double} kann durch den Term  $s * m * 2^{e - N + 1}$ ausgedrückt werden, wobei
+
+\begin{itemize}
+    \item $s \in \{+1, -1\}$
+    \item $m \in (0, 2^N)$\footnote{offenes Intervall}
+    \item $e \in [E_{min}, E_{max]}]$, mit $E_{min} = - 2(^{K-1})$ und $E_{max} = 2^{K-1} - 1$
+    \item $N$ und $K$ sind abhängig von dem verwendeten Typ, siehe Tabelle~\ref{tab:range}
+\end{itemize}
+
+
+    {\renewcommand{\arraystretch}{2.5}%
+\setlength{\tabcolsep}{12pt}%
+\begin{table} %[hbtp]
+    \begin{center}
+        \begin{tabular}{|l |c | c | c |c |}
+            \hline
+             & \textbf{N} & \textbf{K} & $E_{max}$ & $E_{min}$  \\
+            \hline
+            \code{float} &  $24$ & $8$ & $+127$ & $-126$ \\
+            \hline
+            \code{double}&  $53$ & $11$ & $+1023$ & $-1022$ \\
+            \hline
+        \end{tabular}
+        \caption{Parameter zur Ermittlung der Wertebereiche von \textit{float} und \textit{double}\footnote{
+        vgl. ``4.2.3. Floating-Point Types, Formats, and Values``: \url{4.2.3. Floating-Point Types, Formats, and Values} - abgerufen 04.03.2024
+        }.}
+        \label{tab:range}
+    \end{center}
+\end{table}}
