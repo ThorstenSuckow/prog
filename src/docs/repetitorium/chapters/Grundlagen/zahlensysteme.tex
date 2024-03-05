@@ -1,0 +1,89 @@
+
+\section{Zahlensysteme}
+
+In Java geben führende Zeichen bei Ganzzahl-Literalen das verwendete Zahlensystem an.\\
+
+\noindent
+So läßt sich die Zahl $10$ bspw. auch als \code{0b1010} schreiben - das Binärsystem ist hier gekennzeichnet durch das führende \code{0b}.\\
+
+\noindent
+Folgende Präfixe können für die Zahlensystem \textit{Binär}, \textit{Oktal}, \textit{Dezimal} und \code{Hexadzimal\ genutzt werden:
+
+\begin{itemize}
+    \item \textbf{Binärsystem} (Basis $2$): \code{0b} bzw. \code{0B}
+    \item \textbf{Oktalsystem} (Basis $8$): \code{0}
+    \item \textbf{Dezimalsystem} (Basis $10$): \code{1} \ldots \code{9}
+    \item \textbf{Hexadezimalsystem} (Basis $16$) \code{0x} bzw. \code{0X}
+\end{itemize}
+
+\subsection{Umrechnung}
+
+Umrechnen von Werten aus den Zahlensystemen von bzw. in das  Dezimalsystem folgt einem einfachen Schema, das zunächst anhand des Binärsystems erklärt wird.\\
+
+Jedes Bit repräsentiert eine Position - dabei hat das Bit, das ganz rechts steht, die Position $0$ (\textit{niedrigster Stellenwert}), das Bit, das ganz links steht, die Position $n-1$ (\textit{höchsterStellenwert}, bei $n$ Bits pro Zahl).\\
+Die Position $i$ eines Bits repräsentiert einen Exponenten zur Basis $B_v=2$ - jedes Bit, das an der Stelle $i$ durch eine $1$ repräsentiert wird, wird entsprechend $2^i$ umgerechnet und mit allen solchen Werten innerhalb der Bitfolge addiert (s. Tabelle~\ref{tab:bindec}):
+
+    {\renewcommand{\arraystretch}{2.5}%
+\setlength{\tabcolsep}{12pt}%
+\begin{table} %[hbtp]
+    \begin{center}
+        \begin{tabular}{|l | c | c |c |c |}
+            \hline
+            \textbf{Bitfolge} & $1$ & $0$ & $1$ & $0$  \\
+            \hline
+            \textbf{Position} & $3$ & $2$ & $1$ & $0$  \\
+            \hline
+            \textbf{Umrechnung} & $2^3 = 8$ & - & $2^1 = 2$ & - \\
+            \hline
+        \end{tabular}
+        \caption{Umrechnen von \textit{0b1010} in das Dezimalsystem}
+        \label{tab:bindec}
+    \end{center}
+\end{table}}
+
+\noindent
+Um eine Zahl $x$ zur Basis $B_v=10$ in das Binärsystem umzurechnen ($B_z =2$), teilt man die Zahl durch $2$, notiert den Rest ($0$ oder $1$) und führt die Rechenschritte mit dem abgerundeten Quotienten solange fort, bis es der Quotienten $0$ ist.
+Das Ergebnis wird dann von rechts (erste Operation) nach links (letzte Operation) notiert:
+
+\begin{enumerate}
+    \item $\lfloor \frac{10}{2} \rfloor = 5$,  $10\ mod\ 2 = 0$
+    \item $\lfloor \frac{5}{2} \rfloor = 2$, $5\ mod\ 2 = 1$
+    \item $\lfloor \frac{2}{2} \rfloor = 1$, $2\ mod\ 2 = 0$
+    \item $\lfloor \frac{1}{2} \rfloor = 0$, $1\ mod\ 2 = 1$
+    \item[] $\rightarrow$ $1010$
+\end{enumerate}
+
+\noindent
+Das Schema $\lfloor \frac{x_{B_v}}{B_z} \rfloor = x_{next}$,  $x_{B_v}\ mod\ B_z = r_0 \ldots$ läßt sich so ohne weiteres auf das Oktalsystem bzw. Hexadezimalsystem übertragen, was anhand der Zahl $101_{B_v=10}$  demonstriert wird.
+
+\subsection*{Oktalsystem}
+Sei $B_z = 8$.\\
+
+\begin{enumerate}
+    \item $\lfloor \frac{101}{8} \rfloor = 12$,  $101\ mod\ 8 = 5$
+    \item $\lfloor \frac{12}{8} \rfloor = 1$, $12\ mod\ 8 = 4$
+    \item $\lfloor \frac{1}{8} \rfloor = 0$, $1\ mod\ 8 = 1$
+    \item[] $\rightarrow$ $145$
+\end{enumerate}\\
+
+Sei nun $B_v=8$ und $B_z=10$ mit $x = 145$:
+
+\begin{equation}
+    1*8^2 + 4*8^1 + 5*8^0 = 64 + 32 + 5 = 101
+\end{equation}
+
+
+\subsection*{Hexadezimalsystem}
+Sei $B_z = 16$.\\
+
+\begin{enumerate}
+    \item $\lfloor \frac{101}{16} \rfloor = 6$,  $101\ mod\ 16 = 5$
+    \item $\lfloor \frac{6}{16} \rfloor = 0$, $6\ mod\ 16 = 6$
+    \item[] $\rightarrow$ $65$
+\end{enumerate}\\
+
+Sei nun $B_v=16$ und $B_z=16$ mit $x = 65$:
+
+\begin{equation}
+    6*16^1 + 5*16^0 = 96 + 5 = 101
+\end{equation}
