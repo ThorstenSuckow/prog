@@ -1,4 +1,4 @@
-\section{Datentypen}
+\section{Einfache Datentypen}
 
 
 
@@ -12,9 +12,9 @@
                 \hline
                 boolean  & \code{true}/ \code{false} & \code{false} & $1$  & $\{true, false\}$\\
                 \hline
-                char  &  Unicode & '\textbackslash{u0000}'\footnote{
+                char  &  Unicode & \textbackslash{u0000}\footnote{
                 Steuerzeichen in Uniocode, auch \textit{Nullzeichen}, s. \url{https://www.unicode.org/charts/PDF/U0000.pdf} sowie \url{https://de.wikipedia.org/wiki/Nullzeichen} - beide abgerufen 04.03.20204
-                } & $16$ & $[0,  65.535]$\\
+                } & $16$ & \makecell{\textbackslash{u0000} - \textbackslash{uffff} \\ ($[0,  65.535]$)}\\
                 \hline
                 byte  & Ganze Zahl (+/-) & $0$ & $8$ &  $[-2^{8-1}, 2^{8-1} - 1]$\footnote{
                 $-1$: Ein Bit wird für das Vorzeichen reserviert
