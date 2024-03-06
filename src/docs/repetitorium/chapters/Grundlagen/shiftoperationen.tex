@@ -1,0 +1,76 @@
+\section{Bit-Shifting}
+
+\begin{tcolorbox}[colback=red!20,color=white,title={Hinweis}]
+    Die in dem Abschnitt verwendeten Beispiele sollen das Prinzip von Bit-Verschiebungen verdeutlichen und nutzen der Einfachheit halber Werte mit einer Wortlänge von 8-bit.\\
+    Es wird nicht berücksichtigt, dass u.a. \code{byte}- und \code{short}-Werte zu \code{int} in Java \textit{auto-promoted} werden\footnote{
+        vgl. ``5.6. Numeric Contexts``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html#jls-5.6} - abgerufen 06.03.2024
+    }.
+\end{tcolorbox}
+
+    Für das Verschieben von Bits existieren drei verschiedene Operationen in Java: $<<, >>, >>>$.\\
+Alle diese Operatoren sind binäre Operatoren: Der erste Operand $b$ ist das zu verschiebende Bit-Muster, der zweite Operant $n$ ist eine ganze Zahl, die angibt, um wieviele Stellen verschoben werden soll.\\
+
+Ist das Bit-Muster ein \code{int}-Wert, wird immer um max. $31$ Stellen verschoben ($n\ mod\ 32$)\footnote{im selben Kontext hierzu für \textit{long}-Werte: $63$ Stellen}:
+
+\blockquote[{``15.19. Shift Operators``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html#jls-15.19} - abgerufen 06.03.2024}]{
+    If the promoted type of the left-hand operand is int, then only the five lowest-order bits of the right-hand operand are used as the shift distance. It is as if the right-hand operand were subjected to a bitwise logical AND operator & [...] with the mask value 0x1f (0b11111). The shift distance actually used is therefore always in the range 0 to 31, inclusive.
+}
+
+\subsection{Signed Right Shift Operator $>>$}
+
+\begin{tcolorbox}
+Das Vorzeichen der durch das Bit-Muster repräsentierten Zahl ändert sich bei der Verwendung des \textbf{signed right shift Operators} nicht.
+Ist das \textit{most significant bit} eine $1$, wird von links eine $1$ an diese Position nachgeschoben, sonst eine $0$.\\
+\end{tcolorbox}
+
+\noindent
+Beispiel:\\
+Das Bit-Muster für \code{byte b = -128} soll um zwei Positionen nach rechts verschoben werden:
+
+\begin{enumerate}
+    \item[] $b >> 2$
+    \item $1_7\ 0_6\ 0_5\ 0_4\ 0_3\ 0_2\ 0_1\ 0_0$
+    \item $>>$ $\rightarrow$ $1_7\ 1_6\ 0_5\ 0_4\ 0_3\ 0_2\ 0_1\ 0_0$
+    \item $>>$ $\rightarrow$ $1_7\ 1_6\ 1_5\ 0_4\ 0_3\ 0_2\ 0_1\ 0_0$
+    \item[] (\ldots invertieren, $+1$ addieren ergibt den Absolutwert der negativen Zahl \ldots)
+    \item[]   $\rightarrow$ $-32$
+\end{enumerate}\\
+
+
+\subsection{Signed Left Shift Operator $<<$}
+
+
+\begin{tcolorbox}
+    Das Vorzeichen der durch das Bit-Muster repräsentierten Zahl ändert sich bei der Verwendung des \textbf{signed right shift Operators}, falls an der Stelle $msb - 1$ eine $1$ steht und an der Stelle $msb$ eine $0$\footnote{msb = most significant bit}.
+\end{tcolorbox}
+
+\noindent
+Beispiel:\\
+Das Bit-Muster für \code{byte b = 127} soll um eine Position nach links verschoben werden:
+
+\begin{enumerate}
+    \item[] $b << 1$
+    \item $0_7\ 1_6\ 1_5\ 1_4\ 1_3\ 1_2\ 1_1\ 1_0$
+    \item $<<$ $\rightarrow$ $1_7\ 1_6\ 1_5\ 1_4\ 1_3\ 1_2\ 1_1\ 0_0$
+    \item[] (\ldots invertieren, $+1$ addieren ergibt den Absolutwert der negativen Zahl \ldots)
+    \item[]   $\rightarrow$ $-2$
+\end{enumerate}\\
+
+
+\subsection{Unsigned Right Shift Operator $>>>$}
+
+\begin{tcolorbox}
+    Das Vorzeichen der durch das Bit-Muster repräsentierten Zahl ändert sich bei der Verwendung des \textbf{unsigned right shift Operators}, falls an der Stelle $msb$ eine $1$ steht - die Bitfolge wird von links mit $n$ Nullen aufgefüllt.
+\end{tcolorbox}
+
+\noindent
+Beispiel:\\
+Das Bit-Muster für \code{byte b = -125} soll unter Verwendung des \textbf{unsigned right shift Operators} um eine Position nach rechts verschoben werden:
+
+\begin{enumerate}
+    \item[] $b >>> 1$
+    \item $1_7\ 0_6\ 0_5\ 0_4\ 0_3\ 0_2\ 1_1\ 1_0$
+    \item $>>>$ $\rightarrow$ $0_7\ 1_6\ 0_5\ 0_4\ 0_3\ 0_2\ 0_1\ 1_0$
+    \item[]   $\rightarrow$ $65$
+\end{enumerate}\\
+
