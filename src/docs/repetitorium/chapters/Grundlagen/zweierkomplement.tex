@@ -4,11 +4,14 @@
 Java verwendet das \textbf{Zweierkomplement} für die Codierung für negative und positive \textit{ganze} Zahlen (\code{byte}, \code{short}, \code{int}, \code{long}).
 
 \noindent
-Für negative Zahlen ist das erste Bit gesetzt, für positive Zahlen nicht.\\
+Für negative Zahlen ist das erste Bit\footnote{
+    das \textit{most significant bit}, also das Bit mit dem höchsten Stellenwert, steht ganz links in einer Bitfolge
+} gesetzt, für positive Zahlen nicht.\\
 Da somit das erste Bit für das Vorzeichen reserviert ist, lassen sich mit $n$ Bits nur die Zahlen $[-2^{n-1}, 2^{n-1} -1]$ darstellen.\\
 
+
 \subsection*{Positiv zu Negativ}
-Der negative Wert einer Ganzzahl (Bit mit dem höchsten Stellenwert $=0$) wird ermittelt, indem
+Der negative Wert einer wird ermittelt, indem
 
 \begin{enumerate}
     \item die Bitfolge invertiert wird \footnote{``invertiert`` im Folgenden abgekürzt über den \textit{Komplement-Operator} $\sim$}
