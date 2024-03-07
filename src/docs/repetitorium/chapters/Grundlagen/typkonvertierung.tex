@@ -1,0 +1,95 @@
+\section{Typumwandlung}
+
+
+Numerische Datentypen werden in Java \textit{implizit} oder \textit{explitzit} konvertiert.\\
+
+\noindent
+Zu den numerischen Datentypen\footnote{
+s. ``Chapter 4. Types, Values, and Variables``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.2.5} - abgerufen 07.03.2024
+} gehören
+
+\begin{itemize}
+    \item \code{byte}
+    \item \code{short}
+    \item \code{int}
+    \item \code{long}
+    \item \code{char}
+    \item \code{float}
+    \item \code{double}
+\end{itemize}\\
+
+
+
+\noindent
+Eine \textit{implizite} Konvertierung erfolgt, wenn eine Variable eines Datentyps mit einer niedrigeren Präzision einer Variablen eines Datentyps einer höheren Präzision zugewiesen wird:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    int i = 32;
+    long l = i;
+
+    double d = 32.0f;
+
+    short s = 'd';
+\end{minted}\\
+
+\noindent
+Eine \textit{explizite} Konvertierung muss erfolgen, wenn eine Zuweisung von einem Datentyp mit einer höheren Auflösung einem Datentyp mit niedriger Ausflösung erfolgen soll.\\
+Hierbei muss explizit \textbf{gecasted} werden.
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    int i = (int)32L;
+
+    float f = (float)32.0;
+
+    short s = -65_536;
+    char c = (char)s;
+\end{minted}\\
+
+\noindent
+Grundsätzlich können alle Datentypen, die Zahlen repräsentieren, untereinander zugewiesen werden.\\
+Hierzu zählt auch der Datentyp \code{char}, der einen numerischen Wertebereich von $[0, 65.535]$ ($2^{16}-1$) abdeckt.
+
+\noindent
+Eine Konvertierung zwischen \code{boolean} und nuemrischen Werten ist weder mit explizitem noch implizitem casten möglich\footnote{
+``A boolean value may be cast to type boolean, Boolean, or Object [...]. No other casts on type boolean are allowed.`` (s. \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.2.5} - abgerufen 07.02.2024)
+}; allerdings kann das Ergebnis eines Ausdrucks als boolescher Wert gespeichert werden:
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    int i = 1;
+    boolean b = i!=0;
+\end{minted}\\
+
+\subsection{Auto-Promotion bei arithmetischen Operationen}
+
+Bei arithmetische Operationen (\code{+}, \code{-}, \ldots) wird der Datentyp der Operanden auf den Datentyp mit der höheren Präzision erweitert.\\
+
+\noindent
+Im folgenden Beispiel soll ein \code{short}- zu einem \code{int}-Wert addiert werden.
+Der Compiler lehnt die Anweisung mit dem Hinweis ab, dass der Ausdruck \code{(short)3 + i} vom Typ \code{int} ist.
+Für eine erfolgreiche Zuweisung müßte das Ergebnis erst zu \code{short} gecasted werden.
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    int i = 4;
+    short s = (short)3 + i;
+\end{minted}\\
+
+Dagegen funktioniert folgendes Beispiel ohne weitere, da der Compiler den Ausdruck während der Kompilierung berechnet\footnote{
+    ``Some expressions have a value that can be determined at compile time. These are constant expressions [...].`` (s. \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html#jls-15.2} - abgerufen 07.03.2024)
+}, keinen Überlauf feststellt und das Ergebnis des Ausdrucks sicher dem \code{short}-Typ zuweisen kann:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    short s = 3 + 4;
+\end{minted}
+
+Bei folgendem Code hingegen stellt der Compiler einen Überlauf fest und lehnt die Zuweisung ab\footnote{Wertebereich \textit{short}: $[-2^{15}, 2^{15} -1]$}:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    short s = 1 + 32767;
+\end{minted}
+
+
