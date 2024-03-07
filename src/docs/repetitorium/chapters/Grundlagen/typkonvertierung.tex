@@ -90,6 +90,43 @@ Bei folgendem Code hingegen stellt der Compiler einen Überlauf fest und lehnt d
 \begin{minted}[mathescape,
     gobble=2]{java}
     short s = 1 + 32767;
-\end{minted}
+\end{minted}\\
+
+\noindent
+Die Tabelle ~\ref{tab:typeconvert} fasst die Zuweisungskompatibilität einfacher Datentypen zusammen, bei denen kein explizites Casting erforderlich ist.\\
+Für weitere Informationen sei auf die Sprachspezifikationen, Abschnitt ``5.1. Kinds of Conversion``\footnote{
+    \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html#jls-5.1} - abgerufen 07.03.2024
+}, verwiesen.
+
+
+{\renewcommand{\arraystretch}{2.5}%
+\setlength{\tabcolsep}{12pt}%
+    \begin{table} %[hbtp]
+        \begin{center}
+            \begin{tabular}{|c | c | c |c |c | c | c| c|}
+                \hline
+                         &           \textbf{char}  & \textbf{byte} &\textbf{short} &\textbf{int} &\textbf{long} &\textbf{float} & \textbf{double} &
+                \hline
+                \textbf{char}  &     \checkmark &      -     &      -      &       -       &       -       &       -       &       -     \\
+                \hline
+                \textbf{byte}  &          -     & \checkmark &      -      &       -       &       -       &       -       &       -     \\
+                \hline
+                \textbf{short} &          -     & \checkmark & \checkmark  &       -       &       -       &       -       &       -     \\
+                \hline
+                \textbf{int}   &     \checkmark & \checkmark & \checkmark  &  \checkmark  &       -       &       -       &       -     \\
+                \hline
+                \textbf{long}  &     \checkmark & \checkmark & \checkmark  &  \checkmark  &  \checkmark &       -       &       -     \\
+                \hline
+                \textbf{float} &      \checkmark & \checkmark & \checkmark  &  \checkmark  &  \checkmark  &        \checkmark       &       -     \\
+                \hline
+                \textbf{double} &      \checkmark & \checkmark & \checkmark  &  \checkmark  &  \checkmark  &        \checkmark       &      \checkmark    \\
+                \hline
+            \end{tabular}
+            \caption{Zuweisungskompatibilität einfacher Datentypen.
+            Ein \checkmark bedeutet, dass kein explizites casten von dem Datentyp (horizontale Spalte) zu dem Datentyp (vertikale Spalte) erforderlich ist.}
+            \label{tab:typeconvert}
+        \end{center}
+    \end{table}}
+
 
 
