@@ -1,0 +1,52 @@
+\section{Grundlagen}
+
+\subsection{Methodensignatur}
+In Java gehört zu der Methodensignatur der Methodenname sowie die formale Parameterliste\footnote {
+    Java Language Specification - 8.4.2. Method Signature: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.4.2} - abgerufen 07.03.2024
+}.
+
+\subsection{Überschreiben}
+Eine Methode wird in einer Unterklasse \textit{überschrieben}, wenn Name, Signatur und Rückgabetyp der Methode der Unterklasse mit der
+Methode der Oberklasse übereinstimmen.\\
+
+
+
+\subsection{Überladen}
+Eine Methode wird \textit{überladen}, wenn eine Methode mit gleichem Namen bereitgestellt wird, aber eine unterschiedliche Signatur
+aufweist.\\
+Der Rückgabetyp darf abweichen:
+\blockquote[Java Language Specification - 8.4.9. Overloading\footnote{\url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.4.9} - abgerufen 07.03.2024}]{
+    There is no required relationship between the return types or between the throws clauses of two methods with the same name, unless their signatures are override-equivalent.
+}
+
+\noindent
+Unter einem \textit{mehrdeutigen} Methodenaufruf versteht man einen Aufruf zu einer überladenen Methode, die der Compiler nicht eindeutig zuordnen kann\footnote{
+s. ``15.12.2.5. Choosing the Most Specific Method``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html#jls-15.12.2.5} - abgerufen 07.03.2024
+}.\\
+Im Folgenden Beispiel wird die Methode \code{foo(x: int, y: double):void} durch \code{foo(x: double, y: int):void} überladen:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    public void foo(int x, double y) {
+        ...
+    }
+
+    public void foo(double x, int y) {
+        ...
+    }
+\end{minted}\\
+
+Den Aufruf
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    foo(1, 2);
+\end{minted}\\
+
+quittiert der Compiler mit einer Fehlermeldung ``Ambiguous method call.``.\\
+An dieser Stelle ist explizites casten nötig, damit für den Compiler klar ist, welche Methode aufgerufen werden soll:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    foo(1, (double)2);
+\end{minted}\\
