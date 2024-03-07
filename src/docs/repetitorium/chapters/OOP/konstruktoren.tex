@@ -1,0 +1,222 @@
+\section{Konstruktoren}
+
+Ein \textbf{allgemeiner Konstruktor} ist ein Konstruktor mit einer formalen Parameterliste (vgl.~\cite[424]{Ull23}).\\
+
+\noindent
+Der \textbf{Standard-Konstruktor} ist ein \textit{parameterloser} Konstruktor (vgl.~\cite[423]{Ull23}). \\
+
+\noindent
+Konstruktoren in Java sind nicht mit Objektmethoden gleichzusetzen, und zählen \textit{nicht} zu den vererbbaren Eigenschaften einer Klasse.\\
+
+\noindent
+Wenn für eine Klasse kein Konstruktor definiert wurde, stellt der Compiler einen \textbf{Standard-Konstruktor}
+zur Verfügung\footnote{
+    The Java Language Specification - 8.8.9. Default Constructor: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.8.9}↩
+}.
+
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    class A {
+
+        // implizit deklarierter default constructor
+        // public A() {
+        // }
+
+        public static void main(String[] args) {
+            A a = new A(); // ruft den implizit deklarierten Standard-Konstruktor
+                           // auf
+        }
+
+    }
+\end{minted}
+
+\noindent
+Wenn ein \textit{explizit} deklarierter Konstruktor vorhanden ist, stellt der Compiler keinen Standard-Konstruktor zur Verfügung.\\
+
+\noindent
+Im folgenden Beispiel führt \code{new A()} zu einem Compiler-Fehler, da kein parameterloser Konstruktor explizit oder implizit für \code{A} deklariert ist.
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    class A {
+
+        int a;
+
+        // explizit deklarierter Konstruktor
+        // unterbindet die Bereitstellung eines implizit
+        // deklarierten Standard-Konstruktor
+        public A(int value) {
+            a = value;
+        }
+
+        public static void main(String[] args) {
+            A a1 = new A(i); // ruft den explizit deklarierten Konstruktor auf
+            A a2 = new A();  // fuehrt zu einem Compiler-Fehler
+        }
+
+    }
+\end{minted}
+
+\noindent
+Wenn ein Konstruktor nicht \textit{explizit} einen Konstruktor seiner Elternklasse aufruft, ruft er \textit{implizit} \code{super()} auf.
+
+\noindent
+Wenn die Elternklasse in solchen Fällen keinen parameterlosen Konstruktor deklariert hat, wird ein Compiler-Fehler erzeugt.
+
+\noindent
+Im folgenden Beispiel erweitert \code{B} die Klasse \code{A}. \code{B} hat einen Konstruktor deklariert, dessen
+formale Parameterliste \code{int} ist. Dieser Konstruktor ruft implizit \code{super()} auf:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    class A {
+
+    }
+
+    class B {
+
+        int val;
+
+        public B (int a) {
+            // implizit aufgerufen:
+            // super();
+            val = a;
+        }
+
+        public static void main(String[] args) {
+            B b = new B(1);
+        }
+
+    }
+\end{minted}
+
+\noindent
+Ergänzend sei daran erinnert, dass jede Klasse in Java direkt oder indirekt von \code{java.lang.Object} erbt\footnote{
+    The Java Tutorials - Object as a Superclass: \url{https://docs.oracle.com/javase/tutorial/java/IandI/objectclass.html}↩
+}: Der Konstruktor der Klasse \code{java.lang.Object} ist also in einer Konstruktor-Aufrufkette enthalten.\\
+
+\noindent
+Im nächsten Beispiel erbt \code{C}  von \code{B}. Ein Standard-Konstruktor wird implizit für \code{C} deklariert. Allerdings
+führt der Versuch, ein Objekt vom Typ \code{C} zu erzeugen, zu einem Compiler-Fehler, da \code{B} keinen parameterlosen
+Konstruktor - den Standardkonstruktor - deklariert:
+
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    class C extends B {
+
+
+        public static void main(String[] args) {
+            C c = new C(); // Compiler-Fehler
+        }
+
+    }
+\end{minted}
+
+\noindent
+Damit ein Objekt vom Typ \code{C} erzeugt werden kann, benötigt \code{C} einen Standardkonstruktor mit einem expliziten
+Aufruf des Konstruktors von \code{B} - da \code{B} selber keinen Standardkonstruktor deklariert hat, muss der Konstruktor
+mit der Signature \code{B(int)} aufgerufen werden:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    class C extends B {
+
+        public C() {
+           super(2); // ruft den Konstruktor von B mit dem Argument 2 auf
+        }
+
+        public static void main(String[] args) {
+            C c = new C();
+        }
+
+    }
+\end{minted}
+
+\noindent
+Das zeigt, dass in Java bei einem explizit deklarierten Konstruktor als \textit{erstes}
+der Konstruktor der Elternklasse aufgerufen wird (implizit durch den Compiler) bzw. aufgerufen werden muss (falls explizit implementiert)\footnote{
+    The Java Language Specification - 8.8.7. Constructor Body: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.8.7}
+}.\\
+
+\noindent
+Es folgen ergänzende Beispiele.\\
+Details sind den Quelltextkommentaren zu entnehmen.
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    class A {
+        // impliziter Standard-Konstruktor: vorhanden
+
+        // impliziter Standard-Konstruktor: ruft Konstruktor von java.lang.Object
+        // auf
+    }
+
+
+    class B extends A {
+
+        // impliziter Standard-Konstruktor: vorhanden
+
+        // impliziter Standard-Konstruktor: ruft Konstruktor von A auf
+    }
+
+
+    class C {
+
+        // impliziter Standard-Konstruktor: nicht vorhanden
+
+        public C() {
+            // impliziter Aufruf von java.lang.Object's Konstruktor
+            System.out.println("C created.");
+        }
+    }
+
+
+    class D extends C {
+
+        // impliziter Standard-Konstruktor: vorhanden
+
+        // impliziter Standard-Konstruktor: ruft Konstruktor von C auf
+
+    }
+
+
+    class E extends D {
+
+        // impliziter Standard-Konstruktor: nicht vorhanden
+
+        public E() {
+            // impliziter Aufruf von D's Konstruktor
+            System.out.println("E created.");
+        }
+    }
+
+
+    class F extends E {
+
+        // impliziter Standard-Konstruktor: nicht vorhanden
+
+        public F(int x) {
+            // impliziter Aufruf von E's Standardkonstruktor
+            System.out.println("F created");
+        }
+    }
+
+
+    class G extends F {
+
+        // impliziter Standard-Konstruktor: nicht vorhanden
+
+        public G(int x) {
+            super(x); // expliziter Aufruf von F's Konstruktor
+
+            // Das Auskommentieren der o.a. Anweisung fuehrt zu einem impliziten
+            // Aufruf von 'super()', was einen Compiler-Fehler produziert:
+            // Da kein Standardkonstruktor in F deklariert ist, muss dem
+            // Konstruktor explizit mitgeteilt werden, welcher Konstruktor der
+            // Elternklasse aufgerufen werden soll.
+            System.out.println("G created");
+        }
+    }
+\end{minted}
