@@ -78,8 +78,9 @@ Allerdings kann im folgenden Code nur auf Eigenschaften der Klasse \code{A} übe
 
 
 \noindent
-Um dennoch auf \code{inB()} zugreifen zu können, kann \code{a} explizit nach \code{B} gecasted werden.
-Zwar kann der Compiler im Vorfeld aufgrund Typinkompatibilität das Kompilieren verhindern; werden durch den Compiler diese Inkompatibilitäten aber nicht erkannt, wird die Laufzeitumgebung veranlasst, die Operation durchzuführen - gelingt das nicht, wird eine \code{ClassCastException}\footnote{
+Um dennoch auf \code{inB()} zugreifen zu können, kann \code{a} explizit nach \code{B} gecasted werden.\\
+\noindent
+I.d.R. wird der Compiler aufgrund erkannter Typinkompatibilität das Kompilieren verhindern; werden durch den Compiler diese Inkompatibilitäten aber nicht erkannt, wird die Laufzeitumgebung veranlasst, die Operation durchzuführen - gelingt das nicht, wird eine \code{ClassCastException}\footnote{
 ``Class ClassCastException``: \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/ClassCastException.html} - abgerufen 07.03.2024
 } geworfen, die folgerichtig eine Exception vom Typ \code{RuntimeException} ist\footnote{
 Abschnitt ~\ref{ch:exceptions} widmet sich etwas ausführlicher den Eigenschaften von Laufzeit-Ausnahmen.
@@ -98,6 +99,25 @@ Die Typumwandlung funktioniert letztendlich durch explizites casting wie folgt:
     gobble=2]{java}
     A a = new B();
     ((B)a).inB();
+\end{minted}\\
+
+Eine implizite Typumwandlung kann durch eine explizite ersetzt werden\footnote{
+    je nach Entwicklungsumgebung wird an dieser Stelle aber schon der Hinweis gegeben, dass der Compiler dies bereits durchführt.
+}:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    B b = new B();
+    A a = (A)b;
+    Object o = (Object)a;
+\end{minted}\\
+
+Explizites casting funktioniert nicht zum spezielleren Typ:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    A a = new A();
+    B b = (B)a; // ClassCastException
 \end{minted}\\
 
 
