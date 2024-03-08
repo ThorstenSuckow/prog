@@ -1,0 +1,84 @@
+\section{Zugriffsmodifizierer}
+
+
+Tabelle~\ref{tab:modifier} listet die verfügbaren Zugriffsmodifizierer in Java auf\footnote{
+    ``The Java™ Tutorials - Controlling Access to Members of a Class``: \url{https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html} - abgerufen 08.03.2024
+}
+
+\setlength{\tabcolsep}{1.5em}
+\renewcommand{\arraystretch}{1.5}%
+\begin{table} %[hbtp]
+    \centering
+    \begin{tabular}{c | c | c | c | c}
+        \textbf{Modifizierer} & Klasse & Package & Unterklasse & Welt \\
+        \hline
+        \code{public}   & $\checkmark$   & $\checkmark$ & $\checkmark$ & $\checkmark$   \\
+        \code{protected}   & $\checkmark$   & $\checkmark$ & $\checkmark$ & $-$   \\
+        kein Modifizierer   & $\checkmark$   & $\checkmark$ & $-$ & $-$   \\
+        \code{private}   & $\checkmark$   & $-$ & $-$ & $-$   \\
+    \end{tabular}
+    \caption{Zugriffsmodifizierer und ihre Sichtbarkeiten}
+    \label{tab:modifier}
+\end{table}
+
+\noindent
+Wenn kein expliziter Zugriffsmodifizierer angegeben wurde, ist die Sichtbarkeit implizit \textit{package-private} (Zeile 3 in Tabelle~\ref{tab:modifier}).\\
+
+\noindent
+Die Sichtbarkeit einer überschrieben Methode darf nicht reduziert werden.
+Erweitern ist dagegen möglich:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    class A {
+        protected function foo() {
+        }
+
+        public function bar() {
+        }
+    }
+
+    class B extends A {
+        public function foo() { // Sichtbarkeit von foo()
+        }                       // erweitert
+
+        protected function bar() { // Compilerfehler:
+        }                          // "Attempting to assign weaker
+                                   // access privileges"
+
+    }
+
+\end{minted}
+
+
+\section{Packages}
+Das Package-Konzept in Java repräsentiert kein hierarchisches Modell:\blockquote{
+    At first, packages appear to be hierarchical, but they are not.\footnote{
+        ``The Java™ Tutorials - Apparent Hierarchies of Packages``: \url{https://docs.oracle.com/javase/tutorial/java/package/usepkgs.html} - abgerifen 08.03.2024
+    }
+}\\
+Aus diesem Grund kennt Java so etwas wie ``innere Pakete`` nicht.\\
+
+\noindent
+Verdeutlicht wird dies anhand des Beispiels von \code{import}-Deklarationen, die Wildcards (``*``) in Verbindung mit einem qualifizierten Namen nutzen\footnote{
+    Eine sog. ``Type-Import-on-Demand Declaration``. Siehe  ``Java Language Specification - 7.5.2. Type-Import-on-Demand Declarations``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-7.html#jls-7.5.2} - abgerufen 08.03.2024
+}.\\
+So können alle öffentlichen Klassen aus dem Paket \code{java.awt} in Typdeklarationen einer Übersetzungseinheit\footnote{
+    ``Compilation Unit``. Siehe hierzu ``Java Language Specification - 7.3. Compilation Units``: \url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-7.html#jls-7.3} - abgerufen 08.03.2024
+} über ihren Namen referenziert werden, wenn wie folgt importiert wird:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    import java.awt.*;
+\end{minted}
+
+\noindent
+Dies schließt allerdings \unerline{nicht} die Klassen ein, die in Paketen liegen, die ihrem qualifizierten Namen nach scheinbar ``in`` \code{java.awt} liegen,
+wie bspw. \code{java.awt.color}.
+Diese müssen separat importiert werden:
+
+\begin{minted}[mathescape,
+    gobble=2]{java}
+    import java.awt.*;
+    import java.awt.color.*;
+\end{minted}
