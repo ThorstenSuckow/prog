@@ -32,7 +32,7 @@ Der Kurs definiert einen Baum als \textbf{vollständig}, wenn alle inneren Knote
 Die \textbf{maximale Höhe} eines Baumes ist $n - 1$ - diese wird in \textit{entarteten} Bäumen erreicht: Hier hat jeder Knoten maximal einen Nachfolger (vgl. Skript (Teil2) S.103).\\
 
 \noindent
-Die \textbf{minimale Höhe eines Baumes} ist $\lceil log_2(n + 1) \rceil - 1$: \textit{vollständige Bäume} besitzen minimale Höhe (vgl. Skript (Teil2) S.103).
+Die \textbf{minimale Höhe eines Baumes} ist $\lceil log_2(n + 1) \rceil - 1$: \textit{vollständige Bäume} besitzen minimale Höhe (vgl. Skript (Teil2) S.103).\\
 
 
 \subsection{Preorder}
@@ -122,7 +122,12 @@ Im worst-case ist ein Baum zu einer linearen Liste entartet\footnote{
 \noindent
 Im Mittel wird für eine Einfügeoperation $O(log n)$ benötigt\footnote{
     vgl. \cite[136 ff.]{GD18d}
-}.
+}.\\
+
+
+\noindent
+Der Aufwand für den Aufbau eines binären Suchbaumes Baumes mit $n$ bereits sortierten Elementen ist $O(n^2)$ (vgl.~\cite[235 f.]{GD18d}).
+
 
 \subsection{Löschen}
 
