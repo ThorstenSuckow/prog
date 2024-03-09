@@ -28,6 +28,13 @@ Der Kurs definiert einen Baum als \textbf{vollständig}, wenn alle inneren Knote
     s. Skript (Teil 2) S. 101.
 }.
 
+\noindent
+Die \textbf{maximale Höhe} eines Baumes ist $n - 1$ - diese wird in \textit{entarteten} Bäumen erreicht: Hier hat jeder Knoten maximal einen Nachfolger (vgl. Skript (Teil2) S.103).\\
+
+\noindent
+Die \textbf{minimale Höhe eines Baumes} ist $\lceil log_2(n + 1) \rceil - 1$: \textit{vollständige Bäume} besitzen minimale Höhe (vgl. Skript (Teil2) S.103).
+
+
 \subsection{Preorder}
 Wird ein Baum in \textbf{Preorder}-Reihenfolge traversiert, wird zunächst die Wurzel besucht, dann die Knoten des linken Teilbaums, dann die Knoten des rechten Teilbaums (\textit{KLR}).
 
@@ -127,8 +134,21 @@ Wenn in einem binären Suchbaum ein Knoten gelöscht wird, muss sein Ordnung wie
 
 \noindent
 Dies erreicht man, indem man den gelöschten Knoten durch seinen \textbf{symmetrischen Nachfolger} bzw. \textbf{symmetrischen Vorgänger} ersetzt (vgl.~\cite[269, 272]{OW17e}).\\
-Der \textbf{symmetrische Nachfolger} ist hierbei der Knoten im \textit{rechten} Teilbaum, der am weitesten \textit{links} steht.\\
-Der \textbf{symmetrische Vorgänger} ist hingegen der Knoten im \textit{linken} Teilbaum,  der am weitesten \textit{rechts} steht.\\
+Der \textbf{symmetrische Nachfolger} ist hierbei der Knoten im \textit{rechten} Teilbaum, der am weitesten \textit{links} steht ($\rightarrow$ kleinster Schlüssel im rechten Teilbaum).\\
+Der \textbf{symmetrische Vorgänger} ist hingegen der Knoten im \textit{linken} Teilbaum,  der am weitesten \textit{rechts} steht($\rightarrow$ größter Schlüssel im linken Teilbaum).\\
+
+\noindent
+Generell wird beim Löschen so vorgegangen:
+
+\begin{itemize}
+    \item \textbf{Fall 1}: Der zu löschende Knoten ist ein Blatt
+    \item [] In diesem Fall muss lediglich die Referenz auf das Blatt entfernt werden.
+    \item \textbf{Fall2}: Der zu löschende Knoten hat nur einen direkten Nachfolger
+    \item[] Die Referenz auf den zu löschenden Knoten wird auf den direkten Nachfolger gesetzt
+    \item \textbf{Fall3}: Der zu löschende Knoten hat einen linken \textit{und} einen rechten Nachfolger
+    \item[] Der zu löschende Knoten muss durch seinen symmetrischen Nachfolger oder Vorgänger ersetzt werden.
+\end{itemize}\\
+
 
 \noindent
 Sei bspw. wie in Abbildung~\ref{fig:deltree} der binäre Suchbaum gegeben, dessen Knoten mit dem Schlüssel $5$ gelöscht werden soll.\\
@@ -152,8 +172,6 @@ Es ist darauf zu achten, die Nachfolgerknoten / Vorgängerknoten beim Löschen k
     \item[] Da der symmetrische Nachfolger höchstens \textit{einen direkten rechten Nachfolger} haben kann, wird dieser Knoten nun der neue \textit{direkte linke Nachfolger} des direkten Vorgängers des symmetrischen Nachfolgers.
     In dem angegebenen Beispiel muss nichts weiter geschehen, da der direkte Vorgänger des symmetrischen Nachfolgers der zu löschende Schlüssel ist.
     Allerdings bekommt der Knoten mit dem Schlüssel $6$ nun einen neuen direkten linken Nachfolger, und zwar den Knoten mit dem Schlüssel $2$.
-\end{itemize}
-
-
+\end{itemize}\\
 
 
