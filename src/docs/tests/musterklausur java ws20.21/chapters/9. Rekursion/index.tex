@@ -57,6 +57,9 @@ also $2^n$.\\
 Da letztendlich deren Summe das Ergebnis der Methode \code{recursion} liefert, ist das gesuchte Ergebnis $2^n$.\\
 
 \noindent
-Die Rekursionstiefe des Baumes entspricht $n + 1$, wobei sich auf jeder Ebene die Anzahl der rekursiven Aufrufe verdoppelt.\\
+Die Rekursionstiefe des Baumes entspricht $n$\footnote{
+Anzahl gleichzeitig aktiver \textit{rekursiver} Aufrufe; der erste Aufruf wird i.d.R. nicht dazugezählt und entspricht der ``Wurzel`` des Rekursionsbaums.
+Die Rekursionstiefe entspricht damit der \textit{Höhe} des Baumes (vgl. Skript (Teil 2) S.34); bzgl. der Begriffsbestimmung siehe hierzu auch \cite[144 f.]{CK75}.
+}, wobei sich auf jeder Ebene die Anzahl der rekursiven Aufrufe verdoppelt.\\
 Mit der Anzahl der Rekursionsaufrufe lässt sich auch auf die Komplexitätsklasse schliessen, die mit $O(2^n)$ \textbf{exponentiell} ist.
 
