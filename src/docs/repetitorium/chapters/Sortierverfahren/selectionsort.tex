@@ -1,0 +1,44 @@
+\section{Selection-Sort}
+
+\textbf{Selection-Sort} (\textit{Sortieren durch Auswahl}) ist ein auf Schlüsselvergleichen basierendes, \textbf{internes}, \textbf{nicht-stabiles} Sortierverfahren, das \textbf{in place} sortiert.
+
+\subsection{Methode}
+Das Sortierverfahren vergleicht zwei Teilfolgen des zu sortierenden Feldes miteinander.\\
+Das jeweils kleinste Element aus der rechten Teilfolge wird markiert und nach einer Iteration mit dem derzeitigen Referenzschlüssel ausgetauscht, sofern die relative Reihenfolge der beiden Schlüssel nicht den Sortiervorgaben entspricht.\\
+Das ganze wird so lange wiederholt, bis die rechte Teilfolge erschöpft ist und keine Vergleiche mehr möglich sind, danach wird der nächste Refernschlüssel aus der linken Teilfolge ausgewählt, bis auch diese Folge erschöpft ist.
+
+
+\subsection{Implementierung}
+
+\begin{minted}{java}
+
+    for (int i = 0; i < n - 1; i++) {
+        int min = arr[i];
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        int tmp = arr[minIndex];
+        arr[minIndex] = arr[i];
+        arr[i] = tmp;
+    }
+
+\end{minted}
+
+
+\subsection{Laufzeit}
+Die äußere Schleife wird $n - 1$-mal durchlaufen, die innere - in Abhängigkeit von $i$, jeweils $n - (i + 1)$ mal.\\
+Mit
+
+\begin{equation}
+    \sum_{i=0}^{n-2} \sum_{j = i + 1}^{n - 1} 1
+\end{equation}
+
+\noindent
+folgt die Laufzeitkomplexität $O(n^2)$.\\
+
+\noindent
+Da in der o.a. Implementierung keine Abbruchbedingung vorliegt, gilt die Laufzeitkomplexität auch für den \textbf{best}- sowie \textbf{average}-case.
+
