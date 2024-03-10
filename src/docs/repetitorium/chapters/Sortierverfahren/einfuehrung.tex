@@ -1,0 +1,40 @@
+\section{Grundlagen}
+
+Der Abschnitt wiederholt wesentliches zu \textit{einfachen} Sortierverfahren\footnote{
+    vgl. \textit{Güting und Dieker} in~\cite[170]{GD18e}; bei \textit{Ottmann und Widmayer} auch \textit{elementare} Sortierverfahren (vgl.~\cite[82 ff.]{OW17b})
+}wie \textbf{Selection-Sort}, \textbf{Insertion-Sort} und \textbf{Bubble-Sort}, deren Laufzeitkomplexität in $O(n^2)$ liegen\footnote{
+im Folgenden bezieht sich $O$ immer auf den \textbf{worst-case}, sofern nicht anders angegeben
+}.\\
+Außerdem werden \textbf{Divide-and-Conquer}-Verfahren wie \textbf{Merge-Sort} ($O(n\ log\ n)$) und \textbf{Quick-Sort} ($O(n^2)$) wiederholt.
+
+\subsection{Allgemeine Sortierverfahren}
+Unter \textbf{allgemeinen Sortierverfahren} fasst man diejenigen Sortierverfahren zusammen, die Informationen über die relative Anordnung von zu sortierenden Schlüsseln nur über paarweise Schlüsselvergleiche gewinnen (vgl.~\cite[130]{OW17b}).\\
+Alle in diesem Abschnitt behandelten Sortierverfahren sind \textit{allgemeine} Sortierverfahren\footnote{
+ein Sortierverfahren, dass nicht über Schlüsselvergleiche sortiert, ist \textit{Radixsort} (vgl.~\cite[121]{OW17b})
+}.
+
+\subsection{Klassifikation von Sortieralgorithmen}
+
+\textit{Güting und Dieker} klassifizieren Sortieralgorithmen neben der Effizienz und den angewandten Methoden u.a. nach folgenden Kriterien (vgl.~\cite[169 f.]{GD18e}]):
+
+\begin{itemize}
+    \item \textbf{intern / extern}
+    \item[] \textit{interne} Verfahren halten alle Daten im Hauptspeicher, \textit{externe} laden nur einen Teil davon in den Speicher (bspw. beim Sortieren von Daten, die auf Diskette / Platte / Band vorliegen (vgl.~\cite[80]{OW17b})).
+    \item \textbf{in place (in situ)}
+    \item [] Sortierverfahren, die keinen zusätzlichen Speicherplatz zum Sortieren der Daten benötigen, sortieren \textbf(in place).\\
+    Die Eingangsfolge und die Ausgangsfolge werden im selben Array dargestellt, Vertauschungen von Schlüsseln erfolgen in genau diesem Array.\\
+    Alle in diesem Kapitel behandelten Sortierverfahren fallen in diese Kategorie, bis auf \textbf{Merge-Sort}.
+    \item \textbf{stabil}
+    \item[] Sortierverfahren, bei denen die Ergebnisfolge gleicher Schlüssel dieselbe ist wie die Ausgangsfolge, nennt man \textbf{stabil}:\blockquote[{\cite[164]{OW17b}}]{
+        [...] die Reihenfolge von Elementen mit gleichem Sortierschlüssel wird während des Sortierverfahrens nicht vertauscht.
+    }.\\
+    Die Sortierverfahren \textbf{Bubble-Sort}, \textbf{Insertion-Sort} und \textbf{Merge-Sort} sind allesamt stabile Sortierverfahren.\\
+    Nicht stabil sind \textbf{Selection-Sort} und \textbf{Quick-Sort}.
+\end{itemize}
+
+
+\subsection{Untere Schranke}
+
+\blockquote[{\cite[154, Satz2.4]{OW17b}}]{
+    Jedes allgemeine Sortierverfahren benötigt zum Sortieren von $N$ verschiedenen Schlüsseln sowohl im schlechtesten Falls als auch im Mittel wenigstens $\Omega(N\ log\ N)$ Schlüsselvergleiche.
+}.
