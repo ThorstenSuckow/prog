@@ -38,3 +38,14 @@ ein Sortierverfahren, dass nicht über Schlüsselvergleiche sortiert, ist \texti
 \blockquote[{\cite[154, Satz2.4]{OW17b}}]{
     Jedes allgemeine Sortierverfahren benötigt zum Sortieren von $N$ verschiedenen Schlüsseln sowohl im schlechtesten Falls als auch im Mittel wenigstens $\Omega(N\ log\ N)$ Schlüsselvergleiche.
 }.
+
+
+\subsection{divide-and-conquer-Paradigma}
+
+\textit{Güting und Dieker} beschreiben das \textbf{divide-and-conquer}-Paradigma ähnlich wie folgt (vgl.~\cite[174]{GD18e}):
+\begin{itemize}
+    \item Ist die Objektmenge klein genug, löse das Problem direkt.
+    \item \textit{Divide} Ansonsten zerlege die Objektmenge in mehrere Teilmengen (möglichst gleicher Größe)
+    \item \textit{Conquer} Löse das Problem rekursiv für die Teilmenge
+    \item \textit{Merge} Berechne aus den für die Teilmengen erhaltenen Lösungen eine Lösung für das Gesamtproblem
+\end{itemize}
