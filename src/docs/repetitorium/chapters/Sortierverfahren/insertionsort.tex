@@ -1,0 +1,42 @@
+\section{Insertion-Sort}
+
+\textbf{Insertion-Sort} ist ein auf Schlüsselvergleichen basierendes, \textbf{internes}, \textbf{stabiles} Sortierverfahren, das \textbf{intern} sortiert.
+
+\subsection{Methode}
+
+Bei \textbf{Insertion-Sort} wird das zu sortierende Feld in zwei Teilfolgen unterteilt - die linke Teilfolge gilt als sortiert - die rechte Teilfolge gibt die Schlüssel vor, die nun in die linke Teilfolge einsortiert werden sollen.\\
+Hierfür wird jeweils ein Schlüssel aus der rechten Teilfolge mit den Schlüsseln in der linken Teilfolge verglichen, und in die Position eingefügt, die der erwarteten Sortierreihenfolge entspricht.
+
+\subsection{Implementierung}
+
+\begin{minted}{java}
+    for (int i = 1; i < n; i++) {
+        int min = arr[i];
+        int j = i;
+        while (j > 0 && arr[j - 1] > min) {
+            arr[j] = arr[j - 1];
+            j--;
+        }
+        arr[j] = min;
+    }
+\end{minted}
+
+\subsection{Laufzeit}
+Die äußere Schleife wird $n-1$ mal durchlaufen, die innere so oft, bis keine Inversion mehr festgestellt wird\footnote{
+    das ist einer der wesentliche Unterschied zu Selection-Sort
+}.\\
+Im \textbf{worst-case} muss die innere Schleife allerdings in Abhängigkeit von $i$ jeweils $i$-mal durchlaufen werden.\\
+
+Mit
+
+\begin{equation}
+    \sum_{i = 1}^{n-1} \sum_{j=1}^i 1
+\end{equation}
+
+folgt die Laufzeitkomplexität $O(n^2)$.\\
+
+\begin{tcolorbox}[title={Lineares Laufzeitverhalten}]
+    Insertion-Sort eignet  sich sehr gut für \textit{vorsortierte} Felder, wo es ein \textit{lineares Laufzeitverhalten} aufweist (vgl.~\cite[188]{CL22}).
+\end{tcolorbox}
+
+
