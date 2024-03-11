@@ -4,19 +4,24 @@
 
 \subsection{Methode}
 \textbf{Bubble-Sort} vergleicht zwei benachbarte Elemente und vertauscht diese miteinander, falls ihre relative Reihenfolge nicht der erwarteten Sortierreihenfolge entspricht.\\
-Das wird so lange wiederholt, bis keine Vertauschungen mehr auftreten.\\
+Nach dem ersten Durchlauf steht der größte/kleinste (entsprechend Vorgaben der Sortierreihenfolge) Schlüssel am Ende des Feldes.\\
+Dann wird der Vorgang wiederholt, es muss aber nicht mehr mit dem letzten Schlüssel verglichen werden, da dieser Schlüssel bereits der größte ist.\\
+Das wird so lange wiederholt, bis keine Vertauschungen mehr aufgetreten sind oder in u.a. Implementierung das Ende der äußeren Schleife erreicht wurde.\\
 
 \subsection{Implementierung}
 
 \begin{minted}{java}
     boolean inversed = true;
-    while (swapped) {
+    for (i = n - 1; i >= 0; i--) {
         inversed = false;
-        for (j = 0; j < n - 1; j++) {
+        for (j = 0; j < i; j++) {
             if (arr[j] > arr[j + 1]) {
                 swap(arr, j, j+1);
                 inversed = true;
             }
+        }
+        if (!inversed) {
+            break;
         }
     }
 \end{minted}
@@ -25,6 +30,12 @@ Das wird so lange wiederholt, bis keine Vertauschungen mehr auftreten.\\
 Ist das Feld absteigend sortiert, wird in jeder Iteration der \code{while}-Schleife eine Fehlstellung (\textit{Inversion}) behoben (s. Abbildung~\ref{fig:inversions}).
 Hierfür werden in jedem Durchlauf $n$ Schlüsselvergleiche durchgeführt.\\
 Bei einer Eingabegröße von $n$ mit $\sum_{i=1}^n (n-i)$  Fehlstellungen (vgl.~\cite[87]{OW17b}) ergibt sich somit eine \textbf{Laufzeitkomplexität} von $O(n^2)$.
+
+
+\begin{itemize}
+    \item \textbf{Anzahl der Vergleiche und Vertauschungen}: $\frac{n * ( n - 1)}{2}$ ($O(n^2)$)
+\end{itemize}
+
 
 \noindent
 Im günstigsten Fall muss das Feld nur einmal durchlaufen werden, um zu überprüfen, ob eine Vertauschung vorgenommen werden muss.\\
