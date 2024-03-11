@@ -8,8 +8,10 @@
 Die wesentliche Arbeit erfolgt hier in den Partitionierungs-Schritten, im Gegensatz zu \textbf{Mergesort}, hier findet die eigentliche Arbeit im Merge-Schritt statt (vgl.~\cite[174]{GD18e}).\\
 
 \noindent
-Hierzu wird ein Schlüssel aus dem Feld als \textbf{Pivot-Element} $p$ gewählt (im folgenden immer das rechte einer Teilfolge).\\
-Zwei Positionszeiger $i$ und $j$ wandern dann symmetrisch von links nach rechts ($i$) bzw. rechts nach links ($j$) in der Folge, bis ein Schlüssel $k_i > p$ und $k_j < p$ gefunden wurde. \\
+Bei Quicksort  wird ein Schlüssel aus dem Feld als \textbf{Pivot-Element} $p$ gewählt (im folgenden immer das rechte einer Teilfolge).\\
+Alle Schlüssel, die kleiner als das Pivotelement sind, werden in die eine Hälfte geschrieben, alle die größer sind, in die andere.
+Das Pivotelement selber wird zwischen die beiden Hälften geschrieben, die dann durch Rekursion wiederholt bearbeitet werden, bis die Teilfelder die Größe $1$ haben, womit das gesamte Feld als sortiert gilt:\\
+Zwei Positionszeiger $i$ und $j$ wandern symmetrisch von links nach rechts ($i$) bzw. rechts nach links ($j$) in der Folge, bis ein Schlüssel $k_i > p$ und $k_j < p$ gefunden wurde. \\
 Die Schlüssel an Position $i$ und $j$ werden dann miteinander getauscht.\\
 Kreuzen sich $i$ und $j$, gilt für alle Schlüssel $k_u < p$ (mit $u < i$ ), und für alle Schlüssel $k_v > p$ (mit $v > j$)).\\
 In dem Fall wird der Schlüssel an Position $i$ mit dem Pivotelement $p$ getauscht, und das Feld wird an dieser Stelle in zwei Teilfolgen aufgeteilt, wonach die Prozedur für die entstandenen Teilfolgen wiederholt wird (s. Abbildung~\ref{fig:quicksort}).
