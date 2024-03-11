@@ -45,7 +45,12 @@ s. a. ``Modulo``: \url{https://de.wikipedia.org/wiki/Division_mit_Rest#Modulo} -
     \item $-8\ mod\ 6 = -8 - \frac{-8}{6} * 6 = -8 - (-2 * 6) = 4$
 \end{itemize}
 
-
+\subsection{Doppel-Hashing}
+Bei \textfb{Doppel-Hashing} wird eine Sondierungsfunktion $s(k, i)$ benutzt, die eine zweite Hashfunktion $h_2(k)$ neben der eigentlichen Hashfunktion $h_1(k)$ verwendet.\\
+Die Adresse für $k$ wird zunächst über $h_1(k)$ berechnet.
+Kommt es zu einer Kollision, wird die \textit{Sondierungsfunktion} verwendet, beginnend mit $i=1$, bis keine weiteren Kollisionen auftreten\footnote{
+s. a. ``Doppel-Hashing``: \url{https://de.wikipedia.org/wiki/Doppel-Hashing} - abgerufen 11.03.2024
+}.
 
 
 \subsection{Anmerkungen}
