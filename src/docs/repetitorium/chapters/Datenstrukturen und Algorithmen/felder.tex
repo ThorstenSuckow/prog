@@ -1,0 +1,74 @@
+\section{Arrays / Felder}
+Die eckigen Klammern sollten bei der Variablendeklaration von Feldern {bzw.} bei der Typdeklaration formaler Parameter hinter dem Datentyp stehen, nicht hinter dem Variablennamen\footnote{
+    s.a. \url{https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html} - abgerufen 9.2.2024}:
+
+\begin{minted}{java}
+    // statt
+    int numbers[]
+    // besser
+    int[] numbers
+\end{minted}
+
+\begin{itemize}
+    \item Die Lesbarkeit wird verbessert: Die eckigen Klammern direkt hinter dem Typ weisen darauf hin, dass die Variable/der Parameter ein \textbf{Feld} von Werten des entsprechenden Typs ist.
+    \item Bei folgendem Code ist nicht direkt ersichtlich, was gemeint ist:
+    \begin{minted}{java}
+    int[] vector, matrix[];
+    \end{minted}
+    Die Schreibweise ist äquivalent zu
+    \begin{minted}[mathescape,
+        numbersep=5pt,
+        gobble=2,
+        framesep=2mm]{java}
+    int vector[], matrix[][];
+    // bzw.
+    int[] vector;
+    int[][] matrix;
+    \end{minted}
+    Die Sprachspezifikationen weisen daraufhin, dass diese Schreibweise nicht empfohlen wird:
+    \blockquote[{``10.2. Array Variables``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-10.html#jls-10.2} - abgerufen 9.2.2024}]{
+        We do not recommend "mixed notation" in array variable declarations, where bracket pairs appear on both the type and in declarators; nor in method declarations, where bracket pairs appear both before and after the formal parameter list.
+    }
+\end{itemize}\\
+
+\noindent
+Gegenüber folgender Schreibweise
+
+\begin{minted}{java}
+    int[] numbers = new int[]{1, 2, 3, 4};
+\end{minted}
+
+ist folgende Schreibweise
+
+\begin{minted}{java}
+    int[] numbers = {1, 2, 3, 4};
+\end{minted}
+
+übersichtlicher, redundante Informationen sind weggefallen.\\
+Beides ist erlaubt und führt am Ende zur Initialisierung des \code{int}-Arrays \code{[1, 2, 3, 4]}.\\
+Eine Übergabe von \code{{1, 2, 3, 4}} als Argument an eine Methode, deren Signatur bspw.
+
+
+\begin{minted}{java}
+    foo(int[])
+\end{minted}
+
+entspricht, ist dagegen nicht möglich; hier muss \code{new int[]{1, 2, 3, 4}} verwendet werden.\\
+
+\noindent
+Bei mehrdimensionalen Arrays muss bei der Deklaration der lokalen Variable / des formalen Parameters immer die Anzahl der eckigen Klammern \code{[]} mit der Anzahl der Dimensionen des Arrays übereinstimmen.\\
+Bei der Initialisierung eines mehrdimensionalen Arrays muss immer mindestens eine führende Dimension mit der Anzahl aufzunehmender Werte bestimmt werden:
+
+\begin{minted}[mathescape,
+    numbersep=5pt,
+    gobble=2,
+    framesep=2mm]{java}
+    // funktioniert nicht:
+    int[][] numbers = new int[][];
+    int[][] numbers = new int[][4];
+
+    // funktioniert:
+    int[][] numbers = new int[4][];
+\end{minted}
+
+In Java sind mehrdimensionale Arrays \textbf{Arrays von Arrays} - sie müssen deshalb nicht rechteckig sein, wie das letzte Beispiel zeigt (vgl.~\cite[273 ff.]{Ull23}).
