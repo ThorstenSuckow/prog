@@ -4,8 +4,10 @@
 
 \subsection{Methode}
 Das Sortierverfahren vergleicht zwei Teilfolgen des zu sortierenden Feldes miteinander.\\
-Das jeweils kleinste Element aus der rechten Teilfolge wird markiert und nach einer Iteration mit dem derzeitigen Referenzschlüssel ausgetauscht, sofern die relative Reihenfolge der beiden Schlüssel nicht den Sortiervorgaben entspricht.\\
-Das ganze wird so lange wiederholt, bis die rechte Teilfolge erschöpft ist und keine Vergleiche mehr möglich sind, danach wird der nächste Refernschlüssel aus der linken Teilfolge ausgewählt, bis auch diese Folge erschöpft ist.
+Hierbei ist eine Teilfolge sortiert, die andere unsortiert.
+Die sortierte Teilfolge ist zunächst leer.\\
+Das jeweils kleinste Element aus der unsortierten Teilfolge wird an das Ende der sortierten Teilfolge eingefügt (bzw. das größte, je nach zu sortierender Reihenfolge.\\
+Das ganze wird so lange wiederholt, bis die unsortierte Teilfolge nur noch aus einem Element besteht, danach ist das Feld sortiert.
 
 
 \subsection{Implementierung}
@@ -38,6 +40,12 @@ Mit
 
 \noindent
 folgt die Laufzeitkomplexität $O(n^2)$.\\
+
+\begin{itemize}
+    \item \textbf{Anzahl der Vergleiche}: $\frac{n * ( n - 1)}{2}$
+    \item \textbf{Vertauschungen}: $n$ - jedes Element höchstens ein mal\footnote{s. Skript (Teil 2) ``7.3.1 Sortieren durch direktes Auswählen``
+    }
+\end{itemize}
 
 \noindent
 Da in der o.a. Implementierung keine Abbruchbedingung vorliegt, gilt die Laufzeitkomplexität auch für den \textbf{best}- sowie \textbf{average}-case.
