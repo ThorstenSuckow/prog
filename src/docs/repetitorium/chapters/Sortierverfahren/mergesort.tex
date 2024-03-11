@@ -5,13 +5,14 @@
 \subsection{Methode}
 
 \textbf{Mergesort} nutzt \textbf{divide-and-conquer}, um ein Feld zu sortieren.\\
-Die wesentliche Arbeit erfolgt hier in den Merge-Schritten, im Gegensatz zu \textbf{Quciksort}, bei dem die eigentliche Arbeit im Partitionierungs-Schritt stattfindet (vgl.~\cite[174]{GD18e}).\\
+Die wesentliche Arbeit erfolgt hier in den Merge-Schritten, im Gegensatz zu \textbf{Quicksort}, bei dem die eigentliche Arbeit im Partitionierungs-Schritt stattfindet (vgl.~\cite[174]{GD18e}).\\
 I.d.R. wird bei Mergesort linear viel zusätzlichen Speicherplatz (vgl.~\cite[112]{OW17b}.
 
 \noindent
-Der Algorithmus teilt die Eingabefolge rekursiv in zwei gleich-große Folgen auf, bis $n$ ein-elementige Folgen vorhanden sind.\\
+Der Algorithmus teilt die Eingabefolge rekursiv in zwei gleich-große Folgen auf, bis $n$ ein-elementige Folgen vorhanden sind (eine ein-elementige Menge gilt als sortiert).\\
 Im Anschluss werden die Folgen miteinander verschmolzen, und zwar so, dass die miteinander verschmolzenen Folgen immer in sortierter Reihenfolge vorliegen.\\
-Das ganze wird so lange wiederholt, bis die Folge mit $n$ Elementen wieder komplett rekonstruiert ist (s. Abbildung~\ref{fig:mergesort}).
+Das ganze wird so lange wiederholt, bis die Folge mit $n$ Elementen wieder komplett ist, dann in sortierter Reihenfolge (s. Abbildung~\ref{fig:mergesort}).\\
+
 
 \subsection{Implementierung}
 
@@ -47,4 +48,11 @@ Das folgende Beispiel beinhaltet nicht die Methoden für die Partitionierung und
 
 
 \subsection{Laufzeit}
-Im \textbf{worst-case} hat Mergesort eine Laufzeit von $O(n\ log\ n)$.
+Im \textbf{worst-case} hat Mergesort eine Laufzeit von $O(n\ log\ n)$.\\
+Das Aufteilen des Feldes benötigt $O(log\ n)$, in jedem Schritt werden Operationen mit $O(n)$ Zeit durchgeführt (aufteilen  oder verschmelzen) \footnote{
+Das Verschmelzen von zwei Teilfeldern erfolgt durch paralleles Durchlaufen mti anschliessendem Einfügen in ein sortiertes Teilfeld, wozu $O(n)$ Zeit benötigt wird (vgl. Skript (Teil 2) ``7.4.1 MergeSort``).
+}
+
+\begin{tcolorbox}
+    Die Rekursionstiefe ist bei \textbf{Mergesort} logarithmisch beschränkt (mit $\lceil log\ n \rceil$), im Gegensatz zu \textbf{Quicksort} (vgl.~\cite[116]{OW17b}).
+\end{tcolorbox}
