@@ -4,8 +4,9 @@
 
 \subsection{Methode}
 
-Bei \textbf{Insertion-Sort} wird das zu sortierende Feld in zwei Teilfolgen unterteilt - die linke Teilfolge gilt als sortiert - die rechte Teilfolge gibt die Schlüssel vor, die nun in die linke Teilfolge einsortiert werden sollen.\\
-Hierfür wird jeweils ein Schlüssel aus der rechten Teilfolge mit den Schlüsseln in der linken Teilfolge verglichen, und in die Position eingefügt, die der erwarteten Sortierreihenfolge entspricht.
+Bei \textbf{Insertion-Sort} wird das zu sortierende Feld in zwei Teilfolgen unterteilt - eine unsortierte und eine sortierte.\\
+Die unsortierte Folge besteht zu Beginn nur aus einem Element (es gilt, das eine Menge mit einem Schlüssel sortiert ist).\\
+Aus der unsortierten Teilfolge werden Elemente der Reihe nach entnommen und in die sortierte Folge an der richtigen Stelle eingefügt, wodurch Schlüssel ihre Position in der sortierten Folge ggf. ändern müssen.
 
 \subsection{Implementierung}
 
@@ -34,6 +35,11 @@ Mit
 \end{equation}
 
 folgt die Laufzeitkomplexität $O(n^2)$.\\
+
+\begin{itemize}
+    \item \textbf{Anzahl der Vergleiche und Vertauschungen}: $\frac{n * ( n - 1)}{2}$ ($O(n^2)$)
+\end{itemize}
+
 
 \begin{tcolorbox}[title={Lineares Laufzeitverhalten}]
     Insertion-Sort eignet  sich sehr gut für \textit{vorsortierte} Felder, wo es ein \textit{lineares Laufzeitverhalten} aufweist (vgl.~\cite[188]{CL22}).
