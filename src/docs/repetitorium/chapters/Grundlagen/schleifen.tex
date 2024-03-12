@@ -1,0 +1,51 @@
+\section{Schleifen}
+
+\subsection{for-Schleife}
+
+Eine \code{for}-Schleife ist folgendermaßen aufgebaut\footnote{
+s. ``14.14.1. The basic for Statement``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-14.html#jls-14.14.1} - abgerufen 12.03.2024
+}:\\
+
+\noindent
+\code{for} ([\code{ForInit}] ; [\code{Expression}] ; [\code{ForUpdate}]) \code{Statement}\\
+
+\begin{itemize}
+    \item \code{ForInit}, \code{Expression}, \code{ForUpdate} sind optional.
+    \item ist \code{Expression} angegeben, \textbf{muss} der Ausdruck ein \textit{boolescher} Ausdruck sein
+    \item \code{ForInit} darf eine kommaseparierte Liste von lokalen Variablendeklarationen sein, oder eine kommaseparierte Liste von Ausdrucksanweisungen
+    \item \code{ForUpdate} darf eine kommaseparierte Liste von Ausdrucksanweisungen sein
+    \item \code{ForUpdate} wird \textit{nach} einem Durchlauf der Schleife ausgeführt, sofern der boolesche Ausdruck (falls vorhanden) zu \code{true} ausgewertet wurde.
+    Die Reihenfolge entspricht grob:
+    \begin{enumerate}
+        \item Ausführen von \code{ForInit}
+        \item Auswertung der \code{Expression}
+        \item Ausführen des \code{Statement}s
+        \item Ausführen von \code{ForUpdate}
+    \end{enumerate}
+
+\end{itemize}\\
+
+\noindent
+Beispiele für gültige \code{for}-Schleifen:
+
+\begin{minted}{java}
+    // endlosschleife, boolescher Ausdruck nicht angegeben
+    // i und a sind nur in dem block der for-Schleife sichtbar
+    for (int i = 0, a = 1; ; i++) {
+        System.out.println(a++);
+    }
+
+    int z = 0;
+    int a = 0;
+    for (System.out.println("Hello World!"),
+         System.out.println("starte Schleife");
+        z < 10;
+        z++,
+        System.out.println("z und a jetzt bei: " + z + "(z), " + a + "(a)")) {
+        System.out.println("im Schleifenrumpf: " + z + "(z), " + a + "(a)");
+        a++;
+    }
+
+
+\end{minted}
+
