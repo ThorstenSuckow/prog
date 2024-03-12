@@ -6,8 +6,8 @@ In Java gehört zu der Methodensignatur der Methodenname sowie die formale Param
 }.
 
 \subsection{Überschreiben}
-Eine Methode wird in einer Unterklasse \textit{überschrieben}, wenn Name, Signatur und Rückgabetyp der Methode der Unterklasse mit der
-Methode der Oberklasse übereinstimmen.\\
+Eine Methode wird in einer Unterklasse \textit{überschrieben}, wenn Signatur und Rückgabetyp der Methode der Unterklasse mit der
+Methode der Oberklasse übereinstimmen\footnote{stimmt nur die Signatur überein, kommt es zu einem Compilerfehler}.\\
 
 
 \subsection{Überladen}
@@ -42,6 +42,7 @@ Den Aufruf
     foo(1, 2);
 \end{minted}\\
 
+\noindent
 quittiert der Compiler mit einer Fehlermeldung ``Ambiguous method call.``.\\
 An dieser Stelle ist explizites casten nötig, damit für den Compiler klar ist, welche Methode aufgerufen werden soll:
 

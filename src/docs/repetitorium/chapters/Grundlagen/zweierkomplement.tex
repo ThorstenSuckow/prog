@@ -1,7 +1,7 @@
 \section{Zweierkomplement zur Repräsentation von Ganzzahlen}
 
 
-Java verwendet das \textbf{Zweierkomplement} für die Codierung für negative und positive \textit{ganze} Zahlen (\code{byte}, \code{short}, \code{int}, \code{long}).
+Java verwendet das \textbf{Zweierkomplement} für die Codierung negativer und positiver \textit{ganze} Zahlen (\code{byte}, \code{short}, \code{int}, \code{long}).
 
 \noindent
 Für negative Zahlen ist das erste Bit\footnote{
@@ -11,7 +11,7 @@ Da somit das erste Bit für das Vorzeichen reserviert ist, lassen sich mit $n$ B
 
 
 \subsection*{Positiv zu Negativ}
-Der negative Wert einer wird ermittelt, indem
+Der negative Wert einer Zahl wird ermittelt, indem
 
 \begin{enumerate}
     \item die Bitfolge invertiert wird \footnote{``invertiert`` im Folgenden abgekürzt über den \textit{Komplement-Operator} $\sim$}
@@ -31,7 +31,7 @@ Beispiel anhand der Zahl $3$ ($B_{3}:= 0_7\ 0_6\ 0_5\ 0_4\ 0_3\ 0_2\ 1_1\ 1_0$),
 Der positive Wert einer negativen Ganzzahl im Zweierkomplement (Bit mit dem höchsten Stellenwert $=1$) wird ermittelt, indem
 
 \begin{enumerate}
-    \item die Bitfolge invertiert wird \footnote{``invertiert`` im Folgenden abgekürzt über den \textit{Komplement-Operator} $\sim$}
+    \item die Bitfolge invertiert wird
     \item $+1$ addiert wird\footnote{alternativ: vor dem ersten Schritt $1$ subtrahieren; die invertierte Bitfolge ist dann das Ergebnis}
 \end{enumerate}\\
 
@@ -40,9 +40,10 @@ Beispiel anhand der Zahl $-3$ ($B_{-3}:= 1_7\ 1_6\ 1_5\ 1_4\ 1_3\ 1_2\ 0_1\ 1_0$
 
 \begin{enumerate}
     \item $\sim B_{-3} = 0_7\ 0_6\ 0_5\ 0_4\ 0_3\ 0_2\ 1_1\ 0_0$
-    \item $\sim (B_{-3}) + 1 = 0_7\ 0_6\ 0_5\ 0_4\ 0_3\ 0_2\ 0_1\ 1_0$
+    \item $\sim (B_{-3}) + 1 = 0_7\ 0_6\ 0_5\ 0_4\ 0_3\ 0_2\ 1_1\ 1_0$
 \end{enumerate}\\
 
+\noindent
 Alternativ:
 \begin{enumerate}
     \item $B_{-3} -1 = 1_7\ 1_6\ 1_5\ 1_4\ 1_3\ 1_2\ 0_1\ 0_0)$

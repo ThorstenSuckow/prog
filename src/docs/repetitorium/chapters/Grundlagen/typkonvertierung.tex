@@ -30,11 +30,16 @@ Eine \textit{implizite} Konvertierung erfolgt, wenn eine Variable eines Datentyp
 
     double d = 32.0f;
 
+    // das folgende funktioniert, weil der Compiler
+    // 'd' auswertet und feststellt, dass es im Wertebereich
+    // von short liegt
+    // short s = '\u9000'; würde hingegen vom Compiler
+    // abgewiesen
     short s = 'd';
 \end{minted}\\
 
 \noindent
-Eine \textit{explizite} Konvertierung muss erfolgen, wenn eine Zuweisung von einem Datentyp mit einer höheren Auflösung einem Datentyp mit niedriger Ausflösung erfolgen soll.\\
+Eine \textit{explizite} Konvertierung muss erfolgen, wenn eine Zuweisung von einem Datentyp mit einer höheren Auflösung zu einem Datentyp mit niedriger Ausflösung erfolgen soll.\\
 Hierbei muss explizit \textbf{gecasted} werden.
 
 \begin{minted}[mathescape,

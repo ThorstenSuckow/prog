@@ -8,7 +8,7 @@
 \end{tcolorbox}
 
     Für das Verschieben von Bits existieren drei verschiedene Operationen in Java: $<<, >>, >>>$.\\
-Alle diese Operatoren sind binäre Operatoren: Der erste Operand $b$ ist das zu verschiebende Bit-Muster, der zweite Operant $n$ ist eine ganze Zahl, die angibt, um wieviele Stellen verschoben werden soll.\\
+Alle diese Operatoren sind binäre Operatoren: Der erste Operand $b$ ist das zu verschiebende Bit-Muster, der zweite Operand $n$ ist eine ganze Zahl, die angibt, um wieviele Stellen verschoben werden soll.\\
 
 Ist das Bit-Muster ein \code{int}-Wert, wird immer um max. $31$ Stellen verschoben ($n\ mod\ 32$)\footnote{im selben Kontext hierzu für \textit{long}-Werte: $63$ Stellen}:
 
@@ -41,7 +41,9 @@ Das Bit-Muster für \code{byte b = -128} soll um zwei Positionen nach rechts ver
 
 
 \begin{tcolorbox}
-    Das Vorzeichen der durch das Bit-Muster repräsentierten Zahl ändert sich bei der Verwendung des \textbf{signed right shift Operators}, falls an der Stelle $msb - 1$ eine $1$ steht und an der Stelle $msb$ eine $0$\footnote{msb = most significant bit}.
+    Das Vorzeichen der durch das Bit-Muster repräsentierten Zahl ändert sich bei der Verwendung des \textbf{signed right shift Operators}, falls an der Stelle $msb - 1$ eine $1$ steht und an der Stelle $msb$ eine $0$\footnote{
+        bzw. umgekehrt. \textit{msb} = \textit{most significant bit}
+    }.
 \end{tcolorbox}
 
 \noindent

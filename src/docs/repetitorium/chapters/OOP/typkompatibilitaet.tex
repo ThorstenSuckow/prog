@@ -60,7 +60,8 @@ Wie \textit{Ullenboom} in ~\cite[467 f.]{Ull23} zeigt, ist für den Compiler der
 \begin{figure}
     \begin{center}
         \includegraphics[scale=0.5]{chapters/OOP/img/types}
-        \caption{Referenztyp und Objekttyp in Java. Für den Compiler ist vor allem der Referenztyp wesentlich. (Quelle: in Anlehnung an~\cite[467 f., ``Begrifflichkeit``]{Ull23})}
+        \caption{Referenztyp und Objekttyp in Java.
+        Der Compiler berücksichtigt vor allem den Referenztyp. (Quelle: in Anlehnung an~\cite[467 f., ``Begrifflichkeit``]{Ull23})}
         \label{fig:types}
     \end{center}
 \end{figure}
@@ -74,7 +75,7 @@ So kompiliert folgende Ausdrucksanweisung problemlos:
 \end{minted}\\
 
 \noindent
-Allerdings kann im folgenden Code nur auf Eigenschaften der Klasse \code{A} über die lokale Variable \code{a} zugegriffen werden - das eigentlich ein Objekt vom Typ \code{B} in \code{a} steckt, interessiert den Compiler nicht:\\
+Allerdings kann im folgenden Code nur auf Eigenschaften der Klasse \code{A} über die lokale Variable \code{a} zugegriffen werden - dass eigentlich ein Objekt vom Typ \code{B} in \code{a} steckt, interessiert den Compiler nicht:\\
 
 \begin{minted}[mathescape,
     gobble=2]{java}
@@ -128,6 +129,7 @@ Allerdings kann im folgenden Code nur auf Eigenschaften der Klasse \code{A} übe
 
 \noindent
 Um dennoch auf \code{inB()} zugreifen zu können, kann \code{a} explizit nach \code{B} gecasted werden.\\
+
 \noindent
 I.d.R. wird der Compiler aufgrund erkannter Typinkompatibilität das Kompilieren verhindern; werden durch den Compiler diese Inkompatibilitäten aber nicht erkannt, wird die Laufzeitumgebung veranlasst, die Operation durchzuführen - gelingt das nicht, wird eine \code{ClassCastException}\footnote{
 ``Class ClassCastException``: \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/ClassCastException.html} - abgerufen 07.03.2024
@@ -142,7 +144,7 @@ Abschnitt ~\ref{ch:exceptions} widmet sich etwas ausführlicher den Eigenschafte
 \end{minted}\\
 
 \noindent
-Die Typumwandlung funktioniert letztendlich durch explizites casting wie folgt:
+Die eben erwähnte Typumwandlung funktioniert letztendlich durch explizites casting wie folgt:
 
 \begin{minted}[mathescape,
     gobble=2]{java}
@@ -151,7 +153,7 @@ Die Typumwandlung funktioniert letztendlich durch explizites casting wie folgt:
 \end{minted}\\
 
 Eine implizite Typumwandlung kann durch eine explizite ersetzt werden\footnote{
-    je nach Entwicklungsumgebung wird an dieser Stelle aber schon der Hinweis gegeben, dass der Compiler dies bereits durchführt.
+    je nach Entwicklungsumgebung wird an dieser Stelle der Hinweis gegeben, dass dies bereits durch den Compiler geschieht.
 }:
 
 \begin{minted}[mathescape,
