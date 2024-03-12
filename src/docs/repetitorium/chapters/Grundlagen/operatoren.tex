@@ -32,6 +32,15 @@ Tauchen mehrere Operatoren in einer Zeile auf, gilt: Die Auswertung der Operator
         \label{tab:javaoperators}
     \end{table}}
 
+\subsection*{Anmerkung zum Postfix-Operator}
+Der durch den Postfix-Operator berechnete Wert ($+1$ / $-1$) steht erst nach Auswertung des Ausdrucks, in dem der Operator verwendet wurde, in der Variable zur Verfügung, wie folgendes Beispiel zeigt:
+
+\begin{minted}{java}
+    int n = 5;
+    System.out.println(n++ - 1); // "4"
+    System.out.println(n); // "6"
+\end{minted}
+
 
 \subsection{Kurzschluss-Operatoren}
 Die mit den logischen Operatoren \code{&&} sowie \code{||} verwendeten Ausdrücke werden nur komplett ausgewertet, falls
