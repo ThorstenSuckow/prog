@@ -10,7 +10,6 @@ Eine Methode wird in einer Unterklasse \textit{überschrieben}, wenn Name, Signa
 Methode der Oberklasse übereinstimmen.\\
 
 
-
 \subsection{Überladen}
 Eine Methode wird \textit{überladen}, wenn eine Methode mit gleichem Namen bereitgestellt wird, aber eine unterschiedliche Signatur
 aufweist.\\
@@ -50,3 +49,56 @@ An dieser Stelle ist explizites casten nötig, damit für den Compiler klar ist,
     gobble=2]{java}
     foo(1, (double)2);
 \end{minted}\\
+
+
+\section{Vererbung}
+
+\begin{itemize}
+    \item Wird in einer Superklasse eine \textit{Objektmethode} definiert, die mit gleicher Signatur in der Unterklasse implementiert wird, dann \textbf{überschreibt} die Methode der Unterklasse die der Oberklasse
+    \item Wird in einer Superklasse eine \textit{Klassenmethode} definiert, die mit gleicher Signatur in der Unterklasse implementiert wird (ebenfalls als \code{static} deklariert), dann \textbf{überdeckt} die Methode der Unterklasse die der Oberklasse\footnote{
+        s. ``Overriding and Hiding Methods``: \url{https://docs.oracle.com/javase/tutorial/java/IandI/override.html} - abgerufen 12.03.2024
+    }.
+    \item Statische Methoden / Eigenschaften werden vererbt, können aber in Unterklassen \textit{nicht} überschrieben werden, sondern nur überdeckt
+\end{itemize}
+
+\begin{minted}{java}
+    class A {
+
+        static int snafu = 42;
+
+        static int baz = 0;
+
+        public void foo() {}
+
+        public static void bar() {
+            System.out.println("in A");
+        }
+    }
+
+    class B extends A {
+
+        /**
+         * überdeckt A.baz
+         */
+        static int baz = 2;
+
+        /**
+         * überschreibt foo()
+         */
+        public void foo() {
+
+            /**
+             * Ruf implizit A.snafu auf
+             */
+            System.out.println(snafu);
+
+        }
+
+        /**
+         * überdeckt bar()
+         */
+        public static void bar() {
+            System.out.println("in A");
+        }
+    }
+\end{minted}
