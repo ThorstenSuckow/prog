@@ -1,20 +1,26 @@
 \section{Typkompatibilität}\label{sec:typecompatibility}
 
 
-
-
 Für die folgenden Beispiele sei in Java folgende Vererbungsbeziehung gegeben:
 
 \begin{minted}[mathescape,
     gobble=2]{java}
     class A {
+        public int x = 0;
         public void inA() {
             ...
         }
+        public void whoAmI() {
+            System.out.println("A");
+        }
     }
 
-    class Bextends A {
+    class B extends A {
+        public int x = 1;
         public void inB() {
+        }
+        public void whoAmI() {
+            System.out.println("B");
         }
     }
 \end{minted}\\
@@ -76,6 +82,49 @@ Allerdings kann im folgenden Code nur auf Eigenschaften der Klasse \code{A} übe
     a.inB(); // Fehler "Cannot resolve method 'inB' in 'A'"
 \end{minted}\\
 
+\begin{tcolorbox}
+    Obwohl der Compiler die Methode \code{inB()} nicht auflösen kann, löst die Laufzeitumgebung problemlos den Typen
+    von \code{a} zu \code{B} auf:
+    \begin{minted}{java}
+        A a = new B();
+        System.out.println(a instanceof B); // true
+    \end{minted}\\
+
+    \noindent
+    Auch, wenn der \textit{Compiler} nur Aufrufe zu Methoden der Klasse \code{A} auflösen kann,
+    werden Methoden, die in \code{B} überschrieben werden, zur \textit{Laufzeit} auf \code{b} aufgerufen:
+
+    \begin{minted}{java}
+        A a = new B();
+        System.out.println(a instanceof B); // true
+        a.whoAmI();// "B"
+    \end{minted}\\
+
+\end{tcolorbox}\\
+
+\begin{tcolorbox}[title={Felder werden überdeckt}]
+    Felder werden in Java \textit{nicht} überschrieben.\\
+    Enthält eine Unterklasse ein Feld gleichen Namens, überdeckt dieses Feld das Feld der Superklasse.\\
+    Ein Zugriff auf das Feld der Superklasse ist von der Unterklasse nur über \code{super.[feldname]} möglich, oder über explizites Casting:
+    \code{((Superklasse)this).[feldname]}.\\
+
+    \noindent
+    \blockquote[{\cite[505]{Ull23}}]{
+    Bei Methodenaufrufen bindet das Laufzeitsystem immer dynamisch; bei Zugriffen auf Objektvariablen ist das nicht so: Hier bestimmt der Compiler,
+    von welcher Klasse die Objektvariable genommen werden soll.
+    }\\
+
+    \noindent
+    Aus diesem Grund liefert das folgende Programm als Ausgabe zunächst $0$.
+    Erst ein explizites casten ermöglicht den Zugriff auf die in der Unterklasse überdeckte Eigenschaft, worauf die Ausgabe $1$ erfolgt:
+
+    \begin{minted}{java}
+        A a = new B();
+        System.out.println(a.x); // "0", weil in B überdeckt.
+        System.out.println(((B)a).x); // "1"
+    \end{minted}
+
+\end{tcolorbox}
 
 \noindent
 Um dennoch auf \code{inB()} zugreifen zu können, kann \code{a} explizit nach \code{B} gecasted werden.\\
