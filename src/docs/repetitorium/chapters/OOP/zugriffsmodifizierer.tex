@@ -5,19 +5,24 @@ Tabelle~\ref{tab:modifier} listet die verfügbaren Zugriffsmodifizierer in Java 
     ``The Java™ Tutorials - Controlling Access to Members of a Class``: \url{https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html} - abgerufen 08.03.2024
 }
 
-\setlength{\tabcolsep}{1.5em}
+\setlength{\tabcolsep}{0.5em}
 \renewcommand{\arraystretch}{1.5}%
 \begin{table} %[hbtp]
     \centering
-    \begin{tabular}{c | c | c | c | c}
-        \textbf{Modifizierer} & Klasse & Package & Unterklasse & Welt \\
+    \begin{tabular}{|c | c | c | c | c| c|}
         \hline
-        \code{public}   & $\checkmark$   & $\checkmark$ & $\checkmark$ & $\checkmark$   \\
-        \code{protected}   & $\checkmark$   & $\checkmark$ & $\checkmark$ & $-$   \\
-        kein Modifizierer   & $\checkmark$   & $\checkmark$ & $-$ & $-$   \\
-        \code{private}   & $\checkmark$   & $-$ & $-$ & $-$   \\
+        \textbf{Modifizierer} & Klasse & Package & Unterklasse & Welt & UML \\
+        \hline
+        \code{public}   & $\checkmark$   & $\checkmark$ & $\checkmark$ & $\checkmark$  & \code{+} \\
+        \hline
+        \code{protected}   & $\checkmark$   & $\checkmark$ & $\checkmark$ & $-$  & \code{#} \\
+        \hline
+        kein Modifizierer   & $\checkmark$   & $\checkmark$ & $-$ & $-$  & \code{~} \\
+        \hline
+        \code{private}   & $\checkmark$   & $-$ & $-$ & $-$ & \code{-}  \\
+        \hline
     \end{tabular}
-    \caption{Zugriffsmodifizierer und ihre Sichtbarkeiten}
+    \caption{Zugriffsmodifizierer und ihre Sichtbarkeiten. Die UML-Notation bzgl. der Sichtbarkeiten wurde im Skript (Teil 1), Abschnitt 5.4.3 und 5.5 \textit{nicht} verwendet und sind der Vollständigkeit halber aufgelistet (s. a.~\cite[404, Tabelle 6.4]{Ull23} sowie \cite[251 ff.]{Oes05}). }
     \label{tab:modifier}
 \end{table}
 
