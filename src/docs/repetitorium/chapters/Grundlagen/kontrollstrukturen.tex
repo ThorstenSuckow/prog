@@ -1,0 +1,48 @@
+\section{Kontrollstrukturen}
+
+
+\subsection{Das switch Statement}
+
+Ist in dem \code{switch}-Block nach einer Anweisung kein \code{break}\footnote{bzw. \textit{return}} angegeben, werden alle nachfolgenden Anweisungen des switch-Blocks durchgeführt, bis der Block verlassen wird:
+
+\blockquote[{``The switch Statement``: \url{https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html} - abgerufen 12.03.2024}]{
+    Each break statement terminates the enclosing switch statement. Control flow continues with the first statement following the switch block. The break statements are necessary because without them, statements in switch blocks fall through: All statements after the matching case label are executed in sequence, regardless of the expression of subsequent case labels, until a break statement is encountered.
+}\\
+
+\noindent
+Im folgenden Beispiel wird das switch-Statement mit \code{n=2} aufgerufen.
+Es finden \textit{drei} Ausgaben statt - auch die durch das \code{default}-Label eingeführte Anweisung wird ausgeführt.
+
+\begin{minted}{java}
+    switch (n) {
+        case 2:
+            System.out.println("case 2");
+
+        case 4:
+            System.out.println("case 4");
+
+        default:
+            System.out.println("default");
+    }
+\end{minted}
+
+
+\noindent
+Es ist egal, an welcher Stelle das \code{default}-Label in dem switch-Block steht.
+Wenn keine \code{case}-Label mit entsprechendem Literal dem ausgewerteten Ausdruck entspricht, wird das durch die \code{default}-Label eingeführte Anweisung aufgerufen.\\
+
+\noindent
+Im folgenden Beispiel wird \code{n=5} übergeben, es finden \textit{drei} Ausgaben statt:
+
+\begin{minted}{java}
+    switch (n) {
+        default:
+            System.out.println("default");
+
+        case 2:
+            System.out.println("case 2");
+
+        case 4:
+            System.out.println("case 4");
+    }
+\end{minted}
