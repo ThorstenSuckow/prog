@@ -2,22 +2,19 @@
 
 Die \textbf{Effizienz} eines Algorithmus wird im wesentlichen durch seine \textbf{Laufzeit} und seinen \textbf{Speicherplatzverbrauch} bestimmt.\\
 
-\noindent
-Zu den weiteren Eigenschaften eines Algprithmus gehören
 
-\begin{itemize}
-    \item
-\end{itemize}
 
 \noindent
 Bei der Betrachtung kleinerer Problemgrößen fällt bei der Wahl eines Algorithmus weniger seine Effizienz ins Gewicht, sondern eher die Einfachheit seiner Implementierung und seine Verständlichkeit (vgl. \cite[5 f.]{GD18a}).\\
-So läuft bspw. ein Implementierung von Insertion-Sort ($O(n^2)$), die zur Sortierung $8*n^2$ Operationen benötigt, für Eingabemengen $n \leq 43$ schneller sortieren als eine Implementierung von Merge-Sort ($O(n\ log(n))$), die $64 * (n\ log(n))$ Schritte für die Sortierung benötigt.\\
+So läuft bspw. eine Implementierung von Insertion-Sort ($O(n^2)$), die zur Sortierung $8*n^2$ Operationen benötigt, für Eingabemengen $n \leq 43$ schneller als eine Implementierung von Merge-Sort ($O(n\ log(n))$), die $64 * (n\ log(n))$ Schritte für die Sortierung benötigt\footnote{
+Diesbzgl. hatte der Selbsttest ``D+A-Selbsttest-02: O-Notation`` die Frage gestellt, in welchem Fall die Beurteilung eines Algorithmus bezüglich der Komplexitätsklasse nicht unbedingt angemessen sei. Die richtige Antwort hierzu lautete: ``Bei sehr kleinen Eingabemengen``.
+}.\\
 
 \begin{tcolorbox}[title={Optimaler Algorithmus}]
     ``Ein Algorithmus heißt (asymptotisch) \textbf{optimal}, wenn die obere Schranke für seine Laufzeit mit der unteren Schranke für die Komplexität des Problems zusammenfällt`` (~\cite[20]{GD18a}).\\
 
     \noindent
-    Sortieralgorithmen mit einer Laufzeit von $O(n\ log\ n)$ sind optimal, bspw. \textbf{Mergesort}.
+    Sortieralgorithmen mit einer Laufzeit von $O(n\ log\ n)$ sind \textbf{optimal}, bspw. \textbf{Mergesort}.
 \end{tcolorbox}
 
 
@@ -33,6 +30,7 @@ Unter \textbf{Elementaroperationen} versteht man u.a. folgende Operationen (vgl.
     \item Arrayzugriffe: \code{feld[j]}
 \end{itemize}
 
+\noindent
 Die \textbf{Kosten} für eine einzelne Elementaroperation belaufen sich auf $1$ - die Kosten eines Befehls ergeben sich aus der Summe aller für diesen Befehl durchgeführten Elementaroperationen:
 
 
@@ -41,7 +39,6 @@ Die \textbf{Kosten} für eine einzelne Elementaroperation belaufen sich auf $1$ 
     \item[] $1$ Zuweisung, $1$ arithmetische Operation $\rightarrow$ Kosten: $2$
     \item \code{int z = b += feld[j];}
     \item[] $2$ Zuweisungen, $1$ arithmetische Operation, $1$ indizierter Zugriff $\rightarrow$ Kosten: $4$
-    \item arithmetische Operationen \code{b+3}
     \item \code{goto 10;}
     \item[] keine Elementaroperation vorhanden $\rightarrow$ Kosten: $0$
 \end{itemize}
