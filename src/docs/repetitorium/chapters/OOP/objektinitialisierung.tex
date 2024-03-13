@@ -1,0 +1,59 @@
+\section{Objektinitialisierung}
+
+Die Sprachspezifikationen beschreiben die Objekterzeugung und die Reihenfolge der damit verbundenen Konstruktor-Aufrufe und Attribut-Initialiserung vereinfacht wie folgt\footnote{
+s. ``12.5. Creation of New Class Instances``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-12.html#jls-12.5} - abgerufen 13.03.2024
+}:\\
+
+\noindent
+Führe \textit{rekursiv} aus:\\
+
+\begin{enumerate}
+    \item Der Konstruktor wird mit den Argumenten aufgerufen
+    \item Ruft der Konstruktor über \code{this} einen anderen Konstruktor auf, gehe zu Schritt 1
+    \item Ruft der Konstruktor implizit oder explizit einen Konstruktor der Elternklasse auf, gehe zu Schritt 1
+    \item Die Objektattribute werden initialisiert
+    \item Die übrigen Anweisungen innerhalb des Konstruktors werden ausgeführt
+\end{enumerate}
+
+\noindent
+Im Folgenden ein Beispiel für die Initialisierungsreihenfolge durch den Aufruf \code{new C()}.\\
+
+\begin{minted}{java}
+    class Dummy {
+        public Dummy(String from) {
+            System.out.println("Dummy for " + from);
+        }
+    }
+
+    class A {
+        Dummy d = new Dummy("A");
+        public A() {
+            System.out.println("A");
+        }
+    }
+
+    class B extends A {
+        public B() {
+            System.out.println("B");
+        }
+    }
+
+    class C extends B {
+        Dummy d = new Dummy("C");
+        public C() {
+            System.out.println("C");
+        }
+    }
+\end{minted}\\
+
+\noindent
+Die Ausgabe lautet:
+
+
+\begin{minted}{text}
+    Dummy for A
+    A
+    B
+    Dummy for C
+    C
+\end{minted}
