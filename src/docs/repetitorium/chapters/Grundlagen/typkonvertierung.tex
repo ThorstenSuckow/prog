@@ -75,13 +75,29 @@ Im folgenden Beispiel soll ein \code{short}- zu einem \code{int}-Wert addiert we
 Der Compiler lehnt die Anweisung mit dem Hinweis ab, dass der Ausdruck \code{(short)3 + i} vom Typ \code{int} ist.
 Für eine erfolgreiche Zuweisung müßte das Ergebnis erst zu \code{short} gecasted werden.
 
-\begin{minted}[mathescape,
-    gobble=2]{java}
+\begin{minted}{java}
     int i = 4;
-    short s = (short)3 + i;
+    short s = (short)3 + i; // Compilerfehler
 \end{minted}\\
 
-Dagegen funktioniert folgendes Beispiel ohne weitere, da der Compiler den Ausdruck während der Kompilierung berechnet\footnote{
+Das gleiche gilt also auch für arithmetische Operationen, bei denen der \code{char}-Typ involviert ist:
+
+
+\begin{minted}{java}
+    char a = 'A';
+    char z = 'Z';
+    // Compilerfehler:
+    // "incompatible types: possible lossy
+    // conversion from int to char"
+    // char az = a + z;
+
+    // funktioniert:
+    char az = (char)(a + z);
+\end{minted}\\
+
+
+ \noindent
+Dagegen funktioniert folgendes Beispiel, da der Compiler den Ausdruck während der Kompilierung berechnet\footnote{
     ``Some expressions have a value that can be determined at compile time. These are constant expressions [...].`` (s. \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html#jls-15.2} - abgerufen 07.03.2024)
 }, keinen Überlauf feststellt und das Ergebnis des Ausdrucks sicher dem \code{short}-Typ zuweisen kann:
 
