@@ -44,7 +44,7 @@ Die eckigen Klammern sollten bei der Variablendeklaration {bzw.} bei der Typdekl
     \end{minted}
     Die Sprachspezifikationen weisen daraufhin, dass diese Schreibweise nicht empfohlen wird:
     \blockquote[{``10.2. Array Variables``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-10.html#jls-10.2} - abgerufen 9.2.2024}]{
-        We do not recommend "mixed notation" in array variable declarations, where bracket pairs appear on both the type and in declarators; nor in method declarations, where bracket pairs appear both before and after the formal parameter list.
+        We do not recommend ``mixed notation`` in array variable declarations, where bracket pairs appear on both the type and in declarators; nor in method declarations, where bracket pairs appear both before and after the formal parameter list.
     }
 \end{itemize}\\
 
@@ -67,6 +67,7 @@ ist folgende Schreibweise
     int[] numbers = {1, 2, 3, 4};
 \end{minted}
 
+\noindent
 übersichtlicher, redundante Informationen sind weggefallen.\\
 Beides ist erlaubt und führt am Ende zur Initialisierung des \code{int}-Arrays \code{[1, 2, 3, 4]}.\\
 Eine Übergabe von \code{{1, 2, 3, 4}} als Argument an eine Methode, deren Signatur bspw.
@@ -79,6 +80,7 @@ Eine Übergabe von \code{{1, 2, 3, 4}} als Argument an eine Methode, deren Signa
     foo(int[])
 \end{minted}
 
+\noindent
 entspricht, ist dagegen nicht möglich; hier muss \code{new int[]{1, 2, 3, 4}} verwendet werden.\\
 
 \noindent
