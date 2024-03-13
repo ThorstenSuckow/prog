@@ -8,11 +8,11 @@ In Java findet eine Unterscheidung zwischen \textbf{checked} (\textit{geprüften
 Als eine \textbf{checked Exception} wird jede Exception bezeichnet, die im Programmcode behandelt werden muss.\\
 
 \begin{tcolorbox}
-Jede Exception, die nicht von \code{Runtime Exception} ableitet, gilt als eine \code{checked Exception}.
+Jede Exception, die nicht von \code{Runtime Exception} ableitet, gilt als eine \textbf{checked Exception}.
 \end{tcolorbox}
 
 \noindent
-Eine checked Exception wird wird in der \code{throws}-Klausel einer Methode deklariert, wenn sie nicht innerhalb der Methode abgefangen wird.\\
+Eine \textit{checked} Exception wird wird in der \code{throws}-Klausel einer Methode deklariert, wenn sie nicht innerhalb der Methode abgefangen wird.\\
 
 \noindent
 Als Beispiel sei der Aufruf der Methode \code{createNewFile():boolean} der Klasse \code{File}\footnote{
@@ -21,10 +21,7 @@ Als Beispiel sei der Aufruf der Methode \code{createNewFile():boolean} der Klass
 ``Class IOException``: \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/IOException.html} - abgerufen 17.2.2024
 } werfen kann:
 
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     private void createFile() {
         File f = new File("./datei.txt");
         f.createFile();
@@ -32,22 +29,18 @@ Als Beispiel sei der Aufruf der Methode \code{createNewFile():boolean} der Klass
 \end{minted}
 
 \noindent
-Da es sich bei einer \coer{IOException} um eine checked Exception handelt, muss diese Ausnahme im Code behandelt werden,
+Da es sich bei einer \coer{IOException} um eine \textit{checked} Exception handelt, muss diese Ausnahme im Code behandelt werden,
 oder sie muss in der \code{throws}-Klausel der \textit{aufrufenden} Methode deklariert werden, ansonsten wird der Programmcode vom Compiler mit einem Fehler abgewiesen:
 
-\begin{minted}[mathescape,
-    gobble=2,
-    framesep=2mm]{text}
-    java: unreported exception java.io.IOException; must be caught or declared to be thrown
+\begin{minted}{text}
+    java: unreported exception java.io.IOException;
+    must be caught or declared to be thrown
 \end{minted}
 
 \noindent
 Damit der Compiler nicht mit einer Fehlermeldung abbricht, kann man den Code folgendermaßen ändern:
 
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     private void createFile() {
         File f = new File("./datei.txt");
 
@@ -61,15 +54,12 @@ Damit der Compiler nicht mit einer Fehlermeldung abbricht, kann man den Code fol
 
 \noindent
 In dem Fall wird die Ausnahme in der Methode abgefangen, und sie steigt in der Anwendung nicht mehr nach oben.\\
-Im Gegensatz hierzu wird in folgendem Beispiel in der \code{throws}-Klausel die Exception deklariert.\\
-Dem Compiler wird damit mitgeteilt, dass bei der Verwendung der Methode eine IOException geworfen werden kann.\\
+Im Gegensatz hierzu wird im folgenden Beispiel in der \code{throws}-Klausel die Exception deklariert.\\
+Dem Compiler wird damit mitgeteilt, dass bei der Verwendung der Methode eine \code{IOException} geworfen werden \textit{kann}.\\
 Die Ausnahme steigt also im Programmcode nach oben und muss dann von einer anderen Methode, die \code{createFile()} aufruft,
-abgefangen werden - oder wiederum in deren throws-Klausel als mögliche Ausnahme deklariert werden:
+abgefangen werden - oder wiederum in deren \code{throws}-Klausel als mögliche Ausnahme deklariert werden:
 
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     private void createFile() throws IOException {
         File f = new File("./datei.txt");
         f.createFile();
@@ -80,17 +70,15 @@ abgefangen werden - oder wiederum in deren throws-Klausel als mögliche Ausnahme
 
 Als \textbf{unchecked Exception} gilt jede Exception, die von \code{RuntimeException} abgeleitet ist.
 
-\blockquote[{\cite[``Class RuntimeException``, Hervorhebungen i.O.]{\url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/RuntimeException.html} - abgerufen 17.2.2024}}]{
-    RuntimeException and its subclasses are \textit{unchecked exceptions}. Unchecked exceptions do \textit{not} need to be declared in a method or constructor's throws clause if they can be thrown by the execution of the method or constructor and propagate outside the method or constructor boundary.
+\blockquote[{``Class RuntimeException``: \url{https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/RuntimeException.html} - abgerufen 17.2.2024}]{
+    RuntimeException and its subclasses are \textit{unchecked exceptions}.
+    Unchecked exceptions do \textit{not} need to be declared in a method or constructor's throws clause if they can be thrown by the execution of the method or constructor and propagate outside the method or constructor boundary.
 }
 
 \noindent
 Ungeprüfte Exceptions können ebenfalls in der \code{throws}-Klausel der entsprechenden Methode deklariert werden, was aber - bis auf dokumentarische - keinerlei weitere Auswirkungen auf das Programm hat: Wird eine \code{RuntimeException} in der \code{throws}-Klausel deklariert, muss sie nicht in aufrufenden Methoden behandelt werden.
 
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     private void runtimeThrow() throws RuntimeException {
         throw new RuntimeException();
     }
@@ -100,16 +88,13 @@ Ungeprüfte Exceptions können ebenfalls in der \code{throws}-Klausel der entspr
     }
 \end{minted}
 
-\section{Exceptions Vererbungs- und Schnittstellenbeziehungen}
+\section{Vererbung und Schnittstellen}
 
 \subsection{Schnittstellenbeziehungen}
-Wenn eine Schnittstellenmethode eine \code{throws}-Klausel deklariert mit einer oder mehreren checked Exceptions, muss diese Ausnahme bei der Implementierung der Methode nicht berücksichtigt werden, wenn die Implementierung keine Methode verwendet, die diese Exception werfen kann.\\
+Wenn eine Schnittstellenmethode eine \code{throws}-Klausel deklariert (mit einer oder mehreren \textit{checked} Exceptions), muss diese Ausnahme bei der Implementierung der Methode nicht berücksichtigt werden, wenn die Implementierung diese Exception nicht werfen kann.\\
 
 \noindent
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     interface Exceptionable {
         void createFile() throws IOException;
     }
@@ -124,16 +109,13 @@ Wenn eine Schnittstellenmethode eine \code{throws}-Klausel deklariert mit einer 
 \end{minted}
 
 \noindent
-Wird bei der Implementierung die \code{throws}-Klausel mit angegeben, oder wird eine Implementierung verwendet, die eine checked Exception wirft, dann muss die Ausnahmebehandlung kompatibel zu der \code{throws}-Klausel der abstrakten Methode der Schnittstelle sein.\\
-Die \code{throws}-Klausel muss dann dieselbe oder eine von der über die abstrakte Methode deklarierten Ausnahme abgeleiteten Klasse werfen\footnote{
+Wird bei der Implementierung die \code{throws}-Klausel mit angegeben, oder wird eine Implementierung verwendet, die eine \textit{checked} Exception wirft, dann muss die Ausnahmebehandlung kompatibel zu der \code{throws}-Klausel der abstrakten Methode der Schnittstelle sein.\\
+Die \code{throws}-Klausel muss dann \textit{dieselbe} oder eine von der über die abstrakte Methode deklarierten Ausnahme abgeleiteten Klasse werfen\footnote{
     ``For every checked exception type listed in the throws clause of m2, that same exception class or one of its supertypes must occur in the erasure [..] of the throws clause of m1; otherwise, a compile-time error occurs.`` \url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.4.8.3} - abgerufen 17.2.2024
 }:
 
 \noindent
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     interface Exceptionable {
         void createClient() throws RemoteException;
     }
@@ -146,16 +128,13 @@ Die \code{throws}-Klausel muss dann dieselbe oder eine von der über die abstrak
     }
 \end{minted}
 
-Hier wird \code{createClient()} so implementiert, dass eine Ausnahme vom Typ \code{UnknownHostException} geworfen wird.\\
-Diese Ausnahme ist von \code{UnknownHostException} abgeleitet.\\
+Hier wird \code{createClient()} so implementiert, dass eine Ausnahme vom Typ \code{java.rmi.UnknownHostException} geworfen wird.\\
+Diese Ausnahme ist von \code{java.rmi.RemoteException} abgeleitet.\\
 
 \noindent
 Der Schnittstellenvertrag kann im Anwendungscode dann wie folgt erfüllt werden:
 
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     public void foo(Exceptionable rmiCreator) {
         try {
             rmiCreator.createClient();
@@ -165,13 +144,11 @@ Der Schnittstellenvertrag kann im Anwendungscode dann wie folgt erfüllt werden:
     }
 \end{minted}
 
+\noindent
 Umgekehrt kann eine implementierende Klasse die zu werfende Ausnahme nicht erweitern.\\
-Im obigen Code kann bspw. nicht einfach die geworfene Ausnahme zu IOException verallgemeinert werden, auch wenn IOException die Elternklasse von RemoteException ist:
+Im obigen Code kann bspw. nicht einfach die geworfene Ausnahme zu \code{IOException} verallgemeinert werden, auch wenn \code{IOException} die Elternklasse von  \code{RemoteException} ist:
 
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     interface Exceptionable {
         void createClient() throws RemoteException;
     }
@@ -184,14 +161,12 @@ Im obigen Code kann bspw. nicht einfach die geworfene Ausnahme zu IOException ve
     }
 \end{minted}
 
+\noindent
 Dieser Code wird vom Compiler zurückgewiesen:\\
-Implementierende APIs, die die Methode \code{createClient()} von Objekten des Typs \code{Exceptionable} aufrufen, müssten sich darauf verlassen können, dass eine \code{RemoteException} geworfen wird.\\
+Implementierende APIs, die die Methode \code{createClient()} von Objekten des Typs \code{Exceptionable} aufrufen, müssen sich darauf verlassen können, dass eine \code{RemoteException} geworfen wird.\\
 Wird als spezieller Typ für \code{Exceptionable} aber \code{ExceptionImpl} verwendet, und eine \code{FileNotFoundException} geworfen\footnote{die ebenfalls von IOException abgeleitet ist}, würde die Ausnahmebehandlung fehlschlagen:
 
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     public void foo(Exceptionable rmiCreator) {
         try {
             rmiCreator.createClient();
@@ -205,19 +180,16 @@ Wird als spezieller Typ für \code{Exceptionable} aber \code{ExceptionImpl} verw
 
 Die Sprachspezifikationen gehen in ``8.4.8.3. Requirements in Overriding and Hiding``\footnote{
     \url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.4.8.3} - abgerufen 17.2.2024
-} auch auf die zu berücksichtigenden Kompatibilitäten der throws-Klausel bei Implementierung bzw. Vererbung ein.
+} auch auf die zu berücksichtigenden Kompatibilitäten der \code{throws}-Klausel bei Implementierung bzw. Vererbung ein.
 
 \subsection{Vererbungsbeziehungen}
 
-Für abstrakte Klassen und die Implementierung der darin deklarierten abstrakten Methoden gelten dieselben Bedigungen wie bei der Schnittstellenbeziehung.\\
+Für die Implementierung von abstrakten Methoden einer als abstrakt deklarierten Klasse gelten dieselben Bedingungen wie bei Schnittstellen.\\
 
 \noindent
-Wird in einer abgeleiteten Klasse eine Methode überschrieben, die eine checked Exeption in the throws-Klausel verwendet, muss diese in der Methode der abgeleiteten Klasse nicht angegeben werden, wenn deren Methode nicht die Elternimplementierung aufruft. Ansonsten gelten an dieser Stelle die gleichen Bedingungen wie bei den geprüften Ausnahmen i.A., nämlich dass der Aufruf zu \code{super.methodenname()} die Ausnahme behandelt, oder die aufrufende Methode die zu erwartende Ausnahme in der throws-Klausel deklariert, wie folgendes Beispiel zeigt:
+Wird in einer abgeleiteten Klasse eine Methode überschrieben, die eine \textit{checked} Exception in der  \code{throws}-Klausel verwendet, muss diese in der Methode der abgeleiteten Klasse nicht angegeben werden, wenn deren Methode nicht die Elternimplementierung aufruft. Ansonsten gelten an dieser Stelle die gleichen Bedingungen wie bei den geprüften Ausnahmen i.A., nämlich dass der Aufruf zu \code{super.methodenname()} die Ausnahme behandelt, oder die aufrufende Methode die zu erwartende Ausnahme in der \code{throws}-Klausel deklariert, wie folgendes Beispiel zeigt:
 
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     abstract class AbstractExceptionThrower {
         void foo() throws IOException {
             throw new IOException();
@@ -246,23 +218,24 @@ Ausführlich gehen die Sprachspezifikationen auf das Thema ``Ausnahmebehandlung`
 \textit{Ullenboom} zeigt in \cite[589, Abschnitt 9.3.9]{Ull23} zusammenfassend die Unterschiede geprüfter/ungeprüfter Ausnahmen.\\
 
 \noindent
-\textit{Bloch} empfiehlt in \cite[296]{Blo17}, geprüfte Ausnahmen in den Fällen zu verwenden, in denen das Programm trotz Ausnahme in einen stabilen Zustand zurückversetzt werden kann\fotnote{
-``\textit{recoverable}``; so kann bei dem Abfangen der IOException im Beispiel dieses Abschnitts dem Anwender mitgeteilt werden, dass eine Fehler aufgetreten ist, und er den Vorgang zum Erzeugen einer neuen Datei wiederholen soll, bspw. durch Angabe eines anderen Dateinamens
-}, und ungeprüfte Ausnahmen nur in den Fällen, in denen es sich um (unerwartete) Programmfehler handelt\footnote{wie bspw. der Zugriff auf den Index eines Arrays, der nicht existiert}.\\
+\textit{Bloch} empfiehlt in \cite[296]{Blo17}, geprüfte Ausnahmen in den Fällen zu verwenden, in denen das Programm trotz Ausnahme in einen stabilen Zustand zurückversetzt werden kann\footnote{
+``\textit{recoverable}``; so kann bei dem Abfangen der IOException im Beispiel dieses Abschnitts dem Anwender mitgeteilt werden, dass ein Fehler aufgetreten ist, und er seinen letzten Arbeitsschritt wiederholen soll, bspw. unter Angabe eines anderen Dateinamens
+}, und ungeprüfte Ausnahmen nur in den Fällen, in denen es sich um (unerwartete) Programmfehler handelt\footnote{wie bspw. der Zugriff auf den Index eines Arrays, der nicht existiert, oder das Fehlschlagen einer Casting-Operation}.\\
 
 \noindent
-\textit{Parnas und Würges} stellen bereits 1976 in \cite{PW76} fest, dass
+\textit{Parnas und Würges} stellen bereits 1976 in \cite{PW76} fest:
 
 \blockquote[]{
 Responsibility for diagnosis and possible recovery must be assigned to the higher levels, because the lower level program does not have sufficient knowledge to determine what was desired.
 }
 
+\noindent
 und empfehlen damit früh ein Design-Paradigma, was heute fester Bestandteil von Software ist: Auf Ausnahmen der Low-Level-API wird in der Anwendungsschicht reagiert\footnote{
 \textit{Faulk}: ``[...] exception handling in today's distributed and Web-based applications follows the conceptual structures first laid out in this paper.`` \cite[229]{HW01}
-}.
+}.\\
 
 \noindent
-Im Hinblick auf Wartbarkeit des Codes weist \textit{Martin} darauf hin, dass
+Im Hinblick auf Wartbarkeit des Codes weist \textit{Martin} auf Folgendes hin:
 
 \blockquote[{\cite[107, Hervorhebungen i.O.]{Mar08}}]{
 If you throw a checked exception from a method in your code and the catch is three levels above, \textit{you must declare that excepion in the signature of each method between you and the catch}. This means that a change at a low level of the software can force signature changes on many higher levels.
