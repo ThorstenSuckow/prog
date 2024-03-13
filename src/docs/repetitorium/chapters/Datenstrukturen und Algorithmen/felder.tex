@@ -27,7 +27,7 @@ Die eckigen Klammern sollten bei der Variablendeklaration von Feldern {bzw.} bei
     \end{minted}
     Die Sprachspezifikationen weisen daraufhin, dass diese Schreibweise nicht empfohlen wird:
     \blockquote[{``10.2. Array Variables``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-10.html#jls-10.2} - abgerufen 9.2.2024}]{
-        We do not recommend "mixed notation" in array variable declarations, where bracket pairs appear on both the type and in declarators; nor in method declarations, where bracket pairs appear both before and after the formal parameter list.
+        We do not recommend ``mixed notation`` in array variable declarations, where bracket pairs appear on both the type and in declarators; nor in method declarations, where bracket pairs appear both before and after the formal parameter list.
     }
 \end{itemize}\\
 
@@ -44,6 +44,7 @@ ist folgende Schreibweise
     int[] numbers = {1, 2, 3, 4};
 \end{minted}
 
+\noindent
 übersichtlicher, redundante Informationen sind weggefallen.\\
 Beides ist erlaubt und führt am Ende zur Initialisierung des \code{int}-Arrays \code{[1, 2, 3, 4]}.\\
 Eine Übergabe von \code{{1, 2, 3, 4}} als Argument an eine Methode, deren Signatur bspw.
@@ -53,16 +54,14 @@ Eine Übergabe von \code{{1, 2, 3, 4}} als Argument an eine Methode, deren Signa
     foo(int[])
 \end{minted}
 
+\noindent
 entspricht, ist dagegen nicht möglich; hier muss \code{new int[]{1, 2, 3, 4}} verwendet werden.\\
 
 \noindent
 Bei mehrdimensionalen Arrays muss bei der Deklaration der lokalen Variable / des formalen Parameters immer die Anzahl der eckigen Klammern \code{[]} mit der Anzahl der Dimensionen des Arrays übereinstimmen.\\
 Bei der Initialisierung eines mehrdimensionalen Arrays muss immer mindestens eine führende Dimension mit der Anzahl aufzunehmender Werte bestimmt werden:
 
-\begin{minted}[mathescape,
-    numbersep=5pt,
-    gobble=2,
-    framesep=2mm]{java}
+\begin{minted}{java}
     // funktioniert nicht:
     int[][] numbers = new int[][];
     int[][] numbers = new int[][4];
@@ -71,4 +70,13 @@ Bei der Initialisierung eines mehrdimensionalen Arrays muss immer mindestens ein
     int[][] numbers = new int[4][];
 \end{minted}
 
-In Java sind mehrdimensionale Arrays \textbf{Arrays von Arrays} - sie müssen deshalb nicht rechteckig sein, wie das letzte Beispiel zeigt (vgl.~\cite[273 ff.]{Ull23}).
+In Java sind mehrdimensionale Arrays \textbf{Arrays von Arrays} - sie müssen deshalb nicht rechteckig sein, wie folgendes Beispiel zeigt (vgl.~\cite[273 ff.]{Ull23}):
+
+\begin{minted}{java}
+    int[][] numbers = new int[4][];
+
+    numbers[0] = new int[]{1};
+    numbers[1] = new int[]{1, 2};
+    numbers[2] = new int[]{1, 2, 3};
+    numbers[3] = new int[]{1, 2, 3, 4};
+\end{minted}
