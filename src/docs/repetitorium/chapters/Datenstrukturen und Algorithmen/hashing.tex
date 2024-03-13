@@ -4,7 +4,7 @@ Der Wert des zu speichernden Elementes dient dabei als Grundlage zur Berechnung 
 Der Speicher, in dem die Elemente abgelegt werden soll, bezeichnet man dabei als \textit{buckets}: $B_0,\dots , B_{m - 1}$ (vgl.~\cite[115]{GD18d}).\\
 
 \noindent
-Es wird unterschieden zwischen \textbf{geschlossenem} und \textbf{offenem} Hashing (vgl.~\cite[116]{GD18d}): Bei offenem Hashing werden Überläufer verkettet, bei geschlossenem Hashing kann es zu Kollisionen mit bereits belegten Adressen können - über \textbf{rehashing}\footnote{
+Es wird unterschieden zwischen \textbf{geschlossenem} und \textbf{offenem} Hashing (vgl.~\cite[116]{GD18d}): Bei offenem Hashing werden Überläufer verkettet, bei geschlossenem Hashing kann es zu Kollisionen mit bereits belegten Adressen kommen - über \textbf{rehashing}\footnote{
 auch: \textit{offene Adressierung} (vgl.~\cite[119]{GD18d})
 }) können Adressen neu berechnet werden, woraus sich \textbf{Sondierungsfolgen} ergeben.\\
 
@@ -34,7 +34,7 @@ s. a. ``Modulo``: \url{https://de.wikipedia.org/wiki/Division_mit_Rest#Modulo} -
 }:
 
 \begin{equation}
-    b\ mod\ m = b - \lfloor \frac{m}{b} \rfloor * m
+    b\ mod\ m = b - \lfloor \frac{b}{m} \rfloor * m
 \end{equation}
 
 \subsection*{Beispiele}
@@ -54,7 +54,7 @@ s. a. ``Doppel-Hashing``: \url{https://de.wikipedia.org/wiki/Doppel-Hashing} - a
 
 
 \subsection{Anmerkungen}
-\textit{Ottmann und Widmayer} beschreiben unter \textit{Offene Hashverfahren} das geschlossene Hashing (vgl.~\cite[203 ff.]{OW17d}); \textit{Cormen et al.} bezeichnen behandeln dasselbe unter \textit{open adressing} in ~\cite[293 ff.]{CL22}.\\
+\textit{Ottmann und Widmayer} beschreiben unter \textit{Offene Hashverfahren} das geschlossene Hashing (vgl.~\cite[203 ff.]{OW17d}); \textit{Cormen et al.} behandeln dasselbe unter \textbf{open adressing} in ~\cite[293 ff.]{CL22}.\\
 
 \noindent
-Bei\textit{Ottman und Widmayer} sind \textit{Hashverfahren mit Verkettung der Überläufer} (vgl.~\cite[198 ff.]{OW17d}) gleichzusetzen mit \textit{Sedgewick's und Wayne's} \textit{Hashing with separate  chaining} in ~\cite[464 ff.]{SW11} und wird bei \texit{Güting und Dieker} als \textit{offenes Hashing} bezeichnet (vgl.~\cite[116]{GD18d}).
+\textit{Ottman und Widmayer}'s Abschnitt  \textit{Hashverfahren mit Verkettung der Überläufer} (vgl.~\cite[198 ff.]{OW17d}) beschreibt dasselbe wie \textit{Sedgewicks und Waynes}'s \textit{Hashing with separate  chaining} in ~\cite[464 ff.]{SW11}; bei \texit{Güting und Dieker} wird hierzu die Bezeichnung  \textbf{offenes Hashing} verwendet (vgl.~\cite[116]{GD18d}).
