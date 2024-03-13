@@ -3,7 +3,7 @@
 \textbf{Sequenzen} sind \textbf{Folgen} bzw.\textbf{Listen}, auf denen eine Ordnung definiert ist (\textit{erstes Element}, \textit{zweites Element}, ... \textit{n-tes Element}).\\
 
 \noindent
-Bei einer Liste sind Elemente miteinander \textit{verkettet}: Die Größe eine Liste kann dadurch dynamisch wachsen und es muss nicht vorher die Größe der Liste zur Aufnahme von $n$ Elementen festgelegt werden (wie bei Feldern).\\
+Bei einer Liste sind Elemente miteinander \textit{verkettet}: Die Größe einer Liste kann dadurch dynamisch wachsen und es muss nicht vorher die Größe der Liste zur Aufnahme von $n$ Elementen festgelegt werden (wie bei Feldern).\\
 
 \noindent
 Ein Element in einer Liste zeigt auf einen \textbf{Nachfolger} \code{succ} und je nach Implementierung auf einen \textbf{Vorgänger} \code{pred}.\\
@@ -18,7 +18,7 @@ In einer \textbf{einfach verketteten Liste} zeigen Listenelemente nur auf ihren 
 Ein \textit{Dummy-Element} \code{head} zeigt auf das erste Listenelement bzw. auf \code{null}, falls die Liste leer ist.\\
 
 \noindent
-Alternativ zeigen \textit{Dummy-Elemente} auf das erste \code{head} \textit{und} das letzte (\code{tail}) Listenelement - hierdurch lassen sich Operationen wie \code{last()} und \code{concat()} effizienter implementieren (s. Abbildung~\ref{fig:linkedlist}).
+Alternativ zeigt ein \textit{Dummy-Elemente} \code{head} auf das erste und ein Dummy-Element \code{tail} auf das letzte Listenelement - hierdurch lassen sich Operationen wie \code{last()} und \code{concat()} effizienter implementieren (s. Abbildung~\ref{fig:linkedlist}).
 
 \begin{figure}
     \begin{center}
@@ -40,7 +40,7 @@ Doppelt verkettete Listen verbrauchen mehr Speicher, da sie mehr Zeiger verwende
 \begin{figure}
     \begin{center}
         \includegraphics[scale=0.4]{chapters/Datenstrukturen und Algorithmen/img/doublelinkedlist}
-        \caption{Doppelt verkettete Liste. Das Kopfelement zeigt auf das erste und das letzte Listeelement mit \textit{succ} bzw. \textit{pred}. (Quelle: eigene)}
+        \caption{Doppelt verkettete Liste. Das Kopfelement zeigt auf das erste und das letzte Listenelement mit \textit{succ} bzw. \textit{pred}. (Quelle: eigene)}
         \label{fig:doublelinkedlist}
     \end{center}
 \end{figure}
