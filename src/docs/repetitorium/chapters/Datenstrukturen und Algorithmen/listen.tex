@@ -79,3 +79,102 @@ Die Laufzeiten in der Array-Implementierung sind dadurch bedingt, dass Folgeelem
     \caption{Laufzeiten für die Operationen \textit{suchen}, \textit{einfügen} und \textit{entfernen} bei verschiedenen Listenimplementierungen.}
     \label{tab:listruntime}
 \end{table}
+
+
+\subsection{Implementierungsbeispiele}
+
+\begin{itemize}
+    \item Einfügen eines neuen Elements am Kopf einer einfach verketteten Liste:
+    \item[] Das Einfügen funktioniert auch in einer leeren Liste, also falls \code{head == null} ist.
+    \begin{minted}{java}
+    public void prependHead(Object data) {
+        ListElement element = new ListElement(data);
+        element.next = head;
+        head = element;
+    }
+    \end{minted}
+    \item Einfügen eines neuen Elements hinter einem angegebenen Element:
+    \item[] Falls das Referenz-Element \code{null} ist, wird eine \code{IllegalArgumentException} geworfen
+    \begin{minted}{java}
+    public void insertAt(ListElement ref, Object data) {
+        if (ref == null) {
+            throw new IllegalArgumentException();
+        }
+
+        ListElement element = new ListElement(data);
+        element.next = ref.next;
+        ref.next = element;
+    }
+    \end{minted}
+    \item Einfügen eines Elements vor einem angegebenen Element:
+    \item[] Falls das Referenz-Element \code{null} ist, wird eine \code{IllegalArgumentException} geworfen
+    \item[] Falls das Referenz-Element das \code{head}-Element ist, wird die o.a. Methode \code{prependHead()}
+    aufgerufen; ansonsten wird der Vorgänger des Referenz-Elementes gesucht und die Zeiger entsprechend angepaßt.
+    \item[] Die Implementierung berücksichtigt den Fall, dass das angegebene Referenz-Element nicht Teil der Liste
+    ist, in dem Fall wird ebenfalls eine \code{IllegalArgumentException} geworfen.
+    \begin{minted}{java}
+    public void insertBefore(ListElement ref, Object data) {
+        if (ref == null) {
+            throw new IllegalArgumentException();
+        }
+
+        if (ref == head) {
+            prependHead(data);
+            return;
+        }
+
+        ListElement prev = head;
+        while (prev != null && prev.getNext() != ref) {
+            prev = prev.getNext();
+        }
+        if (prev == null) {
+            throw new IllegalArgumentException(
+                "ref does not seem to be in this list"
+            );
+        }
+
+        ListElement element = new ListElement(data);
+        element.next = ref;
+        prev.next = element;
+    }
+    \end{minted}
+    \item Entfernen eines Elements:
+    \item[] Falls das zu entfernende Element \code{null} ist, wird eine \code{IllegalArgumentException} geworfen
+    \item[] Eine Methode für die Suche nach einem Vorgänger-Element ist
+    vorausgesetzt (s. Methode \code{insertBefore()})
+    \item[] Wird kein Vorgänger-Element gefunden, wird davon ausgegangen, dass
+    das zu löschende Element das \code{head}-Element ist
+    \begin{minted}{java}
+    public void delete(ListElement del) {
+        if (ref == null) {
+            throw new IllegalArgumentException();
+        }
+
+        ListElement prev = getPredecessor(del);
+        if (prev == null) {
+            head = del.next;
+            return;
+        }
+
+        prev.next = del.next;
+    }
+    \end{minted}
+    \item Anhängen eines Elements an das Ende (\code{tail}) einer Liste
+    \item[] Im Folgenden wird die Existenz eines \code{tail}-Elementes vorausgesetzt
+    \begin{minted}{java}
+    public void append(Object data) {
+        ListElement element = new ListElement(data);
+
+        if (tail == null) {
+            head = element;
+            head = tail;
+            return;
+        }
+
+        tail.next = element;
+        tail = element;
+    }
+    \end{minted}
+\end{itemize}
+
+
