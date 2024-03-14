@@ -6,7 +6,7 @@
 Das Sortierverfahren vergleicht zwei Teilfolgen des zu sortierenden Feldes miteinander.\\
 Hierbei ist eine Teilfolge sortiert, die andere unsortiert.
 Die sortierte Teilfolge ist zunächst leer.\\
-Das jeweils kleinste Element aus der unsortierten Teilfolge wird an das Ende der sortierten Teilfolge eingefügt (bzw. das größte, je nach zu sortierender Reihenfolge.\\
+Das jeweils kleinste Element aus der \textit{unsortierten} Teilfolge wird an das Ende der sortierten Teilfolge eingefügt\footnote{bzw. das größte, je nach Anforderungen an die Sortierreihenfolge}.\\
 Das ganze wird so lange wiederholt, bis die unsortierte Teilfolge nur noch aus einem Element besteht, danach ist das Feld sortiert.
 
 
@@ -15,7 +15,6 @@ Das ganze wird so lange wiederholt, bis die unsortierte Teilfolge nur noch aus e
 \begin{minted}{java}
 
     for (int i = 0; i < n - 1; i++) {
-        int min = arr[i];
         int minIndex = i;
         for (int j = i + 1; j < n; j++) {
             if (arr[j] < arr[minIndex]) {

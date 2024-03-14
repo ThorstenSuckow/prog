@@ -1,11 +1,11 @@
-\section{Bubble-Sort}
+\section{Bubblesort}
 
-\textbf{Bubble-Sort} ist ein \textbf{stabiles}, auf Schlüsselvergleichen basierendes \textbf{internes} Sortierverfahren, dass \textbf{in place} sortiert.
+\textbf{Bubblesort} ist ein \textbf{stabiles}, auf Schlüsselvergleichen basierendes \textbf{internes} Sortierverfahren, dass \textbf{in place} sortiert.
 
 \subsection{Methode}
-\textbf{Bubble-Sort} vergleicht zwei benachbarte Elemente und vertauscht diese miteinander, falls ihre relative Reihenfolge nicht der erwarteten Sortierreihenfolge entspricht.\\
-Nach dem ersten Durchlauf steht der größte/kleinste (entsprechend Vorgaben der Sortierreihenfolge) Schlüssel am Ende des Feldes.\\
-Dann wird der Vorgang wiederholt, es muss aber nicht mehr mit dem letzten Schlüssel verglichen werden, da dieser Schlüssel bereits der größte ist.\\
+\textbf{Bubblesort} vergleicht zwei benachbarte Elemente und vertauscht diese miteinander, falls ihre relative Reihenfolge nicht der erwarteten Sortierreihenfolge entspricht.\\
+Nach dem ersten Durchlauf steht der größte  Schlüssel\footnote{oder der kleinste Schlüssel, entsprechend den Anforderungen an die Sortierreihenfolge} am Ende des Feldes.\\
+Dann wird der Vorgang wiederholt, es muss aber nicht mehr mit dem Schlüssel an Position $n-1$\footnote{die Anzahl der benötigten Vergleiche reduziert sich entsprechend nach jeder Iteration um mindestens $1$} verglichen werden, da dieser Schlüssel bereits seine endgültige Position in dem sortierten Feld eingenommen hat.\\
 Das wird so lange wiederholt, bis keine Vertauschungen mehr aufgetreten sind oder in u.a. Implementierung das Ende der äußeren Schleife erreicht wurde.\\
 
 \subsection{Implementierung}

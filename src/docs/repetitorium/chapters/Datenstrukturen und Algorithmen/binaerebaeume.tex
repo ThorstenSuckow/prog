@@ -70,9 +70,6 @@ Die \textbf{Inorder}-Traversierung des Baumes in Abbildung~\ref{fig:bintree} erg
 Wird ein Baum in \textbf{Postorder}-Reihenfolge traversiert, werden zunächst die Knoten des linken Teilbaums besucht, dann die Knoten des rechten Teilbaums, dann die Wurzel selber (\textit{LRK}) .
 
 \subsection*{Beispiel}
-Sei der Baum wie in Abbildung~\ref{fig:bintree} gegeben.\\
-
-\noindent
 Die \textbf{Postorder}-Traversierung des Baumes in Abbildung~\ref{fig:bintree} ergibt $2\ 1\ 7\ 4\ 1\ 9\ 5\ 3$.
 
 \subsection{Rekonstruktion}
@@ -90,7 +87,7 @@ Der rekonstruierte Baum ist in Abbildung \ref{fig:inpre} dargestellt.\\
 
 \begin{figure}
     \begin{center}
-        \includegraphics[scale=0.4]{chapters/Datenstrukturen und Algorithmen/img/inpost}
+        \includegraphics[scale=0.4]{chapters/Datenstrukturen und Algorithmen/img/inpre}
         \caption{Binärer Baum mit der Inorder-Reihenfolge $5\ 8\ 4\ 7\ 3\ 1\ 6\ 9\ 2$ sowie der Preorder-Reihenfolge $3\ 4\ 5\ 8\ 7\ 2\ 6\ 1\ 9$  (Quelle: eigene)}
         \label{fig:inpre}
     \end{center}
@@ -124,13 +121,13 @@ Im worst-case ist ein Baum zu einer linearen Liste entartet\footnote{
 }, so dass die komplette Liste durchlaufen werden muss, um ein Element in das Ende der Liste einzufügen bzw. zu überprüfen, ob das Element enthalten ist.\\
 
 \noindent
-Im Mittel wird für eine Einfügeoperation $O(log n)$ benötigt\footnote{
+Im Mittel wird für eine Einfügeoperation $O(log\ n)$ Zeit benötigt\footnote{
     vgl. \cite[136 ff.]{GD18d}
 }.\\
 
 
 \noindent
-Der Aufwand für den Aufbau eines binären Suchbaumes Baumes mit $n$ bereits sortierten Elementen ist $O(n^2)$ (vgl.~\cite[235 f.]{GD18d}).
+Der Aufwand für den Aufbau eines binären Suchbaumes mit $n$ bereits sortierten Elementen ist $O(n^2)$ (vgl.~\cite[235 f.]{GD18d}).
 
 
 \subsection{Löschen}
@@ -153,7 +150,7 @@ Generell wird beim Löschen so vorgegangen:
     \item \textbf{Fall 1}: Der zu löschende Knoten ist ein Blatt
     \item [] In diesem Fall muss lediglich die Referenz auf das Blatt entfernt werden.
     \item \textbf{Fall2}: Der zu löschende Knoten hat nur einen direkten Nachfolger
-    \item[] Die Referenz auf den zu löschenden Knoten wird auf den direkten Nachfolger gesetzt
+    \item[] Der direkte Vorgänger des zu löschenden Knoten referenziert den direkten Nachfolger des zu löschenden Knotens.
     \item \textbf{Fall3}: Der zu löschende Knoten hat einen linken \textit{und} einen rechten Nachfolger
     \item[] Der zu löschende Knoten muss durch seinen symmetrischen Nachfolger oder Vorgänger ersetzt werden.
 \end{itemize}\\
@@ -175,7 +172,7 @@ Der symmetrische Nachfolger für diesen Knoten ist der Knoten mit dem Schlüssel
 Es ist darauf zu achten, die Nachfolgerknoten / Vorgängerknoten beim Löschen korrekt umzuhängen:
 \begin{itemize}
     \item \textbf{Fall 1}: Der symmetrische Vorgänger wird verwendet
-    \item [] Da der symmetrische Vorgänger höchstens \textit{einen direkten linken Nachfolger} haben kann, wird dieser Knoten (in dem beispiel mit Schlüssel $3$) nun der neue \textit{direkte rechte Nachfolger} des direkten Vorgängers (Schlüssel $2$) des symmetrischen Vorgängers.
+    \item [] Da der symmetrische Vorgänger höchstens \textit{einen direkten linken Nachfolger} haben kann, wird dieser Knoten (in dem Beispiel der Knoten mit Schlüssel $3$) nun der neue \textit{direkte rechte Nachfolger} des direkten Vorgängers (Schlüssel $2$) des symmetrischen Vorgängers.
     Der neue direkte linke Nachfolger des Knotens mit dem Schlüssel $4$ wird der Knoten mit dem Schlüssel $2$.
     \item \textbf{Fall 2}: der symmetrische Nachfolger wird verwendet
     \item[] Da der symmetrische Nachfolger höchstens \textit{einen direkten rechten Nachfolger} haben kann, wird dieser Knoten nun der neue \textit{direkte linke Nachfolger} des direkten Vorgängers des symmetrischen Nachfolgers.

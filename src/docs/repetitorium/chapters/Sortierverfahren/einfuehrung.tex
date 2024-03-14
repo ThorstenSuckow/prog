@@ -2,7 +2,7 @@
 
 Der Abschnitt wiederholt wesentliches zu \textit{einfachen} Sortierverfahren\footnote{
     vgl. \textit{Güting und Dieker} in~\cite[170]{GD18e}; bei \textit{Ottmann und Widmayer} auch \textit{elementare} Sortierverfahren (vgl.~\cite[82 ff.]{OW17b})
-}wie \textbf{Selection-Sort}, \textbf{Insertion-Sort} und \textbf{Bubble-Sort}, deren Laufzeitkomplexität in $O(n^2)$ liegen\footnote{
+}wie \textbf{Selection-Sort}, \textbf{Insertion-Sort} und \textbf{Bubblesort}, deren Laufzeitkomplexität in $O(n^2)$ liegt\footnote{
 im Folgenden bezieht sich $O$ immer auf den \textbf{worst-case}, sofern nicht anders angegeben
 }.\\
 Außerdem werden \textbf{Divide-and-Conquer}-Verfahren wie \textbf{Merge-Sort} ($O(n\ log\ n)$) und \textbf{Quicksort} ($O(n^2)$) wiederholt.
@@ -15,20 +15,20 @@ ein Sortierverfahren, dass nicht über Schlüsselvergleiche sortiert, ist \texti
 
 \subsection{Klassifikation von Sortieralgorithmen}
 
-\textit{Güting und Dieker} klassifizieren Sortieralgorithmen neben der Effizienz und den angewandten Methoden u.a. nach folgenden Kriterien (vgl.~\cite[169 f.]{GD18e}]):
+\textit{Güting und Dieker} klassifizieren Sortieralgorithmen neben der Effizienz und den angewandten Methoden u.a. nach folgenden Kriterien (vgl.~\cite[169 f.]{GD18e}):
 
 \begin{itemize}
     \item \textbf{intern / extern}
     \item[] \textit{interne} Verfahren halten alle Daten im Hauptspeicher, \textit{externe} laden nur einen Teil davon in den Speicher (bspw. beim Sortieren von Daten, die auf Diskette / Platte / Band vorliegen (vgl.~\cite[80]{OW17b})).
     \item \textbf{in place (in situ)}
-    \item [] Sortierverfahren, die keinen zusätzlichen Speicherplatz zum Sortieren der Daten benötigen, sortieren \textbf(in place).\\
+    \item [] Sortierverfahren, die keinen zusätzlichen Speicherplatz zum Sortieren der Daten benötigen, sortieren \textbfin place.\\
     Die Eingangsfolge und die Ausgangsfolge werden im selben Array dargestellt, Vertauschungen von Schlüsseln erfolgen in genau diesem Array.\\
     Alle in diesem Kapitel behandelten Sortierverfahren fallen in diese Kategorie, bis auf \textbf{Merge-Sort}.
     \item \textbf{stabil}
     \item[] Sortierverfahren, bei denen die Ergebnisfolge gleicher Schlüssel dieselbe ist wie die Ausgangsfolge, nennt man \textbf{stabil}:\blockquote[{\cite[164]{OW17b}}]{
         [...] die Reihenfolge von Elementen mit gleichem Sortierschlüssel wird während des Sortierverfahrens nicht vertauscht.
     }.\\
-    Die Sortierverfahren \textbf{Bubble-Sort}, \textbf{Insertion-Sort} und \textbf{Merge-Sort} sind allesamt stabile Sortierverfahren.\\
+    Die Sortierverfahren \textbf{Bubblesort}, \textbf{Insertion-Sort} und \textbf{Merge-Sort} sind allesamt stabile Sortierverfahren.\\
     Nicht stabil sind \textbf{Selection-Sort} und \textbf{Quicksort}.
     \item \textbf{natürlich}
     \item[] \textbf{natürliche Sortierverfahren} arbeiten bei vorsortierten Daten schneller als bei unsortierten (bspw. \textbf{Insertion-Sort}, wohingegen \textbf{Selection-Sort} auch bei vorsortierten Daten die gleiche Laufzeitkomplexität aufweist, wie bei unsortierten)
@@ -37,14 +37,14 @@ ein Sortierverfahren, dass nicht über Schlüsselvergleiche sortiert, ist \texti
 
 \subsection{Untere Schranke}
 
-\blockquote[{\cite[154, Satz2.4]{OW17b}}]{
-    Jedes allgemeine Sortierverfahren benötigt zum Sortieren von $N$ verschiedenen Schlüsseln sowohl im schlechtesten Falls als auch im Mittel wenigstens $\Omega(N\ log\ N)$ Schlüsselvergleiche.
+\blockquote[{\cite[154, Satz 2.4]{OW17b}}]{
+    Jedes allgemeine Sortierverfahren benötigt zum Sortieren von $N$ verschiedenen Schlüsseln sowohl im schlechtesten Fall als auch im Mittel wenigstens $\Omega(N\ log\ N)$ Schlüsselvergleiche.
 }.
 
 
 \subsection{divide-and-conquer-Paradigma}
 
-\textit{Güting und Dieker} beschreiben das \textbf{divide-and-conquer}-Paradigma ähnlich wie folgt (vgl.~\cite[174]{GD18e}):
+\textit{Güting und Dieker} beschreiben das \textbf{divide-and-conquer}-Paradigma in~\cite[174]{GD18e}:
 \begin{itemize}
     \item Ist die Objektmenge klein genug, löse das Problem direkt.
     \item \textit{Divide} Ansonsten zerlege die Objektmenge in mehrere Teilmengen (möglichst gleicher Größe)
