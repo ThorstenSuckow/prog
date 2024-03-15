@@ -163,6 +163,7 @@ Eine implizite Typumwandlung kann durch eine explizite ersetzt werden\footnote{
     Object o = (Object)a;
 \end{minted}\\
 
+\noindent
 Explizites casting funktioniert nicht zum spezielleren Typ:
 
 \begin{minted}[mathescape,
@@ -267,8 +268,7 @@ Der Compiler verhindert dies bereits:
 \noindent
 Der vom Compiler ausgegebene Fehler weist auf die Inkompatibilität der Rückgabetypen hin:\\
 
-\begin{minted}[mathescape,
-    gobble=2]{jatexta}
+\begin{minted}{text}
     return type Rechteck is not compatible with Quadrat.
 \end{minted}\\
 

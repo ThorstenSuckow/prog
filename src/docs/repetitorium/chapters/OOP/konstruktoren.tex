@@ -105,19 +105,16 @@ Konstruktor - den Standardkonstruktor - deklariert:
 \begin{minted}[mathescape,
     gobble=2]{java}
     class C extends B {
-
-
         public static void main(String[] args) {
             C c = new C(); // Compiler-Fehler
         }
-
     }
 \end{minted}
 
 \noindent
 Damit ein Objekt vom Typ \code{C} erzeugt werden kann, benötigt \code{C} einen Standardkonstruktor mit einem expliziten
 Aufruf des Konstruktors von \code{B} - da \code{B} selber keinen Standardkonstruktor deklariert hat, muss der Konstruktor
-mit der Signature \code{B(int)} aufgerufen werden:
+mit der Signatur \code{B(int)} aufgerufen werden:
 
 \begin{minted}[mathescape,
     gobble=2]{java}

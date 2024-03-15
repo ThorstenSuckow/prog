@@ -20,7 +20,9 @@ Folgende Präfixe können für die Zahlensystem \textit{Binär}, \textit{Oktal},
 
 Umrechnen von Werten aus den Zahlensystemen von bzw. in das  Dezimalsystem folgt einem einfachen Schema, das zunächst anhand des Binärsystems erklärt wird.\\
 
-Jedes Bit repräsentiert eine Position - dabei hat das Bit, das ganz rechts steht, die Position $0$ (\textit{niedrigster Stellenwert}), das Bit, das ganz links steht, die Position $n-1$ (\textit{höchsterStellenwert}, bei $n$ Bits pro Zahl).\\
+Jedes Bit repräsentiert eine Position - dabei hat das Bit, das ganz rechts steht, die Position $0$\footnote{
+bei $LSb_0$, was auch im folgenden verwendet wird (s. a. ``$LSb_0$-Bitnummerierung``:\url{https://de.wikipedia.org/wiki/Bitwertigkeit#LSb0-Bitnummerierung} - abgerufen 15.03.2024)
+} (\textit{niedrigster Stellenwert}: \textit{least significant bit, lsb}), das Bit, das ganz links steht, die Position $n-1$ (\textit{höchsterStellenwert}: \textit{most significant bit, msb}, bei $n$ Bits pro Zahl).\\
 Die Position $i$ eines Bits repräsentiert einen Exponenten zur Basis $B_v=2$ - jedes Bit, das an der Stelle $i$ durch eine $1$ repräsentiert wird, wird entsprechend $2^i$ umgerechnet und mit allen solchen Werten innerhalb der Bitfolge addiert (s. Tabelle~\ref{tab:bindec}):
 
     {\renewcommand{\arraystretch}{2.5}%

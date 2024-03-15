@@ -1,7 +1,7 @@
 \section{Typumwandlung}
 
 
-Numerische Datentypen werden in Java \textit{implizit} oder \textit{explitzit} konvertiert.\\
+Numerische Datentypen werden in Java \textit{implizit} oder \textit{explizit} konvertiert.\\
 
 \noindent
 Zu den numerischen Datentypen\footnote{
@@ -68,19 +68,19 @@ Eine Konvertierung zwischen \code{boolean} und nuemrischen Werten ist weder mit 
 
 \subsection{Auto-Promotion bei arithmetischen Operationen}
 
-Bei arithmetische Operationen (\code{+}, \code{-}, \ldots) wird der Datentyp der Operanden auf den Datentyp mit der höheren Präzision erweitert.\\
+Bei arithmetischen Operationen (\code{+}, \code{-}, \ldots) kann der Datentyp der Operanden auf den Datentyp mit der höheren Präzision erweitert werden.\\
 
 \noindent
 Im folgenden Beispiel soll ein \code{short}- zu einem \code{int}-Wert addiert werden.
 Der Compiler lehnt die Anweisung mit dem Hinweis ab, dass der Ausdruck \code{(short)3 + i} vom Typ \code{int} ist.
-Für eine erfolgreiche Zuweisung müßte das Ergebnis erst zu \code{short} gecasted werden.
+Für eine erfolgreiche Zuweisung müßte das Ergebnis erst zu \code{short} gecasted werden, da der Compiler an der Stelle nicht feststellen kann, ob das Ergebnis noch im Wertebereich von \code{short} liegt.
 
 \begin{minted}{java}
     int i = 4;
     short s = (short)3 + i; // Compilerfehler
 \end{minted}\\
 
-Das gleiche gilt also auch für arithmetische Operationen, bei denen der \code{char}-Typ involviert ist:
+Dasselbe gilt für arithmetische Operationen, bei denen der \code{char}-Typ involviert ist:
 
 
 \begin{minted}{java}
@@ -112,6 +112,18 @@ Bei folgendem Code hingegen stellt der Compiler einen Überlauf fest und lehnt d
     gobble=2]{java}
     short s = 1 + 32767;
 \end{minted}\\
+
+\begin{tcolorbox}[title=Typkonvertierung]
+\begin{itemize}
+    \item Ist ein Ausdruck vom Typ \code{double}, werden alle Ausdrücke zu \code{double} \textbf{erweitert}
+    \item Ist ein Ausdruck vom Typ \code{float}, werden alle Ausdrücke zu \code{float} \textbf{erweitert}
+    \item Ist ein Ausdruck vom Typ \code{long}, werden alle Ausdrücke zu \code{long} \textbf{erweitert}
+    \item Ansonsten entscheidet der Kontext, wie konvertiert wird:  In einem numerischen arithmetischen Kontext werden die Ausdrücke zu \code{int} erweitert.\\
+    In anderen Kontexten kann der Compiler versuchen, den gültigen Wertebereich einer Operation zu ermitteln und ein \textit{Narrowing} anstelle eines \textit{Widening} durchführen\footnote{
+        s. a. ``5.6. Numeric Contexts``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html#jls-5.6} - abgerufen 15.03.2024
+    }.
+\end{itemize}
+\end{tcolorbox}\\
 
 \noindent
 Die Tabelle ~\ref{tab:typeconvert} fasst die Zuweisungskompatibilität einfacher Datentypen zusammen, bei denen kein explizites Casting erforderlich ist, eine kompaktere Übersicht findet sich in Tabelle~\ref{tab:typcompact}.\\

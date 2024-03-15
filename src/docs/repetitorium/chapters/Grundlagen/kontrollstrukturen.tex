@@ -3,7 +3,7 @@
 
 \subsection{Das switch Statement}
 
-Ist in dem \code{switch}-Block nach einer Anweisung kein \code{break}\footnote{bzw. \textit{return}} angegeben, werden alle nachfolgenden Anweisungen des switch-Blocks durchgeführt, bis der Block verlassen wird:
+Ist in dem \code{switch}-Block nach einer Anweisung kein \code{break}\footnote{bzw. \textit{return}} angegeben, werden alle nachfolgenden Anweisungen des switch-Blocks ausgeführt, bis der Block verlassen wird:
 
 \blockquote[{``The switch Statement``: \url{https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html} - abgerufen 12.03.2024}]{
     Each break statement terminates the enclosing switch statement. Control flow continues with the first statement following the switch block. The break statements are necessary because without them, statements in switch blocks fall through: All statements after the matching case label are executed in sequence, regardless of the expression of subsequent case labels, until a break statement is encountered.
