@@ -1,0 +1,42 @@
+\section{Bubblesort}
+
+\textit{Sortieren durch direktes Austauschen}
+
+\subsection{Eigenschaften}
+\begin{itemize}
+    \item stabil
+    \item in place
+\end{itemize}
+
+\subsection{Methode}
+\textbf{Bubblesort} vergleicht zwei benachbarte Elemente und vertauscht diese miteinander, falls ihre relative Reihenfolge nicht der erwarteten Sortierreihenfolge entspricht.\\
+Nach dem ersten Durchlauf steht der größte  Schlüssel am Ende des Feldes.\\
+Dann wird der Vorgang wiederholt, es muss aber nicht mehr mit dem Schlüssel an Position $n-1$ verglichen werden, da dieser Schlüssel bereits seine endgültige Position in dem sortierten Feld eingenommen hat.\\
+Das wird so lange wiederholt, bis keine Vertauschungen mehr aufgetreten sind oder die Schleifen komplett durchlaufen sind.
+
+
+\subsection{Implementierung}
+\begin{minted}[
+fontsize=\small
+]{java}
+    boolean inversed = true;
+    for (i = n - 1; i >= 0; i--) {
+        inversed = false;
+        for (j = 0; j < i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr, j, j+1);
+                inversed = true;
+            }
+        }
+        if (!inversed) {
+            break;
+        }
+    }
+\end{minted}
+
+
+\subsection{Laufzeit}
+\begin{itemize}
+    \item \textbf{Anzahl der Vergleiche und Vertauschungen}: $\frac{n * ( n - 1)}{2}$ ($O(n^2)$)
+    \item \textbf{Laufzeit}: $O(n^2)$
+\end{itemize}

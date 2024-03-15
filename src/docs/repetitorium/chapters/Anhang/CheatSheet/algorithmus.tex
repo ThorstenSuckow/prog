@@ -1,0 +1,19 @@
+\section{Algorithmus}
+
+Bei der Betrachtung kleinerer Problemgrößen fällt bei der Wahl eines Algorithmus weniger seine Effizienz ins Gewicht, sondern eher die Einfachheit seiner Implementierung und seine Verständlichkeit (vgl. \cite[5 f.]{GD18a}).\\
+
+\noindent
+So läuft bspw. eine Implementierung von Insertion-Sort ($O(n^2)$), die zur Sortierung $8*n^2$ Operationen benötigt, für Eingabemengen $n \leq 43$ schneller als eine Implementierung von Merge-Sort ($O(n\ log(n))$), die $64 * (n\ log(n))$ Schritte für die Sortierung benötigt.\\
+
+\noindent
+Diesbzgl. hatte der Selbsttest ``D+A-Selbsttest-02: O-Notation`` die Frage gestellt, in welchem Fall die Beurteilung eines Algorithmus bezüglich der Komplexitätsklasse nicht unbedingt angemessen sei. Die richtige Antwort hierzu lautete: ``Bei sehr kleinen Eingabemengen``.\\
+
+\subsection{Optimaler Algorithmus}
+\begin{tcolorbox}[title={Optimaler Algorithmus}]
+    ``Ein Algorithmus heißt (asymptotisch) \textbf{optimal}, wenn die obere Schranke für seine Laufzeit mit der unteren Schranke für die Komplexität des Problems zusammenfällt.`` (~\cite[20]{GD18a})\\
+
+    \noindent
+    Sortieralgorithmen mit einer Laufzeit von $O(n\ log\ n)$ sind \textbf{optimal}, bspw. \textbf{Merge-Sort}.
+\end{tcolorbox}
+
+

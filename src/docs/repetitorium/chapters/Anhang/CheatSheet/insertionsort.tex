@@ -1,0 +1,37 @@
+\section{Insertion-Sort}
+
+\textit{Sortieren durch Einfügen}
+
+\subsection{Eigenschaften}
+\begin{itemize}
+    \item stabil
+    \item in place
+\end{itemize}
+
+\subsection{Methode}
+Bei \textbf{Insertion-Sort} wird das zu sortierende Feld in zwei Teilfolgen unterteilt - eine unsortierte und eine sortierte.\\
+Die sortierte Folge besteht zu Beginn nur aus einem Element.\\
+Aus der unsortierten Teilfolge werden Elemente der Reihe nach entnommen und in die sortierte Folge an der richtigen Stelle eingefügt, wodurch Schlüssel ihre Position in der sortierten Folge ggf. ändern müssen.
+
+
+\subsection{Implementierung}
+\begin{minted}[
+    fontsize=\small
+]{java}
+    for (int i = 1; i < n; i++) {
+        int min = arr[i];
+        int j = i;
+        while (j > 0 && arr[j - 1] > min) {
+            arr[j] = arr[j - 1];
+            j--;
+        }
+        arr[j] = min;
+    }
+\end{minted}
+
+
+\subsection{Laufzeit}
+\begin{itemize}
+    \item \textbf{Anzahl der Vergleiche und Vertauschungen}: $\frac{n * ( n - 1)}{2}$
+    \item \textbf{Laufzeit}: $O(n^2)$
+\end{itemize}

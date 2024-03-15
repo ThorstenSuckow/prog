@@ -1,0 +1,60 @@
+\section{Quicksort}
+
+
+\subsection{Eigenschaften}
+\begin{itemize}
+    \item nicht stabil
+    \item in place
+\end{itemize}
+
+\subsection{Methode}
+Bei \textbf{Quicksort}  wird ein Schlüssel aus dem Feld als \textbf{Pivot-Element} $p$ gewählt (bspw. das rechte einer Teilfolge).\\
+Alle Schlüssel, die kleiner als das Pivotelement sind, werden in die eine Hälfte geschrieben, alle die größer sind, in die andere.
+Das Pivotelement selber wird zwischen die beiden Hälften geschrieben, die dann durch Rekursion wiederholt bearbeitet werden, bis die Teilfelder die Größe $1$ haben, womit das gesamte Feld als sortiert gilt.
+
+
+\subsection{Implementierung}
+\begin{minted}[
+    fontsize=\small
+]{java}
+    quicksort (int[] arr, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+        int i = l;
+        int j = r - 1;
+        int pivot = arr[r];
+        while (i <= j) {
+            while (i < r && arr[i] <= pivot) {
+                i++;
+            }
+            while (j >= 0 && arr[j] > pivot) {
+                j--;
+            }
+            if (i < j) {
+                int tmp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp;
+            }
+        }
+        arr[r] = arr[i];
+        arr[i] = pivot;
+
+        quicksort(arr, l, i - 1);
+        quicksort(arr, i + 1, r);
+    }
+\end{minted}
+
+
+\subsection{Laufzeit}
+\begin{itemize}
+    \item \textbf{Laufzeit}: $O(n^2)$
+\end{itemize}
+
+\subsection{Anmerkungen}
+\textbf{Quicksort} nutzt \textbf{divide-and-conquer}, um ein Feld zu sortieren.\\
+Die wesentliche Arbeit erfolgt hier in den Partitionierungs-Schritten.\\
+
+\noindent
+Im \textbf{worst-case} hat Quicksort eine Laufzeit von $O(n^2)$, allerdings wird in der Literatur darauf hingewiesen, dass das Sortierverfahren eins der schnellsten Sortierverfahren ist, da es im Mittel mit $O(n\ log\ n)$ sortiert.\\
+Die \textbf{Effizienz} von Quicksort hängt im Wesentlichen von der Wahl des Pivot-Elementes als auch von der \textit{Rekursionstiefe} ab.

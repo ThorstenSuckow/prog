@@ -1,0 +1,46 @@
+\section{Merge-Sort}
+
+
+\subsection{Eigenschaften}
+\begin{itemize}
+    \item stabil
+    \item nicht in place
+    \item optimal
+\end{itemize}
+
+\subsection{Methode}
+Der Algorithmus teilt die Eingabefolge rekursiv in zwei gleich-große Folgen auf, bis $n$ ein-elementige Folgen vorhanden sind.\\
+Im Anschluss werden die Folgen miteinander verschmolzen, und zwar so, dass die miteinander verschmolzenen Folgen immer in sortierter Reihenfolge vorliegen.\\
+
+
+\subsection{Implementierung}
+\begin{minted}[
+    fontsize=\small
+]{java}
+    mergeSort(int[] arr, int start, int end) {
+        if (arr.length == 1) {
+            return arr;
+        }
+
+        int mid = (start + end) / 2;
+        int[] left = divide(arr, start, mid);
+        int[] right = divide(arr, mid + 1, end);
+
+        left = mergeSort(left, 0, left.length - 1);
+        right = mergeSort(right, 0, right.length - 1);
+
+        arr = merge(arr, left, right, start);
+
+        return arr;
+    }
+\end{minted}
+
+
+\subsection{Laufzeit}
+\begin{itemize}
+    \item \textbf{Laufzeit}: $O(n\ log\ n)$
+\end{itemize}
+
+\subsection{Anmerkungen}
+Der Baum hat eine Höhe von $\sim log_2\ n$, auf jeder Ebene werden $O(n)$ Operationen (\textit{merge} oder \textit{divide}) durchgeführt.\\
+Die Rekursionstiefe ist bei \textbf{Merge-Sort} logarithmisch beschränkt mit $\lceil log\ n \rceil$, im Gegensatz zu \textbf{Quicksort}.

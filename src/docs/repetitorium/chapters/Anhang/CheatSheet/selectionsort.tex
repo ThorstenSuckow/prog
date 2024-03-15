@@ -1,0 +1,43 @@
+\section{Selection-Sort}
+
+\textit{Sortieren durch Auswahl}
+
+\subsection{Eigenschaften}
+\begin{itemize}
+    \item nicht stabil
+    \item in place
+\end{itemize}
+
+\subsection{Methode}
+Das Sortierverfahren vergleicht zwei Teilfolgen des zu sortierenden Feldes miteinander.\\
+Hierbei ist eine Teilfolge sortiert, die andere unsortiert.
+Die sortierte Teilfolge ist zunächst leer.\\
+Das jeweils kleinste Element aus der \textit{unsortierten} Teilfolge wird an das Ende der sortierten Teilfolge eingefügt.\\
+Das ganze wird so lange wiederholt, bis die unsortierte Teilfolge nur noch aus einem Element besteht, danach ist das Feld sortiert.
+
+
+
+\subsection{Implementierung}
+\begin{minted}[
+    fontsize=\small
+]{java}
+    for (int i = 0; i < n - 1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        int tmp = arr[minIndex];
+        arr[minIndex] = arr[i];
+        arr[i] = tmp;
+    }
+\end{minted}
+
+
+\subsection{Laufzeit}
+\begin{itemize}
+    \item \textbf{Anzahl der Vergleiche}: $\frac{n * ( n - 1)}{2}$
+    \item \textbf{Vertauschungen}: $O(n)$
+    \item \textbf{Laufzeit}: $O(n^2)$
+\end{itemize}

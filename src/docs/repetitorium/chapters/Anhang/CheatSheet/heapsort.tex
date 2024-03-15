@@ -1,0 +1,24 @@
+\section{Heapsort}
+
+\subsection{Eigenschaften}
+\begin{itemize}
+    \item nicht stabil
+    \item in place
+    \item optimal
+\end{itemize}
+
+\subsection{Methode}
+Die Eingabefolge wird in einen \textbt{Heap} umgewandelt.\\
+Da in einem Heap immer der größte Schlüssel am Anfang der Folge steht, wird der Schlüssel mit dem letzten Element der Folge ausgetauscht und die Heap-Größe um $1$ verkleinert.\\
+Das an Position $1$ stehende Element wird nun über ein \textbf{top-down reheapify} in dem Heap an seine eigentliche Position gebracht, damit die Heap-Bedingungen hergestellt sind und das größte Element wieder an Position $1$ steht.\\
+Das wird so lange wiederholt, bis der Heap nur noch aus einem Element besteht, dann ist die resultierende Folge sortiert.
+
+
+
+
+\subsection{Laufzeit}
+\begin{itemize}
+    \item \textbf{Aufbau des Heaps}: $O(n)$
+    \item \textbf{sink}: $n$ Aufrufe, jeweils $O(log\ n)$
+    \item \textbf{Laufzeit}: $O(n\ log \n)$
+\end{itemize}
