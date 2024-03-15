@@ -1,6 +1,6 @@
 \section{Selection-Sort}
 
-\textbf{Selection-Sort} (\textit{Sortieren durch Auswahl}) ist ein auf Schlüsselvergleichen basierendes, \textbf{internes}, \textbf{nicht-stabiles} Sortierverfahren, das \textbf{in place} sortiert.
+\textbf{Selection-Sort} (\textit{Sortieren durch Auswahl}) ist ein auf Schlüsselvergleichen basierendes, \textbf{nicht-stabiles} Sortierverfahren, das \textbf{in place} sortiert.
 
 \subsection{Methode}
 Das Sortierverfahren vergleicht zwei Teilfolgen des zu sortierenden Feldes miteinander.\\
@@ -13,7 +13,6 @@ Das ganze wird so lange wiederholt, bis die unsortierte Teilfolge nur noch aus e
 \subsection{Implementierung}
 
 \begin{minted}{java}
-
     for (int i = 0; i < n - 1; i++) {
         int minIndex = i;
         for (int j = i + 1; j < n; j++) {
@@ -25,7 +24,6 @@ Das ganze wird so lange wiederholt, bis die unsortierte Teilfolge nur noch aus e
         arr[minIndex] = arr[i];
         arr[i] = tmp;
     }
-
 \end{minted}
 
 
