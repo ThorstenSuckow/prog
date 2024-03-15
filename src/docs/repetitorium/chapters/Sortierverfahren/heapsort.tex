@@ -1,0 +1,67 @@
+\section{Heapsort}
+
+\noindent
+Sortieren funktioniert nach der Annahme, dass die Wurzel eines Heaps immer den größten Schlüssel enthält.\\
+Der Schlüssel kann nun entnommen werden, woraufhin zwei Teail-Heaps entstehen.
+Der entnommene Schlüssel wird durch den Schlüssel mit dem höchsten Index der Folge ersetzt (die Folge verkleinert sich somit um ein Element) - sollten die Heap-Bedingungen hierdurch verletzt werden, können mittels \textbf{top-down reheapify} (\textbf{sink}) die Heap-Bedingungen wiederhergestellt werden (vgl.~\cite[107 f.]{OW17b}).\\
+
+\noindent
+Ebenda zeigen \textbf{Ottmann und Widmayer}, wie \textbf{Heapsort} auch \textbf{in place} umgesetzt werden kann: Anstatt immer den größten Schlüssel aus dem Heap zu entfernen und in ein zusätzliches Feld zu schreiben, wird der entfernte Schlüssel einfach an das Ende der Folge geschrieben und bei nachfolgenden Operationen nicht mehr als Teil des Heaps berücksichtigt.\\
+
+\noindent
+Allerdings müssen in einer Folge von Schlüsseln zunächst Heap-Bedingungen hergestellt werden, damit Verfahren wie \textbf{swim} und \textbf{sink} (s. Abschnitt~\ref{sec:heap}) auf die Folge angewendet werden können.
+Hierzu findet sich bei \textit{Ottmann und Widmayer} ein einfaches Verfahren\footnote{
+das Verfahren ist zurückzuführen auf \textit{Floyd},~\cite{Flo64}
+}:
+
+\blockquote[{\cite[111]{OW17b}}]{
+    Eine gegebene Folge $F=k_1,k_2,\ldots,k_N$ von $N$ Schlüsseln wird in einen Heap umgewandelt, indem die Schlüssel $k_{\lfloor \frac{N}{2} \rfloor}, k_{\lfloor \frac{N}{2} \rfloor -1}, \ldots, k_1$ (in dieser Reihenfolge) in $F$ versickern.
+}\\
+
+\noindent
+\textbf{Beispiel:}\\
+Sei die Folge $F=1, 4, 2, 5, 12, 8, 9, 6$ mit $N=8$ gegeben.\\
+Anwendung der o.a. Methode liefert für die einzelnen Schritte:
+
+\begin{enumerate}
+    \item $k_4$: $1, 4, 2, 6, 12, 8, 9, 5$
+    \item $k_3$: $1, 4, 9, 6, 12, 8, 2, 5$
+    \item $k_2$: $1, 12, 9, 6, 4, 8, 2, 5$
+    \item $k_1$: $12, 1, 9, 6, 4, 8, 2, 5$
+    \item[] $\rightarrow 12, 6, 9, 1, 4, 8, 2, 5$
+    \item[] $\rightarrow 12, 6, 9, 5, 4, 8, 2, 1$
+\end{enumerate}\\
+
+\noindent
+Da nun ein Heap vorliegt, kann dieser sortiert werden.\\
+Es gilt $k_1 = 12$, $k_{N_F} = 1$, mit $N_F = 8$.\\
+Austauschen von $k_1$ mit $k_{N_F}$ liefert $1, 6, 9, 5, 4, 8, 2, 12$, $N_F$ ist nun $7$, woraus sich eine \textit{unsortierte} und eine \textit{sortierte} Teilfolge ergeben:\\
+$[1, 6, 9, 5, 4, 8, 2], [12]$
+\\
+Die Heap-Bedingungen werden nun in der unsortierten Folge $k_1, \ldots, k_7$ wiederhergestellt.\\
+Danach werden die Schritte so lange wiederholt, bis $N_F = 1$.\\
+
+\begin{enumerate}
+    \item \textbf{[unsortiert] / [sortiert]}: $[12, 6, 9, 5, 4, 8, 2, 1], []$
+    \item tauschen: $[1, 6, 9, 5, 4, 8, 2], [12]$
+    \item \textit{sink} $1$: $[9, 6, 8, 5, 4, 1, 2], [12]$
+    \item tauschen: $[2, 6, 8, 5, 4, 1], [9, 12]$
+    \item \textit{sink} $2$: $[8, 6, 2, 5, 4, 1], [9, 12]$
+    \item tauschen: $[1, 6, 2, 5, 4], [8, 9, 12]$
+    \item \textit{sink} $1$: $[6, 5, 2, 1, 4], [8, 9, 12]$
+    \item tauschen: $[4, 5, 2, 1], [6, 8, 9, 12]$
+    \item \textit{sink}: $4$: $[5, 4, 2, 1], [6, 8, 9, 12]$
+    \item tauschen: $[1, 4, 2], [5, 6, 8, 9, 12]$
+    \item \textit{sink}: $[4, 1, 2], [5, 6, 8, 9, 12]$
+    \item tauschen: $[2, 1], [4, 5, 6, 8, 9, 12]$
+    \item \textit{sink} $2$: -
+    \item tauschen: $[1], [2, 4, 5, 6, 8, 9, 12]$
+    \item $N_F=1 \rightarrow F_s= 1, 2, 4, 5, 6, 8, 9, 12$
+\end{enumerate}\\
+
+\subsection{Laufzeit}
+Das oben beschriebene Verfahren zum Umwandeln einer Folge der Länge $N$ in einen Heap benötigt $O(N)$ Operationen.\\
+Das Sortieren der Schlüssel benötigt insg. $O(N\ log\ N)$ Zeit (vgl.~\cite[112]{OW17b}).\\
+
+\noindent
+Damit ist \textbf{Heapsort} ein \textbf{optimales} Sortierverfahren.
