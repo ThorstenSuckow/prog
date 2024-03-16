@@ -1,5 +1,12 @@
 \section{Schleifen}
 
+\subsection{while / do-while}
+Bei einer \code{while}-Schleife wird \textit{zuerst} die Schleifenbedingung überprüft - falls der enthaltene Ausdruck zu \code{true} evaluiert, wird das Statement ausgeführt.\\
+
+\noindent
+Bei einer \code{do-while}-Schleife wird \textit{zuerst} das Statement ausgeführt, und \textit{danach} die Schleifenbedingung überprüft.
+Das Statement wird also immer mindestens ein-mal ausgeführt.\\
+
 \subsection{for-Schleife}
 
 Eine \code{for}-Schleife ist folgendermaßen aufgebaut\footnote{
@@ -16,12 +23,16 @@ s. ``14.14.1. The basic for Statement``: \url{https://docs.oracle.com/javase/spe
     \item \code{ForUpdate} darf eine kommaseparierte Liste von Ausdrucksanweisungen sein
     \item \code{ForUpdate} wird \textit{nach} einem Durchlauf der Schleife ausgeführt, sofern der boolesche Ausdruck (falls vorhanden) zu \code{true} ausgewertet wurde.
     Die Reihenfolge entspricht grob:
-    \begin{enumerate}
-        \item Ausführen von \code{ForInit}
-        \item Auswertung der \code{Expression}
-        \item Ausführen des \code{Statement}s
-        \item Ausführen von \code{ForUpdate}
-    \end{enumerate}
+    \begin{itemize}
+        \item Initialisierung des Statements über \code{ForInit}
+        \begin{enumerate}
+            \item Auswertung der \code{Expression} - falls \code{true}, zu \textbf{2}.
+            \item Ausführen des \code{Statement}s
+            \item Ausführen von \code{ForUpdate}
+            \item falls keine andere Abbruchbedingung vorliegt; zurück zu \textbf{1}
+        \end{enumerate}
+
+    \end{itemize}
 
 \end{itemize}\\
 
