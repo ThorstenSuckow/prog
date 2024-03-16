@@ -1,0 +1,20 @@
+\section{Binäre Suche}
+
+Die \textbf{binäre Suche} folgt der \textit{Divide-and-Conquer}-Strategie.\\
+Hier bei wird in einer aufsteigend sortierten Liste mit $n$ Einträgen nach einem Element mit Schlüssel $k$ gesucht (vgl. \cite[174 f.]{OW17c}).\\
+
+\subsection{Methode}
+\begin{enumerate}
+    \item Ist die Liste leer, war die Suche erfolglos
+    \item Teile die Liste in 2 (möglichst) gleich-große Teile und betrachte mittlere Position $a[m]$
+    \item Falls $k$ < $a[m]$, durchsuche die linke Teilliste $0,\ldots, m-1$ nach demselben Verfahren
+    \item Falls $k$ > $a[m]$, durchsuche die rechte Teilliste $m+1,\ldots, n-1$ nach demselben Verfahren
+    \item Sonst ist $key = a[m]$ und das gesuchte Element ist gefunden
+\end{enumerate}
+
+
+
+\subsection{Laufzeit}
+\begin{itemize}
+    \item \textbf{Laufzeit}: $O(log\ n)$
+\end{itemize}
