@@ -1,0 +1,112 @@
+\section{Listen}
+
+\subsection{Laufzeiten}
+\setlength{\tabcolsep}{0.5em}
+\renewcommand{\arraystretch}{1.5}%
+\begin{table} %[hbtp]
+    \centering
+    \begin{tabular}{|l | c | c | c|}
+        \hline
+        & verkettete Liste & doppelt verkettete Liste & Liste als Array \\
+        \hline
+        \textit{suchen}     &    $O(n) $    &    $O(n)$      & $O(n)$ \\
+        \hline
+        \textit{einfügen}   &    $O(n) $    &    $O(1)$      & $O(n)$ \\
+        \hline
+        \textit{entfernen}  &    $O(n) $    &    $O(1)$     &  $O(n)$\\
+        \hline
+    \end{tabular}
+    \caption{Laufzeiten für die Operationen \textit{suchen}, \textit{einfügen} und \textit{entfernen} bei verschiedenen Listenimplementierungen.}
+\end{table}
+
+\subsection{Implementierung}
+
+\subsection{Implementierungsbeispiele}
+
+Die folgenden Implementierungsbeispiele orientieren sich an den Praktikumsunterlagen: Dort wurde kein Dummy-Element für
+den Kopf der Liste verwendet.
+
+\begin{itemize}
+    \item Einfügen eines neuen Elements am Kopf einer einfach verketteten Liste:
+\begin{minted}[fontsize=\small]{java}
+public void prependHead(Object data) {
+    ListElement element = new ListElement(data);
+    element.next = head;
+    head = element;
+}
+\end{minted}
+    \item[]
+    \item Einfügen eines neuen Elements hinter einem angegebenen Element:
+\begin{minted}[fontsize=\small]{java}
+public void insertAt(ListElement ref, Object data) {
+    if (ref == null) {
+        throw new IllegalArgumentException();
+    }
+
+    ListElement element = new ListElement(data);
+    element.next = ref.next;
+    ref.next = element;
+}
+\end{minted}
+    \item[]
+    \item Einfügen eines Elements vor einem angegebenen Element:
+\begin{minted}[fontsize=\small]{java}
+public void insertBefore(ListElement ref, Object data) {
+    if (ref == null) {
+        throw new IllegalArgumentException();
+    }
+
+    if (ref == head) {
+        prependHead(data);
+        return;
+    }
+
+    ListElement prev = head;
+    while (prev != null && prev.getNext() != ref) {
+        prev = prev.getNext();
+    }
+    if (prev == null) {
+        throw new IllegalArgumentException(
+            "ref does not seem to be in this list"
+        );
+    }
+
+    ListElement element = new ListElement(data);
+    element.next = ref;
+    prev.next = element;
+}
+\end{minted}
+    \item[]
+    \item Entfernen eines Elements:
+    \begin{minted}[fontsize=\small]{java}
+    public void delete(ListElement del) {
+        if (ref == null) {
+            throw new IllegalArgumentException();
+        }
+
+        ListElement prev = getPredecessor(del);
+        if (prev == null) {
+            head = del.next;
+            return;
+        }
+
+        prev.next = del.next;
+    }
+    \end{minted}
+    \item[]
+    \item Anhängen eines Elements an das Ende (\code{tail}) einer Liste:
+\begin{minted}[fontsize=\small]{java}
+public void append(Object data) {
+    ListElement element = new ListElement(data);
+
+    if (tail == null) {
+        head = element;
+        head = tail;
+        return;
+    }
+
+    tail.next = element;
+    tail = element;
+}
+\end{minted}
+\end{itemize}
