@@ -1,0 +1,38 @@
+\section{Binaere (Such-)Baeume}
+
+
+\begin{itemize}
+    \item Der \textbf{Grad} eines Knotens ist die Anzahl seiner Nachfolger.
+    \item Ein \textbf{innerer Knoten} ist ein Knoten mit Grad $\geq 1$.
+    \item Ein Blatt ist ein Knoten mit Grad $0$.
+    \item Der \textbf{Grad eines Baums} ist der maximale Grad eines Knotens im Baum.
+    \item Die \textbf{Tiefe} eines Knotens ist der Abstand des Knotens von der Wurzel.
+    \item Die \textbf{Höhe} eines Baumes ist das Maximum der \textit{Tiefe} seiner Knoten.
+    \item Die \textbf{maximale Höhe} eines Baumes mit $n$ Knoten ist $n - 1$.
+    \item Die \textbf{minimale Höhe eines Baumes}  mit $n$ Knoten ist $\lceil log_2(n + 1) \rceil - 1$.
+    \item Ein \textit{vollständiger} binärer Baum mit $n$ \textit{inneren} Knoten hat $n + 1$ Blätter\footnote{
+    was auch für binäre Bäume gilt, bei denen der Grad eines inneren Knoten mit mindestens $2$ festgelegt ist
+    }.
+ \end{itemize}
+
+
+\subsection{Einfügen / Suchen / Löschen in binären Suchbäumen}
+
+Die Kosten für die Operationen \textit{Einfügen} / \textit{Suchen} / \textit{Löschen} belaufen sich auf $O(h)$, wobei $h$ die \textit{Höhe} des Baumes ist.\\
+
+\noindent
+$h$ kann zwischen $\lceil log_2\ (n + 1) \rceil - 1$ (vollständiger Baum) und $n - 1$ liegen, wobei $n$ die Anzahl der Knoten des Baumes ist:\\
+\noindent
+Im worst-case ist ein Baum zu einer linearen Liste entartet\footnote{
+    bspw. weil die einzufügenden Schlüssel schon sortiert vorliegen
+}, so dass alle Knoten durchlaufen werden müssen, um einen Schlüssel für eine nachfolgende \textit{insert}- / \textit{delete}-Operation zu finden.\\
+
+\noindent
+Im Mittel wird für eine Einfügeoperation $O(log\ n)$ Zeit benötigt\footnote{
+    vgl. \cite[136 ff.]{GD18d}
+}.\\
+
+
+\noindent
+Der Aufwand für den Aufbau eines binären Suchbaumes mit $n$ bereits sortierten Elementen ist $O(n^2)$ (vgl.~\cite[235 f.]{GD18d}).
+

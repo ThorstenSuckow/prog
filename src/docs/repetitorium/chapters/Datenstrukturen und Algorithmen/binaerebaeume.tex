@@ -28,15 +28,18 @@ wobei $k'$ der direkte Vorgänger (``Elternknoten``) des Knotens $k$ ist.\\
 Die \textbf{Höhe} eines Baumes ist das Maximum der \textit{Tiefe} seiner Knoten\footnote{also der längste vorkommende Pfad,  von der Wurzel ausgehend}.\\
 
 \noindent
+Die \textbf{Höhe} eines Knotens ist der längste Pfad von dem Knoten zu einem Blatt.\\
+
+\noindent
 Der Kurs definiert einen Baum als \textbf{vollständig}, wenn alle inneren Knoten zwei Söhne haben und alle Blätter die gleiche Tiefe\footnote{
     s. Skript (Teil 2) S. 101.
 }.\\
 
 \noindent
-Die \textbf{maximale Höhe} eines Baumes ist $n - 1$ - diese wird in \textit{entarteten} Bäumen erreicht: Hier hat jeder Knoten maximal einen Nachfolger (vgl. Skript (Teil2) S.103).\\
+Die \textbf{maximale Höhe} eines Baumes mit $n$ Knoten ist $n - 1$ - diese wird in \textit{entarteten} Bäumen erreicht: Hier hat jeder Knoten maximal einen Nachfolger (vgl. Skript (Teil2) S.103).\\
 
 \noindent
-Die \textbf{minimale Höhe eines Baumes} ist $\lceil log_2(n + 1) \rceil - 1$: \textit{vollständige Bäume} besitzen minimale Höhe (vgl. Skript (Teil2) S.103).\\
+Die \textbf{minimale Höhe eines Baumes}  mit $n$ Knoten ist $\lceil log_2(n + 1) \rceil - 1$: \textit{vollständige Bäume} besitzen minimale Höhe (vgl. Skript (Teil2) S.103).\\
 
 
 \subsection{Preorder}
@@ -115,10 +118,14 @@ Der rekonstruierte Baum ist in Abbildung \ref{fig:inpost} dargestellt.
 
 \subsection{Einfügen / Suchen / Löschen in binären Suchbäumen}
 
-Die Kosten für die Operationen \textit{Einfügen} / \textit{Suchen} / \textit{Löschen} belaufen sich auf $O(n)$, wobei $n$ die Anzahl der Knoten des Baumes ist.\\
+Die Kosten für die Operationen \textit{Einfügen} / \textit{Suchen} / \textit{Löschen} belaufen sich auf $O(h)$, wobei $h$ die \textit{Höhe} des Baumes ist.\\
+$h$ kann zwischen $\lceil log_2\ (n + 1) \rceil - 1$ (vollständiger Baum) und $n - 1$ liegen, wobei $n$ die Anzahl der Knoten des Baumes ist\footnote{
+Bei \textit{Ottmann und Widmayer} anhand der  \textit{inneren Knoten}: Dann berechnet sich $h$  aus $\lceil log_2\ (n + 1) \rceil$ (vollständiger Baum) und $n$ (vg.~\cite[275]{OW17e})
+}:\\
+\noindent
 Im worst-case ist ein Baum zu einer linearen Liste entartet\footnote{
     bspw. weil die einzufügenden Schlüssel schon sortiert vorliegen
-}, so dass die komplette Liste durchlaufen werden muss, um ein Element in das Ende der Liste einzufügen bzw. zu überprüfen, ob das Element enthalten ist.\\
+}, so dass alle Knoten durchlaufen werden müssen, um einen Schlüssel für eine nachfolgende \textit{insert}- / \textit{delete}-Operation zu finden.\\
 
 \noindent
 Im Mittel wird für eine Einfügeoperation $O(log\ n)$ Zeit benötigt\footnote{
