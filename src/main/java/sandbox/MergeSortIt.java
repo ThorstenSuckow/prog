@@ -42,8 +42,6 @@ public class MergeSortIt {
         left = sort(left, c);
         right = sort(right, c);
 
-
-
         arr = merge(arr, left, right, start);
 
         return arr;

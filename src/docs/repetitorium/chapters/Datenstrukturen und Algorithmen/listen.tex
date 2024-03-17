@@ -7,7 +7,7 @@ Bei einer Liste sind Elemente miteinander \textit{verkettet}: Die Größe einer 
 
 \noindent
 Ein Element in einer Liste zeigt auf einen \textbf{Nachfolger} \code{succ} und je nach Implementierung auf einen \textbf{Vorgänger} \code{pred}.\\
-Hat ein Element keinen Nachfolger oder Vorgänger, ist der jeweilige Zeiger der \textbf{Nullzeiger}\footnote{
+Hat ein Element keinen Nachfolger oder Vorgänger, sind \code{succ} bzw. \code{pred} \textbf{Nullzeiger}\footnote{
 s. a.~\cite[49 f.]{GD18b} sowie ``Nullzeiger``: \url{https://de.wikipedia.org/wiki/Zeiger_(Informatik)#Nullzeiger} - abgerufen 09.03.2024
 }.
 
@@ -87,7 +87,7 @@ Die folgenden Implementierungsbeispiele orientieren sich an den Praktikumsunterl
 den Kopf der Liste verwendet.
 
 \begin{itemize}
-    \item Einfügen eines neuen Elements am Kopf einer einfach verketteten Liste:
+    \item Einfügen eines neuen Elements vor dem Kopf einer einfach verketteten Liste:
     \item[] Das Einfügen funktioniert auch in einer leeren Liste, also falls \code{head == null} ist.
     \begin{minted}{java}
     public void prependHead(Object data) {
@@ -149,7 +149,7 @@ den Kopf der Liste verwendet.
     das zu löschende Element das \code{head}-Element ist
     \begin{minted}{java}
     public void delete(ListElement del) {
-        if (ref == null) {
+        if (del == null) {
             throw new IllegalArgumentException();
         }
 

@@ -27,7 +27,7 @@ Die folgenden Implementierungsbeispiele orientieren sich an den Praktikumsunterl
 den Kopf der Liste verwendet.
 
 \begin{itemize}
-    \item Einfügen eines neuen Elements am Kopf einer einfach verketteten Liste:
+    \item Einfügen eines neuen Elements vor dem Kopf einer einfach verketteten Liste:
 \begin{minted}[fontsize=\small]{java}
 public void prependHead(Object data) {
     ListElement element = new ListElement(data);
@@ -80,12 +80,14 @@ public void insertBefore(ListElement ref, Object data) {
     \item Entfernen eines Elements:
     \begin{minted}[fontsize=\small]{java}
     public void delete(ListElement del) {
-        if (ref == null) {
+        if (del == null) {
             throw new IllegalArgumentException();
         }
 
         ListElement prev = getPredecessor(del);
         if (prev == null) {
+            // kein Vorgänger-Element: del entspricht
+            // dem Kopf der Liste
             head = del.next;
             return;
         }

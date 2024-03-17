@@ -68,7 +68,7 @@ In dem o.a. Beispiel soll ein neuer Schlüssel $20$ eingefügt werden.\\
 Entsprechend der Implementierung als Folge wird der Schlüssel an das Ende angehangen: $12, 9, 6, 4, 8, 5, 1, 2, 20$\\
 
 \noindent
-Die Heap-Bedingung für $k_4$ ist nun verletzt wegen $4_4 \geq 2_8 \nand 4_4 \ngeq 20_9$.
+Die Heap-Bedingung für $k_4$ ist nun verletzt wegen $4_4 \geq 2_8 \land 4_4 \ngeq 20_9$.
 Um die Heap-Bedingung wieder herzustellen, muss der Schlüssel an seine richtige Position wandern.\\
 Hierzu wird er sukzessive mit seinem direkten Vorgänger (dem Vaterknoten $k_{\lfloor \frac{i}{2} \rfloor}$) ausgetauscht, bis $k_{\lfloor \frac{i}{2} \rfloor}$ größer $k_9$ ist oder die Wurzel des Heaps erreicht ist.\\
 Anwendung dieses Verfahrens liefert die Folge $20, 12, 6, 9, 8, 5, 1, 2, 4$  (s. Abbildung~\ref{fig:swim}).
