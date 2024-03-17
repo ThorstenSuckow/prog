@@ -1,6 +1,23 @@
 \section{Sortierverfahren}
 
+\textit{Güting und Dieker} klassifizieren Sortieralgorithmen neben der Effizienz und den angewandten Methoden u.a. nach folgenden Kriterien (vgl.~\cite[169 f.]{GD18e}):
 
+\begin{itemize}
+    \item \textbf{intern / extern}
+    \item[] \textit{interne} Verfahren halten alle Daten im Hauptspeicher, \textit{externe} laden nur einen Teil davon in den Speicher (bspw. beim Sortieren von Daten, die auf Diskette / Platte / Band vorliegen (vgl.~\cite[80]{OW17b})).
+    \item \textbf{in place (in situ)}
+    \item [] Sortierverfahren, die keinen zusätzlichen Speicherplatz zum Sortieren der Daten benötigen, sortieren \textbfin place.\\
+    Die Eingangsfolge und die Ausgangsfolge werden im selben Array dargestellt, Vertauschungen von Schlüsseln erfolgen in genau diesem Array.\\
+    Alle in diesem Kapitel behandelten Sortierverfahren fallen in diese Kategorie, bis auf \textbf{Merge-Sort}.
+    \item \textbf{stabil}
+    \item[] Sortierverfahren, bei denen die Ergebnisfolge gleicher Schlüssel dieselbe ist wie die Ausgangsfolge, nennt man \textbf{stabil}:\blockquote[{\cite[164]{OW17b}}]{
+        [...] die Reihenfolge von Elementen mit gleichem Sortierschlüssel wird während des Sortierverfahrens nicht vertauscht.
+    }.\\
+    Die Sortierverfahren \textbf{Bubblesort}, \textbf{Insertion-Sort} und \textbf{Merge-Sort} sind allesamt stabile Sortierverfahren.\\
+    Nicht stabil sind \textbf{Selection-Sort} und \textbf{Quicksort}.
+    \item \textbf{natürlich}
+    \item[] \textbf{natürliche Sortierverfahren} arbeiten bei vorsortierten Daten schneller als bei unsortierten (bspw. \textbf{Insertion-Sort}, wohingegen \textbf{Selection-Sort} i.d.R. auch bei vorsortierten Daten die gleiche Laufzeitkomplexität aufweist, wie bei unsortierten)
+\end{itemize}
 
 \subsection{Untere Schranke}
 
