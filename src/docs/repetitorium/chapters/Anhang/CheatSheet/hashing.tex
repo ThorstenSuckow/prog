@@ -1,7 +1,40 @@
 \section{Hashing}
 
+Bei allen dynamischen Anwendungen sollte \textbf{offenes Hashing} verwendet werden.\\
+\textbf{Geschlossenes Hashing} sollte nur dann verwendet werden, wenn die Gesamtzahl der Elemente von vornherein beschränkt ist, keine oder nur wenige Elemente entfernt werden mpssen und ein Belegungsgrad von 60\% - 70\% nicht überschritten wird\footnote{s. Skript (Teil 2) S.141 sowie \cite[126]{GD18d}}.
+
 \subsection{Quadratisches Sondieren}
 
 \blockquote[{\cite[207]{OW17d}}]{
 Wenn $m$ eine Primzahl der Form $4i+3$ ist, dann ist garantiert, dass die Sondierungsfolge eine Permutation der Hashadressen 0 bis $m-1$ ist [...]
 }
+
+\subsection{Löschen von Schlüsseln bei geschlossenem Hashing}
+Wird ein Schlüssel $k$ gelöscht, wird der Bucket für ein einzufügendes Element als \textit{frei} betrachtet, bei der Suche nach einem Element als \textit{belegt}. Grund: Schlüssel $k'$, die nach $k$ eingefügt wurden, könnten sonst nicht wiedergefunden werden (vgl.~\cite[203]{OW17d}).
+
+\subsection{Laufzeit}
+
+\begin{itemize}
+    \item $m$: Anzahl der Buckets
+    \item $n$: Anzahl der zu speichernden Einträge
+\end{itemize}
+
+\subsubsection{Offenes Hashing}
+
+\noindent
+Die durchschnittliche Listenlänge ist $\frac{n}{m}$.
+
+\begin{itemize}
+    \item \textit{insert} / \textit{delete} / \textit{member}: $O(1 + \frac{n}{m}) = O(\frac{n}{m})$ (falls $n \sim m$: $O(\frac{n}{m}) = 1$)
+    \item Worst-case: alle Schlüssel in einem Bucket mit Listenlänge $n$ $\rightarrow O(n)$
+    \item Platzbedarf: $O(n + m)$
+\end{itemize}
+
+\subsubsection{Geschlossenes Hashing}
+
+Abhängig von Lastfaktor\footnote{wenn der Lastfaktor $1$ ist (alle Buckets belegt) müssen im Worst-Case alle $m$ Buckets nach einem Schlüssel durchsucht werden (vgl.~\cite[300]{CL22})} und der Wahl der Hashfunktion.
+
+\begin{itemize}
+    \item Best-case: $O(1)$
+    \item Worst-case: $O(n)$
+\end{itemize}
