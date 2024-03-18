@@ -76,7 +76,17 @@ Wird ein Baum in \textbf{Postorder}-Reihenfolge traversiert, werden zunächst di
 Die \textbf{Postorder}-Traversierung des Baumes in Abbildung~\ref{fig:bintree} ergibt $2\ 1\ 7\ 4\ 1\ 9\ 5\ 3$.
 
 \subsection{Rekonstruktion}
-Ein binärer Baum lässt sich nur mit Hilfe der Inorder- \textit{und} der Pre- oder Postorder-Reihenfolge \textit{eindeutig} rekonstruieren.
+Ein binärer Baum lässt sich nur mit Hilfe der Inorder- \textit{und} der Pre- oder Postorder-Reihenfolge \textit{eindeutig} rekonstruieren.\\
+
+\noindent
+Ist der Baum ein \textbf{binärer Suchbaum}, reicht die Preorder- oder Postorder-Darstellung, um den Baum eindeutig zu rekonstruieren: Die Inorder-Reihenfolge kann aus der Ordnung der Schlüssel wiederhergestellt werden.
+
+\noindent
+Die Inorder-Darstellung eines binären (Such-)Baumes reicht niemals zur eindeutigen Rekonstruktion desselben.
+
+\noindent
+Ist nur die \textbf{level-order} Darstellung gegeben, läßt sich ein \textbf{links-vollständiger} Binärer Baum anhand dieser Linearisierung eindeutig rekonstruieren.
+
 
 \subsection*{Beispiele}
 Sei folgende Inorder- und Preorder-Reihenfolge gegeben:\\
