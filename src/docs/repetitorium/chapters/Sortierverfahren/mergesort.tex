@@ -47,10 +47,15 @@ Das folgende Beispiel beinhaltet nicht die Methoden für die Partitionierung und
 
 
 \subsection{Laufzeit}
-Im \textbf{worst-case} hat Merge-Sort eine Laufzeit von $O(n\ log\ n)$.\\
-Das Aufteilen des Feldes benötigt $O(log\ n)$, in jedem Schritt werden Operationen mit $O(n)$ Zeit durchgeführt (aufteilen  oder verschmelzen) \footnote{
-Das Verschmelzen von zwei Teilfeldern erfolgt durch paralleles Durchlaufen mti anschliessendem Einfügen in ein sortiertes Teilfeld, wozu $O(n)$ Zeit benötigt wird (vgl. Skript (Teil 2) ``7.4.1 MergeSort``).
-}
+
+\begin{itemize}
+    \item \textbf{worst-case}: Merge-Sort hat eine Laufzeit von $O(n\ log\ n)$.\\
+        Das Aufteilen des Feldes benötigt $O(log\ n)$, in jedem Schritt werden Operationen mit $O(n)$ Zeit durchgeführt (aufteilen  oder verschmelzen) \footnote{
+        Das Verschmelzen von zwei Teilfeldern erfolgt durch paralleles Durchlaufen mti anschliessendem Einfügen in ein sortiertes Teilfeld, wozu $O(n)$ Zeit benötigt wird (vgl. Skript (Teil 2) ``7.4.1 MergeSort``).
+    }
+    \item \textbf{average-case}: $O(n\ log\ n)$
+    \item \textbf{best-case}: $O(n\ log\ n)$
+\end{itemize}
 
 \begin{tcolorbox}
     Die Rekursionstiefe ist bei \textbf{Merge-Sort} logarithmisch beschränkt (mit $\lceil log\ n \rceil$), im Gegensatz zu \textbf{Quicksort} (vgl.~\cite[116]{OW17b}).
