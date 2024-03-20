@@ -7,34 +7,28 @@ Bei Exceptions, die nicht abgefangen werden, sorgt \code{finally} f√ºr ein Ausf√
 \begin{minted}{java}
     public class TryCatchDemo {
 
-        public String m1(boolean exc) {
+        public String  m1(boolean exc) {
             try {
-
                 System.out.println("try 1.");
-
                 if (exc) {
                     throw new Exception();
                 }
                 System.out.println("try 2.");
-
                 return "foo";
-
             } catch (Exception e) {
-
-                return "Exception.";
-
+                System.out.println("Exception.");
             } finally {
-                return "finally.";
+                System.out.println("finally.");
             }
-        }
 
+            return "return m1.";
+        }
         public static void main(String[] args) {
-           TryCatchDemo demo = new TryCatchDemo();
-           System.out.println(demo.m1(false));
-           System.out.println();
-           System.out.println(demo.m1(true));
+            TryCatchDemo demo = new TryCatchDemo();
+            System.out.println(demo.m1(false));
+            System.out.println();
+            System.out.println(demo.m1(true));
         }
-
     }
 \end{minted}\\
 
@@ -54,6 +48,7 @@ Die Ausgabe des Programms lautet:
     foo
 
     try 1.
-    finally.
     Exception.
+    finally.
+    return m1.
 \end{minted}\\
