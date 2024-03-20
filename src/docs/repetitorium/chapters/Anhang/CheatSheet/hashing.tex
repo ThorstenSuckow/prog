@@ -10,7 +10,17 @@ Wenn $m$ eine Primzahl der Form $4i+3$ ist, dann ist garantiert, dass die Sondie
 }
 
 \subsection{Löschen von Schlüsseln bei geschlossenem Hashing}
-Wird ein Schlüssel $k$ gelöscht, wird der Bucket für ein einzufügendes Element als \textit{frei} betrachtet, bei der Suche nach einem Element als \textit{belegt}. Grund: Schlüssel $k'$, die nach $k$ eingefügt wurden, könnten sonst nicht wiedergefunden werden (vgl.~\cite[203]{OW17d}).
+Wird ein Schlüssel $k$ gelöscht, wird der Bucket für ein einzufügendes Element als \textit{frei} betrachtet, bei der Suche nach einem Element als \textit{belegt}. Grund: Schlüssel $k'$, die nach $k$ eingefügt wurden, könnten sonst nicht wiedergefunden werden (vgl.~\cite[203]{OW17d}).\\
+
+\subsection{Einfügen von Schlüsseln bei geschlossenem Hashing}
+Soll ein Schlüssel $k$ eingefügt werden, wird zunächst die komplette Liste durchsucht, ob der Schlüssel bereits enthalten ist.\\
+Wird dabei eine Speicherzelle getroffen, die als \textit{gelöscht} markiert ist, wird diese zum Einfügen vorgemerkt.\\
+\begin{itemize}
+    \item Ist der Schlüssel $k$ bereits vorhanden, wird er nicht neu eingefügt (keine Duplikate!)
+    \item Ist der Schlüssel $k$ nicht vorhanden, wird er in die erste als gelöscht markierte Speicherzelle eingefügt (sofern durch die Sondierungsfunktion getroffen).
+    Hierdurch wird die \textit{gelöscht}-Markierung aufgehoben.
+    \item ansonsten wird der Schlüssel in das erste freie Feld eingefügt
+\end{itemize}
 
 \subsection{Laufzeit}
 
