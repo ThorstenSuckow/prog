@@ -16,7 +16,10 @@ Das wird so lange wiederholt, bis der Heap nur noch aus einem Element besteht, d
 \noindent
 Analog läßt sich das Verfahren auf einen \textbf{Min-Heap} anwenden, bei der der kleinste Schlüssel immer am Anfang der Folge steht: Die Heap-Bedingungen sind hier, dass die Schlüssel der direkten Nachfolger eines Knotens größer oder gleich als der Schlüssel des Knotens selber sind.
 
-
+\noindent
+Eine Vorsortierung der Daten ändert nichts an der Laufzeit von Heapsort (vgl.~\cite[112]{OW17b}). Heapsort ist also \textit{nicht} natürlich\footnote{
+ebenda verweisen \textit{Ottmann und Widmayer} auf \textbf{Smoothsort}, eine Variante von Heapsort, die auf vorsortierten Daten schneller arbeitet und $O(n)$ erreichen kann
+}.
 
 \subsection{Laufzeit}
 \begin{itemize}
