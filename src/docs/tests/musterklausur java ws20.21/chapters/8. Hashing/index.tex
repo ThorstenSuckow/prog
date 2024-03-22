@@ -62,27 +62,43 @@ Die resultierende Speicherzellenbelegung ist in Tabelle~\ref{tab:hash} angegeben
 Bei dem Löschen eines Schlüssels $k_d$ muss sichergestellt werden, dass die Hashadresse $h(k_d)$ als \textit{entfernt} markiert wird - ansonsten würden Schlüssel, die aufgrund einer vorherigen Kollision über eine Sondierungsfolge eine neue Hashadresse zugewiesen bekommen haben, nicht wiedergefunden werden\footnote{
     vgl. Skript (Teil 2) S. 134, außerdem~\cite[203]{OW17d}
 }.\\
-Unter der Annahme, dass $-1$ nicht in der Menge erlaubter Werte für Schlüssel enthalten ist (bspw. weil $k \in \mathbb{N}$), wird die Hashadresse $h(k_d)$ mit $-1$ markiert.\\
-Für \code{delete(4)} und nachfolgendem \code{delete(3)} würde sich unter dieser Voraussetzung die Speicherzellenbelegung in Tabelle~\ref{tab:hashdel} ergeben.
 
 
-{\renewcommand{\arraystretch}{2.5}%
-\setlength{\tabcolsep}{12pt}%
-\begin{table} %[hbtp]
-    \begin{center}
-        \begin{tabular}{|l | c | c |c |c | c | c| c|}
-            \hline
-            \textbf{Speicherzelle} & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ \\
-            \hline
-            \textbf{Schlüssel} &  - & - & - & $10$ & $-1$ & $19$ & $-1$ &
-            \hline
-        \end{tabular}
-        \caption{Speicherzellenbelegung nach dem Löschen von $4$ und $3$. Die Speicherzellen für die Hashadressen werden mit $-1$ als \textit{entfernt} markiert.}
-        \label{tab:hashdel}
-    \end{center}
-\end{table}}
+\noindent
+Bei einer \textit{delete}-Operation müssen für den zu löschenden Schlüssel die Speicherzellen anhand der Sondierungsfunktion berechnet werden.
+Sobald eine nicht-belegte Speicherzelle gefunden wird, war der zu löschende Schlüssel nicht in der Hashtabelle enthalten.\\
+
+\noindent
+Für \code{delete(4)} werden unter Anwendung der Sondierungsfunktion folgende Speicherzellen besucht, in dieser Reihenfolge: \\
+\begin{enumerate}
+    \item \textit{Speicherzelle}: $4$.
+        \begin{itemize}
+            \item Schlüssel $4$ in Speicherzelle $4$ enthalten $\rightarrow$ als gelöscht markieren $\rightarrow$ $D4$
+        \end{itemize}
+\end{enumerate}\\
+
+\noindent
+Für \code{delete(3)} werden unter Anwendung der Sondierungsfunktion folgende Speicherzellen besucht, in dieser Reihenfolge: \\
+\begin{enumerate}
+    \item \textit{Speicherzelle}: $3$.
+    \begin{itemize}
+        \item Schlüssel $3$ in Speicherzelle $3$ enthalten $\rightarrow$ nein $\rightarrow$ weitersuchen
+    \end{itemize}
+    \item \textit{Speicherzelle}: $4$.
+    \begin{itemize}
+        \item Schlüssel $3$ in Speicherzelle $4$ enthalten $\rightarrow$ nein $\rightarrow$ weitersuchen
+    \end{itemize}
+    \item \textit{Speicherzelle}: $6$.
+    \begin{itemize}
+        \item Schlüssel $3$ in Speicherzelle $6$ enthalten $\rightarrow$ ja, als gelöscht markieren $\rightarrow$ $D6$
+    \end{itemize}
+\end{enumerate}\\
+
 
 \subsection*{Suchen}
 
-Unter der Annahme, dass \code{member} einen Wert vom Typ \code{boolean} zurückliefert (\code{true} $\rightarrow$ \textit{enthalten}, \code{false} $\rightarrow$ \textit{nicht enthalten}), liefert
-\code{member(17)} den Wert \code{false} zurück.
+\code{member} überprüft, ob ein Schlüssel in einer Hashtabelle enthalten ist.\\
+Die Sondierungsfunktion berechnet hierbei nach der o.g. Vorgehensweise die zu durchsuchenden Speicherzellen $3, 4, 6, 5, 1$.\\
+Die Speicherzellen $4$ und $6$ waren als gelöscht markiert, die Speicherzellen $3$ und $5$ enthalten bereits Schlüssel, aber nicht den Schlüssel $17$.\\
+Die Speicherzelle $1$ enthält keinen Schlüssel, aus diesem Grund ist die Suche nach dem Schlüssel $17$ erfolglos.
+
