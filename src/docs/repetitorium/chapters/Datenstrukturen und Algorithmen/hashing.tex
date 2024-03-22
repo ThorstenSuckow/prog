@@ -9,13 +9,13 @@ auch: \textit{offene Adressierung} (vgl.~\cite[119]{GD18d})
 }) können Adressen neu berechnet werden, woraus sich \textbf{Sondierungsfolgen} ergeben.\\
 
 \noindent
-Während bei offenem Hashing $m$ Buckets ihre Überläufer jeweils einfach in einer verketteten Liste speichern, ist die Anzahl der speicherbaren Elemente in einem Bucket bei geschlossenem Hashing durch $b$ begrenzt.
+Während bei offenem Hashing die $m$ Buckets ihre Überläufer jeweils einfach in einer verketteten Liste speichern, ist die Anzahl der speicherbaren Elemente in einem Bucket bei geschlossenem Hashing durch $b$ begrenzt.
 Bei \textit{geschlossenem Hashing} wird oft der Spezialfall $b = 1$ betrachtet; trotzdem kann auch bei geschlossenem Hashing durchaus $b > 1$ sein (s. Abbildung~\ref{fig:openaddressing}).\\
 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{chapters/Datenstrukturen und Algorithmen/img/openaddressing}
-\caption{Die Abbildung stell schematisch geschlossenes Hashing dar. Hierbei ist die Anzahl der speicherbaren Elemente mit $b$ pro Bucket begrenzt, sodass sich die zur Verfügung stehenden Speicherplätze aus $m * b$ berechnen. Bei offenem Hashing werden Überläufer hingegen einfach in verketteten Listen gespeichert. (Quelle: eigene)}
+\caption{Die Abbildung stellt schematisch geschlossenes Hashing dar. Hierbei ist die Anzahl der speicherbaren Elemente mit $b$ pro Bucket begrenzt, sodass sich die zur Verfügung stehenden Speicherplätze aus $m * b$ berechnen. Bei offenem Hashing werden Überläufer hingegen einfach in verketteten Listen gespeichert. (Quelle: eigene)}
 \label{fig:openaddressing}
 \end{center}
 \end{figure}
