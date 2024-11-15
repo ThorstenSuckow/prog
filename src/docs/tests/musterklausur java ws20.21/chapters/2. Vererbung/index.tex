@@ -42,7 +42,7 @@
     Fehlt solch ein expliziter Aufruf, erfolgt ein \textit{impliziter} Aufruf durch den Compiler.\\
     Soll \textit{explizit} der Konstruktor der Oberklasse aufgerufen werden, muss dieser Aufruf als erstes erfolgen.\\
     Erst danach darf das Attribut \code{anzahlSitzplaetze} initialisiert werden\footnote{
-    Nachdem Aufrufe zu \textit{this()} bzw. \code{super()} erfolgt sind und die Initialisierung der Attribute des zu erzeugenden Objektes abgeschlossen sind, wird die übrige Konstruktorimplementierung abgearbeitet. S.a. ``12.5 Creation of New Class Instances``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-12.html#jls-12.5} - abgerufen 8.2.2024
+    Nachdem Aufrufe zu \textit{this()} bzw. \textit{super()} erfolgt sind und die Initialisierung der Attribute des zu erzeugenden Objektes abgeschlossen sind, wird die übrige Konstruktorimplementierung abgearbeitet. S.a. ``12.5 Creation of New Class Instances``: \url{https://docs.oracle.com/javase/specs/jls/se21/html/jls-12.html#jls-12.5} - abgerufen 8.2.2024
     }.
     \item Eine sinnvolle Initialisierung von \code{anzahlSitzplaetze} erfolgt mit Werten $> 0$.
     (standardmäßig erfolgt die Initialisierung von Objekt-Attributen vom Typ \code{int} mit dem Wert $0$ (vgl.~\cite[127]{Ull23})).
