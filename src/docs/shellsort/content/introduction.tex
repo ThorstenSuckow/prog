@@ -1,0 +1,74 @@
+\section{Introduction}
+
+\textbf{Shellsort}, introduced by \textit{Donald Shell} in 1959 (\cite[]{She59}), is a generalization of insertion sort\footnote{
+see \cite[250]{SW11} for a brief introduction on insertion sort
+} that improves performance by initially sorting elements far apart, yielding optimized arranged sequences of keys for subsequent passes.
+The algorithm uses a sequence of decrementing gaps, comparing elements separated by a distance of $h_t$.\footnote{
+hence, Shellsort is also referred to as ``diminishing increment sort`` (\cite[88]{OW17b})
+}.
+The general idea is to use \blockquote[{\cite[48]{CL22}}]{
+    insertion sort on periodic subarrays of the input
+    to produce a faster sorting algorithm.
+}
+
+\subsection{Algorithm Description and Notation}
+We use the Shellsort implementation shown in Listing~\ref{lst:shell}.
+In the following, we provide a brief description of the algorithm, mostly based on~\cite[84]{Knu97b}.
+Throughout this document, the binary logarithm $\log_2$ is abbreviated as $\lg$.
+
+
+Given an input of size $n$, the implementation based on a halving sequence of the form $h_t = \lfloor \frac{n}{2^t} \rfloor$ performs approximately $\lg\ n$ passes.
+For this, an \textbf{increment sequence} $h$ is defined that determines the distance between two elements compared during sorting.
+For instance, for $n = 16$, we choose $t=\lg n = 4$, resulting in the sequence $(8, 4, 2, 1)$ with
+
+\[
+    h_{3} = \lfloor\frac{16}{2^1}\rfloor = 8, h_{2} = \lfloor\frac{16}{2^2}\rfloor = 4, \ldots , h_{0} = \lfloor\frac{16}{2^4}\rfloor = 1
+\]
+
+such that
+
+\[
+    h_i = \lfloor {\frac{n}{2^{t-i}}} \rfloor
+\]
+
+for $0 \leq i \leq t - 1$.\\
+
+In the first pass, the algorithm compares and sorts elements that are $h_{3} = \frac{16}{2^{4-3}} = 8$ positions apart, while the final pass processes keys $h_0 = \frac{16}{2^{4-0}} = 1$ positions apart, effectively performing \textit{insertion sort}.\\
+
+To further illustrate runtime behavior, we define counting variables $c_1, c_2, c_3, c_4$ corresponding to lines 2, 5, 7 and 9 of the implementation.
+
+\vspace{4mm}
+\begin{lstlisting}[style=javastyle, caption={Shellsort implementation using halving sequences. }, label=lst:shell]
+while (incr > 0) {
+    c1++;
+    for (i = incr; i < n.length; i++) {
+        j = i - incr;
+        c2++;
+        while (j >= 0) {
+            c3++;
+            if (n[j] > n[j + incr]) {
+                c4++;
+                swap(n, j, j + incr);
+                j = j - incr;
+            } else {
+                break;
+            }
+        }
+    }
+    incr = incr / 2;
+}
+\end{lstlisting}
+\vspace{4mm}
+
+
+\subsection{Role of the Increment Sequence Regarding Complexity}
+
+As demonstrated by \textit{Knuth} in~\cite[91]{Knu97b}, the performance of Shellsort heavily  depends on the chosen increment sequence $h$: In particular, an upper bound of $O(n^{\frac{3}{2}})$ can be achieved\footnote{
+\textit{Knuth} refers to the work of \textit{Papernov and Stasevich} \cite{PS65} in this context.
+}, if the sequence satisfies
+
+\[
+    h_s = 2^{s+1} - 1, 0 \leq s < t = \lfloor{\lg n} \rfloor
+\]
+
+In our case, where a trivial halving sequence is used, we conservatively assume an upper bound of $O(n^2)$.
