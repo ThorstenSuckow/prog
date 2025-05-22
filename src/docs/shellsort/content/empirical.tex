@@ -9,24 +9,33 @@ This variable increments each time an element comparison is performed.
 Random arrays can be generated according to the method shown in Listing~\ref{lst:rand}, and the observed values of $c_3$ are recorded.
 Since every comparison-based sorting algorithm belongs to the complexity class $\Omega(n\ \lg\ n)$, it is reasonable to assume that, on average, $c_3 \geq n\ \lg\ n$ holds (\cite[154]{OW17b}).\\
 
-However, it should be noted that the function $n^{\frac{4}{3}} = n^{1.\overline{3}}$ grows faster than $n\ \lg\ n$ for input sizes $n \geq 982$ (see Figure~\ref{fig:lognplot}).
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=0.8\columnwidth]{img/lognplot}
-    \caption{For $n \geq 982$, $n^{\frac{4}{3}}$ grows faster than $n\ \lg\ n$.}
-    \label{fig:lognplot}
-\end{figure}
 
 
-This behavior must be carefully considered when interpreting empirical results for smaller $n$.
-Otherwise, one might incorrectly conclude that Shellsort achieves optimal runtime complexity of $O(n\ \lg\ n)$, disregarding the potential higher worst-case behavior.
-Early empirical findings based on rather primitive hardware - from todays point of view - led \textit{Donald Shell} to the assumption:
+
+
+
+
+
+
+Early \textit{empirical} findings led \textit{Shell} to the assumption:
 
 \blockquote[{\cite[31]{She59}}]{It appears that the time required to sort $n$ elements is proportional to $n^{1.226}$.
 }
 
-Naturally, these tests where constrained by the limited input sizes and the performance of hardware available in the late 1950s.
+Naturally, these tests were constrained by small input sizes and the performance limitations of late 1950s hardware.
+
+To avoid misinterpretations regarding the asymptotic upper bound of $O(n \log n)$, it is important to examine its growth behavior for varying $n$.
+Notably, the inequality $n^{\frac{4}{3}} > n \log n$ holds for input sizes $n \geq 982$ (see Figure~\ref{fig:lognplot}).
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{img/lognplot}
+    \caption{For $n \geq 982$, $n^{\frac{4}{3}}$ grows faster than $n \log n$.}
+    \label{fig:lognplot}
+\end{figure}
+
+This behavior must be carefully considered when interpreting empirical results for $n$.
+Otherwise, one might incorrectly conclude that Shellsort achieves optimal runtime complexity of $O(n \log n)$, while in fact the observed upper bound of $O(n^{4/3})$ already exceeds $n \log n$ and approaches quadratic complexity for larger $n$.
 
 
 
