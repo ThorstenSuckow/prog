@@ -21,6 +21,14 @@ However, it should be noted that the function $n^{\frac{4}{3}} = n^{1.\overline{
 
 This behavior must be carefully considered when interpreting empirical results for smaller $n$.
 Otherwise, one might incorrectly conclude that Shellsort achieves optimal runtime complexity of $O(n\ \lg\ n)$, disregarding the potential higher worst-case behavior.
+Early empirical findings based on rather primitive hardware - from todays point of view - led \textit{Donald Shell} to the assumption:
+
+\blockquote[{\cite[31]{She59}}]{It appears that the time required to sort $n$ elements is proportional to $n^{1.226}$.
+}
+
+Naturally, these tests where constrained by the limited input sizes and the performance of hardware available in the late 1950s.
+
+
 
 \vspace{4mm}
 \begin{lstlisting}[style=javastyle, caption={Code for Shellsort-testing large randomized arrays.}, label=lst:rand]
@@ -46,7 +54,18 @@ while(epochs-- >= 0) {
 \end{lstlisting}
 \vspace{4mm}
 
+
 \subsection{Test Results}
+
+Test execution with large values of $n$ indicates that the number of comparisons $c_3$ falls either between $n\ \lg\ n$ and $n^{\frac{4}{3}}$, or between $n^{\frac{4}{3}}$ and $n^2$, depending on the input.
+With a lower bound $\Omega(n\ \lg\ n)$ for all comparison-based sorting algorithms, we focus on the empirical comparison counts $c_3$ within
+
+\begin{itemize}
+    \item $n \lg\ n \leq c_3 < n^{\frac{4}{3}}$ \textit{(moderately efficient)}
+    \item $n^{\frac{4}{3}} \leq c_3 \leq n^2$ \textit{(less efficient)}
+\end{itemize}\\
+\vspace{2mm}
+
 With 100 epochs and array sizes up to $n = 2.000.000$, the test from Listing~\ref{lst:rand} yielded the following distribution of observed comparison counts $c_3$:
 
 \begin{itemize}
@@ -55,20 +74,6 @@ With 100 epochs and array sizes up to $n = 2.000.000$, the test from Listing~\re
 \end{itemize}
 
 These results support the hypothesis that Shellsort often exhibits sub-quadratic runtime behavior, but does not consistently remain within the $O(n\ \lg\ n)$ bound.
-Due to the lower bound $\Omega(n\ \lg\ n)$ for all comparison-based sorting algorithms, we are particularly interested in the empirical comparison counts $c_3$ within the following intervals:
-
-\begin{itemize}
-    \item $n \lg\ n \leq c_3 < n^{\frac{4}{3}}$
-    \item $n^{\frac{4}{3}} \leq c_3 \leq n^2$
-\end{itemize}
-
-Test execution with large values of $n$ indicates that the number of comparisons $c_3$ falls either below $n^{\frac{4}{3}}$ or between $n^{\frac{4}{3}}$ and $n^2$, depending on the input.
-This aligns with early empirical findings by \textit{Donald Shell}, who observed:
-
-\blockquote[{\cite[31]{She59}}]{
-It appears that the time required to sort $n$ elements is proportional to $n^{1.226}$.
-}
-
 
 
 
