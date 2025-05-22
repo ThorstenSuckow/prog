@@ -15,7 +15,7 @@ Our focus lies on analyzing the number of calls for the labeled positions in Lis
 For demonstration purposes, we choose $p=4$, and the array guaranteed to be sorted in strictly descending order.
 Such a configuration guarantees the maximum number of operations for insertion sort-like passes in Shellsort.
 
-An illustration of such a sequence is given with figure~\ref{fig:bestcase}.
+An illustration of such a sequence is shown in figure~\ref{fig:bestcase}.
 
 
 \begin{figure}[!h]
@@ -26,41 +26,74 @@ An illustration of such a sequence is given with figure~\ref{fig:bestcase}.
 \end{figure}
 
 
-Obviously, $c_1$ is being called $\lg\ n)$, due to the given halving sequence (we ignore the loop-conditions in the subsequent analyzis, resulting in $\lg(n) + 1$ calls).
-The starting value of \texttt{i} is for each pass the current value of \texttt{delta}\footnote{
-    $8, 4, 2, 1$ for the given example
-}, and goes up to $n-1$ for each pass.
+Obviously, $c_1$ is called $\lg n$ times due to the halving sequence used in the algorithm (we ignore the loop condition in the following analysis, which would otherwise yield $\lg n + 1$ calls).
 
-Thus, a complete run of the loop is equal to the calls of $c_2$:
-
-\[
-    (n - 1) - delta + 1 = n - delta
-\]
-
-Note that this calculation is based on selecting $n = 2^p$.
-For $c_2$ in the general case, the following holds:
+The starting value of \texttt{i} in each pass is the current value of \texttt{delta}\footnote{
+For the example with $n = 16$, this results in the sequence $8, 4, 2, 1$.
+}, and it runs up to $n - 1$.
+Thus, each full iteration of the loop corresponds to $c_2$ being called
 
 \[
-    \sum_{i=1}^{\lfloor \lg(n) \rfloor} n - \lfloor \frac{n}{2^i} \rfloor = n \cdot \lg(n) - \sum_{i=1}^{\lfloor \lg(n) \rfloor} \lfloor \frac{n}{2^i} \rfloor
+(n - 1) - \texttt{delta} + 1 = n - \texttt{delta}
 \]
 
-For the complete number of calls of $c_2$ we have, considering $c_1$:
+\noindent
+times.
+Considering also the outer loop, $c_2$ computes to
 
 \[
-    \sum_{i=1}^{\lg(n)} n - \frac{n}{2^{i-1}}
+\sum_{i=1}^{\lg n} \left( n - \frac{n}{2^{i-1}} \right)
 \]
 
-
-yielding
+\noindent
+which simplifies to:
 
 \[
-    n \cdot lg(n) - n + 1
+n \cdot \lg n - n + 1
 \]
 
-which computes to
+\noindent
+(This evaluates to $16 \cdot \lg 16 - 16 + 1 = 49$ for our example.)\\
+
+
+Note that this derivation assumes $n = 2^p$ for some $p \in \mathbb{N}$.
+For the general case, the total number of $c_2$ calls can be expressed as:
 
 \[
-    16 * lg(16) - 16 + 1 = 49
+    \sum_{i=1}^{\lfloor \lg n \rfloor} \left( n - \left\lfloor \frac{n}{2^i} \right\rfloor \right)
+    = n \cdot \lg n - \sum_{i=1}^{\lfloor \lg n \rfloor} \left\lfloor \frac{n}{2^i} \right\rfloor
 \]
 
-for our example.
+
+Table~\ref{tab:counts} shows the number of invocations for $c_2$ for various input sizes.
+For $n > 2156$, the empirical count $c_2$ falls below $n^\frac{4}{3}$, while for $n \geq 982$, the inequality $n^\frac{4}{3} > n\ \lg\ n$ holds, as pointed out earlier.
+While $c_2$ reflects only one level of the outer loop, $c_3$ is expected to dominate and contribute the algorithm's complexity toward the upper bound of $O(n^2)$.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{r|r|r|r|r|r}
+
+        \textbf{$n$} & \textbf{$c_2$} & \textbf{$n^{1.1}$} & \textbf{$n^{\frac{4}{3}}$} & \textbf{$n \log n$} & \textbf{$n^2$} \\
+        \hline
+        8     & 17     & 10     & 16     & 24     & 64      \\
+        16    & 49     & 21     & 40     & 64     & 256     \\
+        32    & 129    & 45     & 102    & 160    & 1024    \\
+        64    & 321    & 97     & 256    & 384    & 4096    \\
+        128   & 769    & 208    & 645    & 896    & 16384   \\
+        256   & 1793   & 455    & 1620   & 2048   & 65536   \\
+        1024  & 9217   & 2094   & 10240  & 10240  & 1048576 \\
+        2156  & 21565  & 4592   & 23328  & 23867  & 4648336 \\
+        2157  & 21576  & 4597   & 23344  & 23884  & 4652649 \\
+        2158  & 21586  & 4600   & 23360  & 23901  & 4656964 \\
+        \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+        10000 & 120005 & 25118  & 158489 & 132877 & 100000000 \\
+        100000 & 1500006 & 316227 & 3162280 & 1660964 & 10000000000 \\
+        200000 & 3200006 & 677850 & 7786440 & 3521928 & 40000000000 \\
+        500000 & 8500007 & 1857235 & 25600000 & 9465784 & 250000000000 \\
+        1000000 & 18000007 & 3981072 & 63000000 & 19931568 & 1000000000000 \\
+        \hline
+    \end{tabular}
+    \smallskip
+    \caption{Comparison of $c_2$ counts against bounds for vaious $n$.}
+    \label{tab:counts}
+\end{table}
