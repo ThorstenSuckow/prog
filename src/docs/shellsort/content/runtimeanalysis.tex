@@ -1,0 +1,66 @@
+\section{Runtime Analysis}
+
+To simplify the mathematical analysis, we assume that the input size is a power of two, i.e., $n = 2^p, p \in \mathbb{N}$.
+
+
+
+We use the halving increment sequence defined previously with
+
+\[
+    h_i = \frac{n}{2^{t-i}}, 0 \leq i < t
+\]
+
+Our focus lies on analyzing the number of calls for the labeled positions in Listing~\ref{lst:shell}: $c_1$, $c_2$, $c_3$.
+
+For demonstration purposes, we choose $p=4$, and the array guaranteed to be sorted in strictly descending order.
+Such a configuration guarantees the maximum number of operations for insertion sort-like passes in Shellsort.
+
+An illustration of such a sequence is given with figure~\ref{fig:bestcase}.
+
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1\columnwidth]{img/bestcase-sequence}
+    \caption{A sequence of $16, \ldots, 1$ for demonstrating Shellsort-behavior on an unsorted array.}
+    \label{fig:bestcase}
+\end{figure}
+
+
+Obviously, $c_1$ is being called $\lg\ n)$, due to the given halving sequence (we ignore the loop-conditions in the subsequent analyzis, resulting in $\lg(n) + 1$ calls).
+The starting value of \texttt{i} is for each pass the current value of \texttt{delta}\footnote{
+    $8, 4, 2, 1$ for the given example
+}, and goes up to $n-1$ for each pass.
+
+Thus, a complete run of the loop is equal to the calls of $c_2$:
+
+\[
+    (n - 1) - delta + 1 = n - delta
+\]
+
+Note that this calculation is based on selecting $n = 2^p$.
+For $c_2$ in the general case, the following holds:
+
+\[
+    \sum_{i=1}^{\lfloor \lg(n) \rfloor} n - \lfloor \frac{n}{2^i} \rfloor = n \cdot \lg(n) - \sum_{i=1}^{\lfloor \lg(n) \rfloor} \lfloor \frac{n}{2^i} \rfloor
+\]
+
+For the complete number of calls of $c_2$ we have, considering $c_1$:
+
+\[
+    \sum_{i=1}^{\lg(n)} n - \frac{n}{2^{i-1}}
+\]
+
+
+yielding
+
+\[
+    n \cdot lg(n) - n + 1
+\]
+
+which computes to
+
+\[
+    16 * lg(16) - 16 + 1 = 49
+\]
+
+for our example.
