@@ -35,27 +35,33 @@ for $0 \leq i \leq t - 1$.\\
 
 In the first pass, the algorithm compares and sorts elements that are $h_{3} = \frac{16}{2^{4-3}} = 8$ positions apart, while the final pass processes keys $h_0 = \frac{16}{2^{4-0}} = 1$ positions apart, effectively performing \textit{insertion sort}.\\
 
-To further illustrate runtime behavior, we define counting variables $c_1, c_2, c_3, c_4$ corresponding to lines 2, 5, 7 and 9 of the implementation.
+To further illustrate runtime behavior, we define counting variables $c_1, c_2, c_3, c_4$.
 
 \vspace{4mm}
 \begin{lstlisting}[style=javastyle, caption={Shellsort implementation using halving sequences. }, label=lst:shell]
-while (incr > 0) {
-    c1++;
-    for (i = incr; i < n.length; i++) {
-        j = i - incr;
-        c2++;
-        while (j >= 0) {
-            c3++;
-            if (n[j] > n[j + incr]) {
-                c4++;
-                swap(n, j, j + incr);
-                j = j - incr;
-            } else {
-                break;
+public static int[] sort(int[] arr) {
+    int n = arr.length;
+    int delta = n/2;
+    int min;
+    int j;
+    int len = arr.length;
+
+    while (delta > 0) { // c1
+        for (int i = delta; i < len; i++) {
+            // c2
+            min = arr[i];
+            j = i;
+            while (j - delta >= 0 &&
+                   min < arr[j - delta]) {
+                // c3;
+                arr[j] = arr[j - delta];
+                j -= delta;
             }
+            arr[j] = min;
         }
+        delta = delta / 2;
     }
-    incr = incr / 2;
+    return arr;
 }
 \end{lstlisting}
 \vspace{4mm}
