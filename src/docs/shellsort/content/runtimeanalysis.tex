@@ -1,33 +1,24 @@
 \section{Runtime Analysis}
 
 To simplify the mathematical analysis, we assume that the input size is a power of two, i.e., $n = 2^p, p \in \mathbb{N}$.
-
-
-
 We use the halving increment sequence defined previously with
 
 \[
     h_i = \frac{n}{2^{t-i}}, 0 \leq i < t
 \]
 
+\noindent
 Our focus lies on analyzing the number of calls for the labeled positions in Listing~\ref{lst:shell}: $c_1$, $c_2$, $c_3$.
 
-For demonstration purposes, we choose $p=4$, and the array guaranteed to be sorted in strictly descending order.
-Such a configuration guarantees the maximum number of operations for insertion sort-like passes in Shellsort.
-
-An illustration of such a sequence is shown in figure~\ref{fig:bestcase}.
-
-
+For demonstration purposes, we choose $p=4$, and an array guaranteed to be sorted in strictly descending order (see Figure~\ref{fig:bestcase}).
+Such a configuration contributes to a better understanding of the individual passes of the algorithm, which will be visually illustrated in the following.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\columnwidth]{img/bestcase-sequence}
     \caption{A sequence of $16, \ldots, 1$ for demonstrating Shellsort-behavior on an unsorted array.}
     \label{fig:bestcase}
 \end{figure}
-
-
 Obviously, $c_1$ is called $\lg n$ times due to the halving sequence used in the algorithm (we ignore the loop condition in the following analysis, which would otherwise yield $\lg n + 1$ calls).
-
 The starting value of \texttt{i} in each pass is the current value of \texttt{delta}\footnote{
 For the example with $n = 16$, this results in the sequence $8, 4, 2, 1$.
 }, and it runs up to $n - 1$.
@@ -53,9 +44,7 @@ n \cdot \lg n - n + 1
 \]
 
 \noindent
-(This evaluates to $16 \cdot \lg 16 - 16 + 1 = 49$ for our example.)\\
-
-
+This evaluates to $16 \cdot \lg 16 - 16 + 1 = 49$ for our example.
 Note that this derivation assumes $n = 2^p$ for some $p \in \mathbb{N}$.
 For the general case, the total number of $c_2$ calls can be expressed as:
 
@@ -64,10 +53,10 @@ For the general case, the total number of $c_2$ calls can be expressed as:
     = n \cdot \lg n - \sum_{i=1}^{\lfloor \lg n \rfloor} \left\lfloor \frac{n}{2^i} \right\rfloor
 \]
 
-
+\noindent
 Table~\ref{tab:counts} shows the number of invocations for $c_2$ for various input sizes.
 For $n > 2156$, the empirical count $c_2$ falls below $n^\frac{4}{3}$, while for $n \geq 982$, the inequality $n^\frac{4}{3} > n\ \lg\ n$ holds, as pointed out earlier.
-While $c_2$ reflects only one level of the outer loop, $c_3$ is expected to dominate and contribute the algorithm's complexity toward the upper bound of $O(n^2)$.
+
 
 \begin{table}[h!]
     \centering
@@ -97,3 +86,28 @@ While $c_2$ reflects only one level of the outer loop, $c_3$ is expected to domi
     \caption{Comparison of $c_2$ counts against bounds for vaious $n$.}
     \label{tab:counts}
 \end{table}
+
+While $c_2$ reflects only one level of the outer loop, $c_3$ is expected to dominate and contribute significantly to the algorithm's complexity toward the upper bound of $O(n^2)$. $c_3$ is representing the innermost \texttt{while}-loop: Here, the algorithm checks whether the elements $j$ and $j - \texttt{delta}$ need to be reordered.
+If so, the elements at these positions are swapped until the current $h_i$-sequence is locally sorted.
+As a result, the array becomes relatively sorted with respect to the pairs of elements that are $h_i$ positions apart.
+For our example with $n = 16$ and $h_3$, the following relative pairings are created:
+
+\begin{itemize}
+    \item $(R_0, R_8)$
+    \item $(R_1, R_9)$
+    \item \ldots
+    \item $(R_7, R_{15})$
+\end{itemize}
+
+\noindent
+This behavior is illustrated with Figure~\ref{fig:bestcase-it1}.
+With the given array initially sorted strictly descending, Shellsort produces two subsequences of length $8$, each sorted relatively to each other\footnote{
+In the general case, however, Shellsort sorts \textbf{interleaved} $h$-subsequences. See \cite{Knu97b} for examples.
+}.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1\columnwidth]{img/bestcase-it1}
+    \caption{After the first pass, elements are relatively sorted within their respective $h_3$-spaced subsequences.}
+    \label{fig:bestcase-it1}
+\end{figure}
