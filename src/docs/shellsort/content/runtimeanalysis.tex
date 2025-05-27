@@ -1,4 +1,4 @@
-\section{Runtime Analysis}
+\usepackage{caption}\section{Runtime Analysis}
 
 To simplify the mathematical analysis, we assume that the input size is a power of two, i.e., $n = 2^p, p \in \mathbb{N}$.
 We use the halving increment sequence defined previously with
@@ -10,7 +10,7 @@ We use the halving increment sequence defined previously with
 \noindent
 Our focus lies on analyzing the number of calls for the labeled positions in Listing~\ref{lst:shell}: $c_1$, $c_2$, $c_3$.
 
-For demonstration purposes, we choose $p=4$, and an array guaranteed to be sorted in strictly descending order (see Figure~\ref{fig:bestcase}).
+For demonstration purposes, we choose $p=4$, and an array guaranteed to be sorted in strictly descending order (see Fig.~\ref{fig:bestcase}).
 Such a configuration contributes to a better understanding of the individual passes of the algorithm, which will be visually illustrated in the following.
 \begin{figure}[!h]
     \centering
@@ -18,7 +18,7 @@ Such a configuration contributes to a better understanding of the individual pas
     \caption{A sequence of $16, \ldots, 1$ for demonstrating Shellsort-behavior on an unsorted array.}
     \label{fig:bestcase}
 \end{figure}
-Obviously, $c_1$ is called $\lg n$ times due to the halving sequence used in the algorithm (we ignore the loop condition in the following analysis, which would otherwise yield $\lg n + 1$ calls).
+It is easy to verify that $c_1$ is called $\lg n$ times due to the halving sequence used in the algorithm (we ignore the loop condition in the following analysis, which would otherwise yield $\lg n + 1$ calls).
 The starting value of \texttt{i} in each pass is the current value of \texttt{delta}\footnote{
 For the example with $n = 16$, this results in the sequence $8, 4, 2, 1$.
 }, and it runs up to $n - 1$.
@@ -44,7 +44,6 @@ n \cdot \lg n - n + 1
 \]
 
 \noindent
-This evaluates to $16 \cdot \lg 16 - 16 + 1 = 49$ for our example.
 Note that this derivation assumes $n = 2^p$ for some $p \in \mathbb{N}$.
 For the general case, the total number of $c_2$ calls can be expressed as:
 
@@ -100,9 +99,8 @@ For our example with $n = 16$ and $h_3$, the following relative pairings are cre
 \end{itemize}
 
 \noindent
-This behavior is illustrated with Figure~\ref{fig:bestcase-it1}.
-With the given array initially sorted strictly descending, Shellsort produces two subsequences of length $8$, each sorted relatively to each other\footnote{
-In the general case, however, Shellsort sorts \textbf{interleaved} $h$-subsequences. See \cite{Knu97b} for examples.
+This behavior is illustrated with Figure~\ref{fig:bestcase-it1}\footnote{
+    Curiously, for this particular example, Shellsort produces two subsequences of equal length in the first pass, each sequence sorted relatively to each other. In the general case, however, Shellsort produces \textbf{interleaved} $h$-subsequences. See \cite{Knu97b}.
 }.
 
 \begin{figure}[!h]
@@ -111,3 +109,56 @@ In the general case, however, Shellsort sorts \textbf{interleaved} $h$-subsequen
     \caption{After the first pass, elements are relatively sorted within their respective $h_3$-spaced subsequences.}
     \label{fig:bestcase-it1}
 \end{figure}
+
+Subsequent passes continue processing the array and produce relatively sorted subsequences at decreasing distances: $h_2 = 4$ (Fig.~\ref{fig:bestcase-it2}), $h_1 = 2$ (Fig.~\ref{fig:bestcase-it3}), and finally $h_0 = 1$ (Fig.~\ref{fig:bestcase-it4}).
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1\columnwidth]{img/bestcase-it2}
+    \caption{After the second pass, elements are relatively sorted at a gap of $h_2=4$.}
+    \label{fig:bestcase-it2}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1\columnwidth]{img/bestcase-it3}
+    \caption{The third pass processes $h_1 = 2$-spaced elements, further refining local order.}
+    \label{fig:bestcase-it3}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1\columnwidth]{img/bestcase-it4}
+    \caption{The final pass performs an insertion-sort-like operation with $h_0 = 1$, yielding the fully sorted array.}
+    \label{fig:bestcase-it4}
+\end{figure}
+
+To estimate $c_3$, we consider the number of element comparisons performed in the innermost \texttt{while}-loop, where the algorithm checks whether elements at positions $j$ and $j - \texttt{delta}$ need to be reordered.
+For our strictly descending input array of size $n = 2^4$, this condition is always satisfied during each comparison, leading to the maximum number of element swaps per pass.
+Since there are $\frac{n}{2}$ such comparisons per pass, the total number of $c_3$ calls can be approximated by:
+
+\[
+    \lg n\ \cdot \frac{n}{2}
+\]
+\noindent
+Additionally, including the contributions from $c_1$ and $c_2$ as derived earlier
+
+\[
+    c_1 = \lg n, \quad
+    c_2 = n \cdot \lg(n) - n + 1
+\]
+
+\noindent
+the total number of steps is a combination of comparisons, iterations and passes, and sums up to:
+
+\[
+    \lg(n) + n \cdot \lg(n) - n + 1 + \lg(n) \cdot \frac{n}{2}
+\]
+
+\noindent
+For our specific case with $n = 16$, this yields
+\[
+    \lg(16) + 16 \cdot \lg(16) - 16 + 1 +  \lg(16) \cdot \frac{16}{2} = 85
+\]
+
+
