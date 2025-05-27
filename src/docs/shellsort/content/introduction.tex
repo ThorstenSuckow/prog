@@ -35,7 +35,7 @@ for $0 \leq i \leq t - 1$.\\
 
 In the first pass, the algorithm compares and sorts elements that are $h_{3} = \frac{16}{2^{4-3}} = 8$ positions apart, while the final pass processes keys $h_0 = \frac{16}{2^{4-0}} = 1$ positions apart, effectively performing \textit{insertion sort}.\\
 
-To further illustrate runtime behavior, we define counting variables $c_1, c_2, c_3, c_4$.
+To further illustrate runtime behavior, we define counting variables $c_1, c_2$, and $c_3$.
 
 \vspace{4mm}
 \begin{lstlisting}[style=javastyle, caption={Shellsort implementation using halving sequences. }, label=lst:shell]
