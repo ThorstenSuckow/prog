@@ -14,7 +14,9 @@ The general idea is to use \blockquote[{\cite[48]{CL22}}]{
 \subsection{Algorithm Description and Notation}
 We use the Shellsort implementation shown in Listing~\ref{lst:shell}.
 In the following, we provide a brief description of the algorithm, mostly based on~\cite[84]{Knu97b}.
-Throughout this document, the binary logarithm $\log_2$ is abbreviated as $\lg$.
+Throughout this document, the binary logarithm $\log_2$ is abbreviated as $\lg$\footnote{
+    The literature often omits the logarithm base, as logarithms with different bases differ only by a constant factor, i.e., $ \log_a(x) = \frac{\log_b(x)}{\log_b(a)} $ holds for any $a, b > 1, x > 0$. See \cite[15]{GD18a}, \cite[5]{OW17a}.
+}.
 
 
 Given an input of size $n$, the implementation based on a halving sequence of the form $h_t = \lfloor \frac{n}{2^t} \rfloor$ performs approximately $\lg\ n$ passes.
