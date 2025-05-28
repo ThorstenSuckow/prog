@@ -161,4 +161,46 @@ For our specific case with $n = 16$, this yields
     \lg(16) + 16 \cdot \lg(16) - 16 + 1 +  \lg(16) \cdot \frac{16}{2} = 85
 \]
 
+\begin{theorem}[Asymptotic Bound for strictly ordered arrays]
+    For arrays that are initially sorted in strictly descending order, Shellsort performs at most $O(n\ \lg\ n)$ sorting operations.
+\end{theorem}
+
+\begin{proof}
+    We eliminate constant and lower-order terms from
+    \[
+        f(n) = \frac{3}{2} \cdot n\ \cdot \lg(n) + \lg(n) - n + 1
+    \]
+    \noindent
+    leaving the dominant term in terms of growth with respect to $n$, which  is $lg(n) \cdot n$.
+    To show that $f(n) \in O(n\ log\ n)$, we aim to find constants $c >0$ and $n_0 \in \mathbb{N}$ such that\footnote{
+    see~\cite[11]{GD18a}
+    }
+
+    \[
+       \forall n \geq n_0: f(n) \leq c \cdot n\ \cdot \lg\ n
+    \]
+
+    \noindent
+    We prove the inequality
+    \[
+        \frac{3}{2} \cdot n \cdot \lg(n) + \lg(n) - n + 1 \leq c \cdot n \cdot \lg(n)
+    \]
+
+    \noindent
+    Substituting $n_0 = 1$ and $c = \frac{3}{2}$, we observe that
+
+    \[
+        \forall n \geq n_0: \frac{3}{2} \cdot n \cdot \lg(n)  \leq \frac{3}{2} \cdot n \cdot \lg(n)
+    \]
+
+    \noindent
+    holds trivially.
+    Moreover, since $lg(n) < n$ for all $n \in \mathbb{N}$, it follows that $\lg(n) - n < 0$ and therefore $lg(n) - n + 1 \leq 0$.
+    Hence, the entire expression satisfies
+    \[
+        f(n) \leq \frac{3}{2} \cdot n \cdot \lg(n)
+    \]
+    \noindent
+    for all $n \geq 1$, and therefore $f(n) \in  O(n\ \lg\ n)$.
+\end{proof}
 
