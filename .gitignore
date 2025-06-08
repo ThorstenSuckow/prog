@@ -40,3 +40,4 @@ build/
 *.zip
 /auxil
 /out
+/src/docs/shellsort/Shellsort.ind
