@@ -2,8 +2,69 @@ package sandbox;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 public class ShellSort {
+
+    public static void paperrandom() {
+        int epochs = 1000;
+        int bound  = 1_000_000;
+        while(epochs-- >= 0) {
+            Random r = new Random();
+            int[] arr = new int[bound];
+
+            for (int i = 0; i < bound; i++) {
+                arr[i] = r.nextInt(bound + 1);
+            }
+
+            ShellSort.papersort(
+                Arrays.copyOfRange(
+                    arr, 0, arr.length), epochs);
+        }
+    }
+
+    public static int[] papersort(int[] arr, int epochs) {
+
+        int n = arr.length;
+        int delta = n / 2;
+        int min;
+        int j;
+        int len = arr.length;
+
+        int c1 = 0, c2 = 0, c3 = 0;
+
+        while (delta > 0) { c1++;// c1
+            for (int i = delta; i < len; i++) {
+                c2++;// c2
+                min = arr[i];
+                j = i;
+
+                while (j - delta >= 0 && min < arr[j - delta]) {
+                    c3++;// c3
+                    arr[j] = arr[j - delta];
+                    j -= delta;
+                }
+
+                arr[j] = min;
+            }
+
+            delta = delta / 2;
+        }
+
+        //System.out.println("c1: " + c1 + "; c2: " + c2 +"; c3: " + c3);
+        double bound = Math.pow(n, (double)1.29);
+        double shellbound = Math.pow(n, 1.226);
+        double nlogn = n*Math.log(n);
+        if (c3 > bound){// && c3 < shellbound) {
+            System.out.println(epochs+ ": " + c3+" " + shellbound);// " " + Math.pow(n, (double)4/3) + " " + (c3 > n*Math.log(n) && c3 < Math.pow(n, (double)4/3)));// + " " + (c3 > Math.pow(n, (double)4/3) && c3 < n*n));
+        }
+
+
+
+
+        return arr;
+
+    }
 
 
     public static int[] sort(int[] arr) {
@@ -19,6 +80,7 @@ public class ShellSort {
 
         return sort(arr, increments);
     }
+
     public static int[] sort(int[] arr, int[] increments) {
 
         long c1 = 0;
@@ -32,14 +94,14 @@ public class ShellSort {
             int delta = increments[a];
 
             for (int i = delta; i < arr.length; i++) {
-                //c2++;
+                c2++;
                 int min = arr[i];
                 int n = i;
                 while (n -delta  >= 0) {
-                    c2++;
+
                     if (min < arr[n - delta]) {
 
-                        //c3++;
+                        c3++;
                         arr[n] = arr[n - delta];
                         n -= delta;
                     } else {break;}

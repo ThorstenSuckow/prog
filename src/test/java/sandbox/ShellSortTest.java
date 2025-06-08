@@ -17,6 +17,14 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ShellSortTest {
 
 
+     @Test
+     @DisplayName("Papertest")
+     public void paperTest() {
+
+         ShellSort.paperrandom();
+
+     }
+
     @Test
     @DisplayName("ValidateLogN")
     public void testValidateLogN() {
