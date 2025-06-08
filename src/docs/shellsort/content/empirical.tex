@@ -51,20 +51,18 @@ while(epochs-- >= 0) {
 
 \subsection{Test Results}
 
-Test execution with large values of $n$ indicates that the number of comparisons $c_3$ falls either between $n\ \lg\ n$ and $n^{\frac{4}{3}}$, or between $n^{\frac{4}{3}}$ and $n^2$, depending on the input.
+Test execution with large values of $n$ indicates that the number of comparisons $c_3$ falls either between $n\ \lg\ n$ and $n^{\frac{5}{3}}$, or between $n^{\frac{5}{3}}$ and $n^2$, depending on the input.
 With a lower bound $\Omega(n\ \lg\ n)$ for all comparison-based sorting algorithms, we focus on the empirical comparison counts $c_3$ within
 
 \begin{itemize}
-    \item $n \lg\ n \leq c_3 < n^{\frac{4}{3}}$ \textit{(moderately efficient)}
-    \item $n^{\frac{4}{3}} \leq c_3 \leq n^2$ \textit{(less efficient)}
+    \item $n \lg\ n \leq c_3 < n^{\frac{5}{3}}$ \textit{(moderately efficient)}
+    \item $n^{\frac{5}{3}} \leq c_3 \leq n^2$ \textit{(less efficient)}
 \end{itemize}\\
 \vspace{2mm}
 
 \noindent
-Shellsort demonstrates remarkable stability in empirical tests, confirming the early observations by \textit{Shell}.
-Over 1000 epochs with input sizes up to $n = 2.000.000$, filled with pseudo-random values generated in Java using the epoch index as the random seed, the test from Listing~\ref{lst:rand} showed that the comparison count $c_3$ consistently fell within the interval $n \lg n < c_3 < n^{\frac{4}{3}}$.
+Shellsort demonstrates remarkable stability in empirical tests, confirming early observations made by \textit{Shell} for small input sizes.
+For larger input sizes (up to $n = 2.000.000$; see Listing~\ref{lst:rand}), our empirical measurements consistently yielded comparison counts $c_3$ below an upper bound of $O(n^{1.3})$\footnote{Interestingly, approximately $2\%$ of our test runs exceeded an empirical bound of $O(n^{1.29})$}.
 
 \noindent
-These results support the hypothesis that Shellsort tends to exhibit sub-quadratic runtime behavior in the average case.
-
-
+These results support the hypothesis that Shellsort, when using the classical halving sequence originally proposed by \textit{Shell}, exhibits sub-quadratic runtime behavior on average.
